@@ -2,10 +2,10 @@ package WEEK1;
 
 public class Car
 {
-    protected String model;
-    protected CarType type;
-    protected int manufacturingYear;
-    protected double price;
+    private String model;
+    private CarType type;
+    private int manufacturingYear;
+    private double price;
 
     public Car (String model, CarType type, int manufacturingYear, double price)
     {
