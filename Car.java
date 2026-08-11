@@ -20,6 +20,11 @@ public class Car
         return price;
     }
 
+    public String getModel ()
+    {
+        return model;
+    }
+
     public void priceRise (double rise)
     {
         price *= (1 + rise);
