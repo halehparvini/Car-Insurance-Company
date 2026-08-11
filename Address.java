@@ -15,4 +15,43 @@ public class Address
         this.city = city;
     }
     
+    public int getStreetNum ()
+    {
+        return streetNum;
+    }
+
+    public String getStreet ()
+    {
+        return street;
+    }
+
+    public String getSuburb ()
+    {
+        return suburb;
+    }
+
+    public String getCity ()
+    {
+        return city;
+    }
+
+    public void setStreetNum (int streetNum)
+    {
+        this.streetNum = streetNum;
+    }
+
+    public void setStreet (String street)
+    {
+        this.street = street;
+    }
+
+    public void setSuburb (String suburb)
+    {
+        this.suburb = suburb;
+    }
+
+    public void setCity (String city)
+    {
+        this.city = city;
+    }
 }
