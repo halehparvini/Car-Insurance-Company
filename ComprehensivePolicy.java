@@ -5,9 +5,9 @@ public class ComprehensivePolicy extends InsurancePolicy
     protected int driverAge;
     protected int level;
 
-    public ComprehensivePolicy (String policyHolderName, int id, Car car, int numberOfClaims, int driverAge, int level)
+    public ComprehensivePolicy (String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, int driverAge, int level)
     {
-        super(policyHolderName, id, car, numberOfClaims);
+        super(policyHolderName, id, car, numberOfClaims, expiryDate);
         this.driverAge = driverAge;
         this.level = level;
     }
