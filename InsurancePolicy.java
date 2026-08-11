@@ -42,6 +42,14 @@ public abstract class InsurancePolicy
         car.priceRise(risePercent);
     }
 
+    public static void carPriceRiseAll (ArrayList <InsurancePolicy> policies, double risePercent)
+    {
+        for (InsurancePolicy ip : policies)
+        {
+            ip.carPriceRise(risePercent);
+        }
+    }
+
     public void print ()
     {
         System.out.print("Holder: " + policyHolderName + " ID: " + id + " Car: " + car + " Claim(s): " + numberOfClaims);
