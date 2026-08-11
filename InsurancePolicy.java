@@ -1,5 +1,7 @@
 package WEEK1;
 
+import java.util.ArrayList;
+
 public abstract class InsurancePolicy
 {
     protected String policyHolderName;
@@ -15,6 +17,14 @@ public abstract class InsurancePolicy
         this.car =car;
         this.numberOfClaims = numberOfClaims;
         this.expiryDate = expiryDate;
+    }
+
+    public static void printPolicies (ArrayList <InsurancePolicy> policies)
+    {
+        for (InsurancePolicy ip : policies)
+        {
+            ip.print();
+        }
     }
 
     public void print ()
