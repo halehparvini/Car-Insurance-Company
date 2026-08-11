@@ -7,7 +7,7 @@ public class Program
     public static void main(String[] args)
     {
         final double flatRate = 1.2;
-
+        
         Car car1 = new Car("Honda CR-V", CarType.SUV, 2026, 30921);
         Car car2 = new Car("Honda Civic Hatchback", CarType.HATCH, 2024, 24950);
         Car car3 = new Car("Mercedes-Benz S-Class", CarType.LUX, 2021, 109800);
@@ -30,11 +30,7 @@ public class Program
             System.out.println(ip); // print by using toString() method
         }
 
-        double totalPayment = 0;
-        for (InsurancePolicy ip : policies)
-        {
-            totalPayment += ip.calcPayment(flatRate);
-        }
-        System.out.println("Total Payment: " + totalPayment + "$");
+        InsurancePolicy.printPolicies(policies);
+        System.out.println("Total Payment: " + InsurancePolicy.calcTotalPayments(policies, flatRate) + "$");
     }
 }
