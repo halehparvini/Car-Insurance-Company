@@ -27,11 +27,6 @@ public class Program
 
         for (InsurancePolicy ip : policies)
         {
-            ip.print(); // print by using print method
-        }
-
-        for (InsurancePolicy ip : policies)
-        {
             System.out.println(ip); // print by using toString() method
         }
 
