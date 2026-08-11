@@ -37,6 +37,11 @@ public abstract class InsurancePolicy
         return totalPayment;
     }
 
+    public void carPriceRise (double risePercent)
+    {
+        car.priceRise(risePercent);
+    }
+
     public void print ()
     {
         System.out.print("Holder: " + policyHolderName + " ID: " + id + " Car: " + car + " Claim(s): " + numberOfClaims);
