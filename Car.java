@@ -20,6 +20,11 @@ public class Car
         return price;
     }
 
+    public void priceRise (double rise)
+    {
+        price *= (1 + rise);
+    }
+
     @Override
     public String toString ()
     {
