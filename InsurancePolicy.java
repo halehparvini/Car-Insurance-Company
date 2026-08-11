@@ -27,6 +27,16 @@ public abstract class InsurancePolicy
         }
     }
 
+    public static double calcTotalPayments (ArrayList <InsurancePolicy> policies, double flatRate)
+    {
+        double totalPayment = 0;
+        for (InsurancePolicy ip : policies)
+        {
+            totalPayment += ip.calcPayment(flatRate);
+        }
+        return totalPayment;
+    }
+
     public void print ()
     {
         System.out.print("Holder: " + policyHolderName + " ID: " + id + " Car: " + car + " Claim(s): " + numberOfClaims);
