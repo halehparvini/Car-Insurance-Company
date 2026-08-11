@@ -13,10 +13,11 @@ public class Program
         Car car3 = new Car("Mercedes-Benz S-Class", CarType.LUX, 2021, 109800);
         Car car4 = new Car("Honda Accord", CarType.SED, 2026, 28395);
 
-        ThirdPartyPolicy tpp1 = new ThirdPartyPolicy("James", 01, car1, 3, "3 previous claims!");
-        ComprehensivePolicy cp1 = new ComprehensivePolicy("Robert", 02, car2, 0, 24, 3);
-        ThirdPartyPolicy tpp2 = new ThirdPartyPolicy("Sara", 03, car3, 0, "No previous claims!");
-        ComprehensivePolicy cp2 = new ComprehensivePolicy("Sue", 04, car4, 5, 56, 3);
+        ThirdPartyPolicy tpp1 = new ThirdPartyPolicy("James", 01, car1, 3, null, "3 previous claims!");
+        ComprehensivePolicy cp1 = new ComprehensivePolicy("Robert", 02, car2, 0, null,  24, 3);
+        ThirdPartyPolicy tpp2 = new ThirdPartyPolicy("Sara", 03, car3, 0, null, "No previous claims!");
+        ComprehensivePolicy cp2 = new ComprehensivePolicy("Sue", 04, car4, 5, null, 56, 3);
+        
         
         ArrayList<InsurancePolicy> policies = new ArrayList<>(); // ArrayList of Parent
         policies.add(tpp1); // adding children to the list
