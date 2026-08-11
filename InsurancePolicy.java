@@ -50,6 +50,19 @@ public abstract class InsurancePolicy
         }
     }
 
+    public static ArrayList <InsurancePolicy> filterByCarModel (ArrayList <InsurancePolicy> policies, String carModel)
+    {
+        ArrayList <InsurancePolicy> filteredPolicies = new ArrayList<>();
+        for (InsurancePolicy ip : policies)
+        {
+            if (ip.car.getModel().contains(carModel))
+            {
+                filteredPolicies.add(ip);
+            }
+        }
+        return filteredPolicies;
+    }
+
     public void print ()
     {
         System.out.print("Holder: " + policyHolderName + " ID: " + id + " Car: " + car + " Claim(s): " + numberOfClaims);
