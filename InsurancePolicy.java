@@ -6,13 +6,15 @@ public abstract class InsurancePolicy
     protected int id;
     protected Car car;
     protected int numberOfClaims;
+    protected MyDate expiryDate;
 
-    public InsurancePolicy (String policyHolderName, int id, Car car, int numberOfClaims)
+    public InsurancePolicy (String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate)
     {
         this.policyHolderName = policyHolderName;
         this.id = id;
         this.car =car;
         this.numberOfClaims = numberOfClaims;
+        this.expiryDate = expiryDate;
     }
 
     public void print ()
