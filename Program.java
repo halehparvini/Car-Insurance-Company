@@ -47,6 +47,8 @@ public class Program
 
         InsurancePolicy.printPolicies(policies);
         System.out.println("Total Payment: " + InsurancePolicy.calcTotalPayments(policies, flatRate) + "$");
+
+        // lab 2 codes 
         
         user1.print();
 
