@@ -29,20 +29,20 @@ public abstract class InsurancePolicy
         this.policyHolderName = policyHolderName;
     }
 
-    public static void printPolicies (ArrayList <InsurancePolicy> policies)
+    public static void printPolicies (ArrayList <InsurancePolicy> policies) //prints a list of policies
     {
-        for (InsurancePolicy ip : policies)
+        for (InsurancePolicy policy : policies)
         {
-            ip.print();
+            policy.print();
         }
     }
 
-    public static double calcTotalPayments (ArrayList <InsurancePolicy> policies, double flatRate)
+    public static double calcTotalPayments (ArrayList <InsurancePolicy> policies, double flatRate) //calculates the total premium payments for a list of policies. 
     {
         double totalPayment = 0;
-        for (InsurancePolicy ip : policies)
+        for (InsurancePolicy policy : policies)
         {
-            totalPayment += ip.calcPayment(flatRate);
+            totalPayment += policy.calcPayment(flatRate);
         }
         return totalPayment;
     }
@@ -54,9 +54,9 @@ public abstract class InsurancePolicy
 
     public static void carPriceRiseAll (ArrayList <InsurancePolicy> policies, double risePercent)
     {
-        for (InsurancePolicy ip : policies)
+        for (InsurancePolicy policy : policies)
         {
-            ip.carPriceRise(risePercent);
+            policy.carPriceRise(risePercent);
         }
     }
 
