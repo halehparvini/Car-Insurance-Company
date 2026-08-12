@@ -84,7 +84,7 @@ public class User
         for (InsurancePolicy policy : policies)
         {
             policy.print();
-            System.out.println("Premium: " + policy.calcPayment(flatRate));
+            System.out.println("Premium Payment: " + policy.calcPayment(flatRate));
         }
     }
 
