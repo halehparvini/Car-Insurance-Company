@@ -42,4 +42,10 @@ public class MyDate
     {
         this.day = day;
     }
+
+    @Override
+    public String toString ()
+    {
+        return year + "/" + month + "/" + day;
+    }
 }
