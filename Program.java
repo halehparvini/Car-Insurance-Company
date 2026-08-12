@@ -34,6 +34,20 @@ public class Program
         user1.addPolicy(tpp2);
         user1.addPolicy(cp2);
 
+        ArrayList <InsurancePolicy> policies = new ArrayList<>(); // ArrayList of Parent
+        policies.add(tpp1); // adding children to the list
+        policies.add(cp1);
+        policies.add(tpp2);
+        policies.add(cp2);
+
+        for (InsurancePolicy ip : policies)
+        {
+            System.out.println(ip); // print by using toString() method
+        }
+
+        InsurancePolicy.printPolicies(policies);
+        System.out.println("Total Payment: " + InsurancePolicy.calcTotalPayments(policies, flatRate) + "$");
+        
         user1.print();
 
         System.out.println(user1.toString());
@@ -79,19 +93,5 @@ public class Program
         ArrayList <InsurancePolicy> policyList = user1.filterByCarModel(userCarModel);
         System.out.println("Policies matching '" + userCarModel + "' :");
         InsurancePolicy.printPolicies(policyList);
-
-        // ArrayList <InsurancePolicy> policies = new ArrayList<>(); // ArrayList of Parent
-        // policies.add(tpp1); // adding children to the list
-        // policies.add(cp1);
-        // policies.add(tpp2);
-        // policies.add(cp2);
-
-        // for (InsurancePolicy ip : policies)
-        // {
-        //     System.out.println(ip); // print by using toString() method
-        // }
-
-        // InsurancePolicy.printPolicies(policies);
-        // System.out.println("Total Payment: " + InsurancePolicy.calcTotalPayments(policies, flatRate) + "$");
     }
 }
