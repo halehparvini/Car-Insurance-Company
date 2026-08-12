@@ -60,7 +60,7 @@ public class User
 
     public void print ()
     {
-        System.out.println("Name: " + name + " ID: " + userID + " Address: " + address);
+        System.out.println("User Name: " + name + " ID: " + userID + " Address: " + address);
         for (InsurancePolicy policy : policies)
         {
             policy.print();
@@ -69,10 +69,11 @@ public class User
 
     public String toString ()
     {
-        String result =  "Name: " + name + " ID: " + userID + " Address: " + address;
+        String result =  "User Name: " + name + " ID: " + userID + " Address: " + address;
+        
         for (InsurancePolicy policy : policies)
         {
-            result += policy.toString();
+            result += "\n" + policy.toString();
         }
         return result;
     }
@@ -87,7 +88,7 @@ public class User
         }
     }
 
-    public double calcTotalPremiums (int flatRate)
+    public double calcTotalPremiums (double flatRate)
     {
         return InsurancePolicy.calcTotalPayments(policies, flatRate);
     }
@@ -100,5 +101,10 @@ public class User
     public ArrayList <InsurancePolicy> filterByCarModel (String carModel)
     {
         return InsurancePolicy.filterByCarModel(policies, carModel);
+    }
+
+    public void setCity (String city)
+    {
+        address.setCity(city);
     }
 }
