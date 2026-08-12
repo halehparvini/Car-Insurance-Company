@@ -19,6 +19,11 @@ public abstract class InsurancePolicy
         this.expiryDate = expiryDate;
     }
 
+    public int getPolicyID()
+    {
+        return id;
+    }
+
     public static void printPolicies (ArrayList <InsurancePolicy> policies)
     {
         for (InsurancePolicy ip : policies)
