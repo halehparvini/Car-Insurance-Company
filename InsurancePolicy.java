@@ -80,12 +80,12 @@ public abstract class InsurancePolicy
 
     public void print ()
     {
-        System.out.print("Holder: " + policyHolderName + " ID: " + id + " Car Model: " + car + " Claim(s): " + numberOfClaims);
+        System.out.print("Holder: " + policyHolderName + " ID: " + id + " Car Model: " + car + " Claim(s): " + numberOfClaims + " Expiry Date: " + expiryDate);
     }
 
     public String toString ()
     {
-        return "Holder: " + policyHolderName + " ID: " + id + " Car Model: " + car + " Claim(s): " + numberOfClaims;
+        return "Holder: " + policyHolderName + " ID: " + id + " Car Model: " + car + " Claim(s): " + numberOfClaims + " Expiry Date: " + expiryDate;
     }
 
     public abstract double calcPayment (double flatRate);
