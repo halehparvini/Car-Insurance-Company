@@ -24,6 +24,11 @@ public abstract class InsurancePolicy
         return id;
     }
 
+    public void setPolicyHolderName (String policyHolderName)
+    {
+        this.policyHolderName = policyHolderName;
+    }
+
     public static void printPolicies (ArrayList <InsurancePolicy> policies)
     {
         for (InsurancePolicy ip : policies)
@@ -68,14 +73,19 @@ public abstract class InsurancePolicy
         return filteredPolicies;
     }
 
+    public void setCarModel (String model)
+    {
+        car.setModel(model);
+    }
+
     public void print ()
     {
-        System.out.print("Holder: " + policyHolderName + " ID: " + id + " Car: " + car + " Claim(s): " + numberOfClaims);
+        System.out.print("Holder: " + policyHolderName + " ID: " + id + " Car Model: " + car + " Claim(s): " + numberOfClaims);
     }
 
     public String toString ()
     {
-        return "Holder: " + policyHolderName + " ID: " + id + " Car: " + car + " Claim(s): " + numberOfClaims;
+        return "Holder: " + policyHolderName + " ID: " + id + " Car Model: " + car + " Claim(s): " + numberOfClaims;
     }
 
     public abstract double calcPayment (double flatRate);
