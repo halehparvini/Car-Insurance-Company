@@ -28,11 +28,6 @@ public class Program
         Address address1 = new Address(42, "Willow Street", "Greenfield", "Melbourne");
 
         User user1 = new User("Haleh", 100, address1);
-        
-        user1.addPolicy(tpp1);
-        user1.addPolicy(cp1);
-        user1.addPolicy(tpp2);
-        user1.addPolicy(cp2);
 
         ArrayList <InsurancePolicy> policies = new ArrayList<>(); // ArrayList of Parent
         policies.add(tpp1); // adding children to the list
@@ -49,6 +44,11 @@ public class Program
         System.out.println("Total Payment: " + InsurancePolicy.calcTotalPayments(policies, flatRate) + "$");
 
         // lab 2 codes 
+
+        addPolicy(user1, tpp1);
+        addPolicy(user1, cp1);
+        addPolicy(user1, tpp2);
+        addPolicy(user1, cp2);
         
         user1.print();
 
@@ -95,5 +95,16 @@ public class Program
         ArrayList <InsurancePolicy> policyList = user1.filterByCarModel(userCarModel);
         System.out.println("Policies matching '" + userCarModel + "' :");
         InsurancePolicy.printPolicies(policyList);
+
     }
+    
+        public static void addPolicy (User user, InsurancePolicy policy)
+        {
+            if (user.addPolicy(policy))
+            {
+                System.out.println("The Policy has been added successfuly!");
+            }
+            else
+                System.out.println("The Policy can not be added as the ID already exists!");
+        }
 }
