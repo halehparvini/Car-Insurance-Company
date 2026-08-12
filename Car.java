@@ -25,6 +25,11 @@ public class Car
         return model;
     }
 
+    public void setModel (String model)
+    {
+        this.model = model;
+    }
+
     public void priceRise (double rise)
     {
         price *= (1 + rise);
