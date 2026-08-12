@@ -36,4 +36,69 @@ public class User
     {
         this.address = address;
     }
+
+    public boolean addPolicy (InsurancePolicy policy)
+    {
+        if (findPolicy(policy.getPolicyID()) == null)
+        {
+            policies.add(policy);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public InsurancePolicy findPolicy (int policyID)
+    {
+        for (InsurancePolicy policy : policies)
+        {
+            if (policy.getPolicyID() == policyID)
+                return policy;
+        }
+        return null;
+    }
+
+    public void print ()
+    {
+        System.out.println("Name: " + name + " ID: " + userID + " Address: " + address);
+        for (InsurancePolicy policy : policies)
+        {
+            policy.print();
+        }
+    }
+
+    public String toString ()
+    {
+        String result =  "Name: " + name + " ID: " + userID + " Address: " + address;
+        for (InsurancePolicy policy : policies)
+        {
+            result += policy.toString();
+        }
+        return result;
+    }
+
+    public void printPolicies (int flatRate)
+    {
+        System.out.println(name +"'s Policies: ");
+        for (InsurancePolicy policy : policies)
+        {
+            policy.print();
+            System.out.println("Premium: " + policy.calcPayment(flatRate));
+        }
+    }
+
+    public double calcTotalPremiums (int flatRate)
+    {
+        return InsurancePolicy.calcTotalPayments(policies, flatRate);
+    }
+
+    public void carPriceRiseAll (double risePercent)
+    {
+        InsurancePolicy.carPriceRiseAll(policies, risePercent);
+    }
+
+    public ArrayList <InsurancePolicy> filterByCarModel (String carModel)
+    {
+        return InsurancePolicy.filterByCarModel(policies, carModel);
+    }
 }
