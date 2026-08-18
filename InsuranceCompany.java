@@ -70,4 +70,10 @@ public class InsuranceCompany
         users.add(user);
         return true;
     }
+
+    public Boolean addUser (String name, int userID, Address address)
+    {
+        User user = new User(name, userID, address);
+        return addUser(user);
+    }
 }
