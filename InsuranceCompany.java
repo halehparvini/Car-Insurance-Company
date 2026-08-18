@@ -53,4 +53,21 @@ public class InsuranceCompany
         else
             return false;
     }
+
+    public boolean addUser (User user)
+    {
+        if (user == null)
+        {
+            return false;
+        }
+        for (User u : users)
+        {
+            if (u.getUserID() == user.getUserID())
+            {
+                return false;
+            }
+        }
+        users.add(user);
+        return true;
+    }
 }
