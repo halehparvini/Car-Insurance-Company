@@ -89,4 +89,19 @@ public abstract class InsurancePolicy
     }
 
     public abstract double calcPayment (double flatRate);
+
+    // lab 3 
+
+    public static ArrayList <InsurancePolicy> filterByExpiryDate (ArrayList <InsurancePolicy> policies, MyDate date)
+    {
+        ArrayList <InsurancePolicy> filteredExpiredPolicies = new ArrayList<>();
+        for (InsurancePolicy policy : policies)
+        {
+            if (policy.expiryDate.isExpired(date))
+            {
+                filteredExpiredPolicies.add(policy);
+            }
+        }
+        return filteredExpiredPolicies;
+    }
 }
