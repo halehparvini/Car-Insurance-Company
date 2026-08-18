@@ -107,4 +107,19 @@ public class User
     {
         address.setCity(city);
     }
+
+    // lab 3
+
+    public boolean createThirdPartyPolicy (String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, String comments)
+    {
+        for (InsurancePolicy policy : policies)
+            {
+                if (policy.getPolicyID() == id)
+                    return false;
+            }   
+
+            ThirdPartyPolicy thirdPartyPolicy = new ThirdPartyPolicy(policyHolderName, id, car, numberOfClaims, expiryDate, comments);
+            addPolicy(thirdPartyPolicy);
+            return true;
+    }
 }
