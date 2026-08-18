@@ -43,4 +43,14 @@ public class InsuranceCompany
     {
         this.adminUsername = adminUsername;
     }
+
+    public boolean validateAdmin (String username, String password)
+    {
+        if (adminUsername != null && adminPassword != null && adminUsername.equals(username) && adminPassword.equals(password))
+        {
+            return true;
+        }
+        else
+            return false;
+    }
 }
