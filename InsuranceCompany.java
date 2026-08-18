@@ -57,15 +57,12 @@ public class InsuranceCompany
     public boolean addUser (User user)
     {
         if (user == null)
-        {
             return false;
-        }
+        
         for (User u : users)
         {
             if (u.getUserID() == user.getUserID())
-            {
                 return false;
-            }
         }
         users.add(user);
         return true;
@@ -75,5 +72,15 @@ public class InsuranceCompany
     {
         User user = new User(name, userID, address);
         return addUser(user);
+    }
+
+    public User findUser (int userID)
+    {
+        for (User user : users)
+        {
+            if (user.getUserID() == userID)
+                return user;
+        }
+        return null;
     }
 }
