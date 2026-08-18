@@ -136,4 +136,9 @@ public class User
         addPolicy(comprehensivePolicy);
         return true;
     }
+
+    public ArrayList <InsurancePolicy> filterByExpiryDate (MyDate date)
+    {
+        return InsurancePolicy.filterByExpiryDate(policies, date);
+    }
 }
