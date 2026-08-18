@@ -48,4 +48,36 @@ public class MyDate
     {
         return month + "/" + day + "/" + year;
     }
+
+    //lab 3
+
+    public Boolean isExpired (MyDate expiryDate)
+    {
+        if (this.year > expiryDate.getYear())
+        {
+            return true;
+        }
+        if (this.year < expiryDate.getYear())
+        {
+            return false;
+        }
+        if (this.month > expiryDate.month)
+        {
+            return true;
+        }
+        if (this.month < expiryDate.getMonth())
+        {
+            return false;
+        }
+        if (this.day > expiryDate.getDay())
+        {
+            return true;
+        }
+        if(this.day < expiryDate.getDay())
+        {
+            return false;
+        }
+        else
+            return false;
+    }
 }
