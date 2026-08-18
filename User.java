@@ -122,4 +122,18 @@ public class User
             addPolicy(thirdPartyPolicy);
             return true;
     }
+
+    public boolean createComprehensivePolicy (String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, int driverAge, int level)
+    {
+        for (InsurancePolicy policy : policies)
+        {
+            if (policy.getPolicyID() == id)
+            {
+                return false;
+            }
+        }
+        ComprehensivePolicy comprehensivePolicy = new ComprehensivePolicy(policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level);
+        addPolicy(comprehensivePolicy);
+        return true;
+    }
 }
