@@ -174,4 +174,15 @@ public class InsuranceCompany
         }
         return totalPayment;
     }
+
+    public boolean carPriceRise (int userID, double risePercent)
+    {
+        User user = findUser(userID);
+        if (user == null)
+        {
+            return false;
+        }
+        user.carPriceRiseAll(risePercent);
+        return true;   
+    }
 }
