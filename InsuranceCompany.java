@@ -164,4 +164,14 @@ public class InsuranceCompany
         }
         return user.calcTotalPremiums(flatRate);
     }
+
+    public double calcTotalPayments ()
+    {
+        double totalPayment = 0;
+        for (User user : users)
+        {
+            totalPayment += user.calcTotalPremiums(flatRate);
+        }
+        return totalPayment;
+    }
 }
