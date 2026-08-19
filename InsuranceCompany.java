@@ -206,4 +206,14 @@ public class InsuranceCompany
         }
         return policies;
     }
+
+    public ArrayList <InsurancePolicy> filterByCarModel (int userID, String carModel)
+    {
+        User user = findUser(userID);
+        if (user == null)
+        {
+            return null;
+        }
+        return user.filterByCarModel(carModel);
+    }
 }
