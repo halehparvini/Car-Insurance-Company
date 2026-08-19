@@ -226,4 +226,18 @@ public class InsuranceCompany
         }
         return user.filterByExpiryDate(date);
     }
+
+    public ArrayList <InsurancePolicy> filterByCarModel (String carModel)
+    {
+        ArrayList <InsurancePolicy> result = new ArrayList<>();
+        for (User user : users)
+        {
+            ArrayList <InsurancePolicy> filteredPolicies = user.filterByCarModel(carModel);
+            for (InsurancePolicy policy : filteredPolicies)
+            {
+                result.add(policy);
+            }
+        }
+        return result;
+    }
 }
