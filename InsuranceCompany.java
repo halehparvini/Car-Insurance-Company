@@ -56,7 +56,7 @@ public class InsuranceCompany
 
     public boolean addUser (User user)
     {
-        if (findUser(user.getUserID()) == null)
+        if (user != null && findUser(user.getUserID()) == null)
         {
             users.add(user);
             return true;
@@ -92,7 +92,7 @@ public class InsuranceCompany
         {
             return false;
         }
-        
+
         return user.addPolicy(policy);
     }
 
@@ -104,5 +104,15 @@ public class InsuranceCompany
             return null;
         }
         return user.findPolicy(policyID);
+    }
+
+    public void printPolicies (int userID)
+    {
+        User user = findUser(userID);
+        if (user != null)
+        {
+            user.print();
+            user.printPolicies(flatRate);
+        }
     }
 }
