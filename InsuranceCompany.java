@@ -185,4 +185,12 @@ public class InsuranceCompany
         user.carPriceRiseAll(risePercent);
         return true;   
     }
+
+    public void carPriceRise (double risePercent)
+    {
+        for (User user : users)
+        {
+            user.carPriceRiseAll(risePercent);
+        }
+    }
 }
