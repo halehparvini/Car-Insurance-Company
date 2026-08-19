@@ -80,4 +80,14 @@ public class InsuranceCompany
         }
         return null;
     }
+
+    public InsurancePolicy findPolicy (int userID, int policyID)
+    {
+        User user = findUser(userID);
+        if (user == null)
+        {
+            return null;
+        }
+        return user.findPolicy(policyID);
+    }
 }
