@@ -115,4 +115,13 @@ public class InsuranceCompany
             user.printPolicies(flatRate);
         }
     }
+
+    public void print ()
+    {
+        for (User user : users)
+        {
+            user.print();
+            user.printPolicies(flatRate);
+        }
+    }
 }
