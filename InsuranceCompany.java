@@ -240,4 +240,18 @@ public class InsuranceCompany
         }
         return result;
     }
+
+    public ArrayList <InsurancePolicy> filterByExpiryDate (MyDate date)
+    {
+        ArrayList <InsurancePolicy> result = new ArrayList<>();
+        for (User user : users)
+        {
+            ArrayList <InsurancePolicy> filteredPolicies = user.filterByExpiryDate(date);
+            for (InsurancePolicy policy : filteredPolicies)
+            {
+                result.add(policy);
+            }
+        }
+        return result;
+    }
 }
