@@ -193,4 +193,17 @@ public class InsuranceCompany
             user.carPriceRiseAll(risePercent);
         }
     }
+
+    public ArrayList <InsurancePolicy> allPolicies ()
+    {
+        ArrayList <InsurancePolicy> policies = new ArrayList<>();
+        for (User user : users)
+        {
+            for (InsurancePolicy policy : user.policies)
+            {
+                policies.add(policy);
+            }
+        }
+        return policies;
+    }
 }
