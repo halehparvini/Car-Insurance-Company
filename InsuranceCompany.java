@@ -134,4 +134,14 @@ public class InsuranceCompany
         }
         return result;
     }
+
+    public boolean createThirdPartyPolicy (int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, String comments)
+    {
+        User user = findUser(userID);
+        if (user == null)
+        {
+            return false;
+        }
+        return user.createThirdPartyPolicy(policyHolderName, id, car, numberOfClaims, expiryDate, comments);
+    }
 }
