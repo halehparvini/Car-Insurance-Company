@@ -154,4 +154,14 @@ public class InsuranceCompany
         }
         return user.createComprehensivePolicy(policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level);
     }
+
+    public double calcTotalPayments (int userID)
+    {
+        User user = findUser(userID);
+        if (user == null)
+        {
+            return 0;
+        }
+        return user.calcTotalPremiums(flatRate);
+    }
 }
