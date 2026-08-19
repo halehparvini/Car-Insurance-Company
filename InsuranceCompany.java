@@ -56,16 +56,13 @@ public class InsuranceCompany
 
     public boolean addUser (User user)
     {
-        if (user == null)
-            return false;
-        
-        for (User u : users)
+        if (findUser(user.getUserID()) == null)
         {
-            if (u.getUserID() == user.getUserID())
-                return false;
+            users.add(user);
+            return true;
         }
-        users.add(user);
-        return true;
+        else
+            return false;
     }
 
     public Boolean addUser (String name, int userID, Address address)
