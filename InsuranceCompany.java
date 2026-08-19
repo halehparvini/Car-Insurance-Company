@@ -81,6 +81,21 @@ public class InsuranceCompany
         return null;
     }
 
+    public boolean addPolicy (int userID, InsurancePolicy policy)
+    {
+        User user = findUser(userID);
+        if (user == null)
+        {
+            return false;
+        }
+        if (findPolicy(userID, policy.getPolicyID()) != null)
+        {
+            return false;
+        }
+        
+        return user.addPolicy(policy);
+    }
+
     public InsurancePolicy findPolicy (int userID, int policyID)
     {
         User user = findUser(userID);
