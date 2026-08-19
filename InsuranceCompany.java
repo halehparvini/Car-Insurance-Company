@@ -124,4 +124,14 @@ public class InsuranceCompany
             user.printPolicies(flatRate);
         }
     }
+
+    public String toString ()
+    {
+        String result = "";
+        for (User user : users)
+        {
+            result += user.toString();
+        }
+        return result;
+    }
 }
