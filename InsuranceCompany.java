@@ -216,4 +216,14 @@ public class InsuranceCompany
         }
         return user.filterByCarModel(carModel);
     }
+
+    public ArrayList <InsurancePolicy> filterByExpiryDate (int userID, MyDate date)
+    {
+        User user = findUser(userID);
+        if (user == null)
+        {
+            return null;
+        }
+        return user.filterByExpiryDate(date);
+    }
 }
