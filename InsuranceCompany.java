@@ -152,6 +152,6 @@ public class InsuranceCompany
         {
             return false;
         }
-        return createComprehensivePolicy(userID, policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level);
+        return user.createComprehensivePolicy(policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level);
     }
 }
