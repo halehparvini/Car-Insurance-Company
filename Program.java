@@ -14,20 +14,32 @@ public class Program
         Car car2 = new Car("Honda Civic Hatchback", CarType.HATCH, 2024, 24950);
         Car car3 = new Car("Mercedes-Benz S-Class", CarType.LUX, 2021, 109800);
         Car car4 = new Car("Honda Accord", CarType.SED, 2026, 28395);
+        Car car5 = new Car("A3 Sportback", CarType.HATCH, 2022,42000);
+        Car car6 = new Car("E-Class", CarType.SED, 2023, 58000);
 
         MyDate date1 = new MyDate(2030, 8, 19);
         MyDate date2 = new MyDate(2027, 2, 4);
         MyDate date3 = new MyDate(2026, 11, 25);
         MyDate date4 = new MyDate(2036, 12, 1);
+        MyDate date5 = new MyDate(2013, 1, 14);
+        MyDate date6 = new MyDate(2020, 5, 29);
 
         ThirdPartyPolicy tpp1 = new ThirdPartyPolicy("James", 01, car1, 3, date1, "3 previous claims!");
         ComprehensivePolicy cp1 = new ComprehensivePolicy("Robert", 02, car2, 0, date2,  24, 3);
         ThirdPartyPolicy tpp2 = new ThirdPartyPolicy("Sara", 03, car3, 0, date3, "No previous claims!");
         ComprehensivePolicy cp2 = new ComprehensivePolicy("Sue", 04, car4, 5, date4, 56, 3);
+        ThirdPartyPolicy tpp3 = new ThirdPartyPolicy("Taylor Morgan", 05, car5, 2, date5, "2 previous claims!");
+        ComprehensivePolicy cp3 = new ComprehensivePolicy("Matthew Wilson", 06, car6, 10, date6, 60, 3);
 
         Address address1 = new Address(42, "Willow Street", "Greenfield", "Melbourne");
+        Address address2 = new Address(9, "Willow Way", "Fairview", "Nashville");
+        Address address3 = new Address(31, "Aspen Circle", "Orchard Hills", "Dallas");
+        Address address4 = new Address(789, " Oak Lane", "Pinecrest", "Miami");
 
         User user1 = new User("Haleh", 100, address1);
+        User user2 = new User("Parisa", 101, address2);
+        User user3 = new User("Taraneh", 102, address3);
+        User user4 = new User("Payam", 104, address4);
 
         ArrayList <InsurancePolicy> policies = new ArrayList<>(); // ArrayList of Parent
         policies.add(tpp1); // adding children to the list
