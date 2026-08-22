@@ -55,6 +55,13 @@ public class Program
         addUserVersionTwo("Alhan", 105, address1, insuranceCompany);
         addUserVersionTwo("Ali", 101, address2, insuranceCompany);
         
+        addPolicy(100, tpp1, insuranceCompany);
+        addPolicy(100, tpp2, insuranceCompany);
+        addPolicy(101, cp1, insuranceCompany);
+        addPolicy(103, cp3, insuranceCompany);
+        addPolicy(103, cp3, insuranceCompany);
+        addPolicy(8479825, cp2, insuranceCompany);
+
         ArrayList <InsurancePolicy> policies = new ArrayList<>(); // ArrayList of Parent
         policies.add(tpp1); // adding children to the list
         policies.add(cp1);
@@ -163,7 +170,16 @@ public class Program
                 System.out.println("The user cannot be added as the ID already exists!");
         }
 
-    
+        public static void addPolicy (int userID, InsurancePolicy policy, InsuranceCompany insuranceCompany)
+        {
+            if (insuranceCompany.addPolicy(userID, policy))
+            {
+                System.out.println("The policy has been added successfully!");
+            }
+            else
+                System.out.println("The policy cannot be added as the policy alread exists or the user ID is invalid!");
+        }
+
         public static void addPolicy (User user, InsurancePolicy policy)
         {
             if (user.addPolicy(policy))
