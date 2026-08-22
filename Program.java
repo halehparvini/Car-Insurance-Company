@@ -72,75 +72,128 @@ public class Program
         findAndPrintPolicy(scanner, insuranceCompany);
 
         insuranceCompany.print();
-
-        System.out.println("End of LAB 3");
         
-        ArrayList <InsurancePolicy> policies = new ArrayList<>(); // ArrayList of Parent
-        policies.add(tpp1); // adding children to the list
-        policies.add(cp1);
-        policies.add(tpp2);
-        policies.add(cp2);
+        insuranceCompany.carPriceRise(0.1);
+        insuranceCompany.print();
 
-        for (InsurancePolicy ip : policies)
+        double totalPremiumPaymentsForOneUser = insuranceCompany.calcTotalPayments(100);
+        System.out.println("Total premium payments: " + totalPremiumPaymentsForOneUser);
+
+        double totalPremiumPaymentsForAllUsers = insuranceCompany.calcTotalPayments();
+        System.out.println("Total premium payments for all users: " + totalPremiumPaymentsForAllUsers);
+
+        ArrayList <InsurancePolicy> allPolicies = insuranceCompany.allPolicies();
+        InsurancePolicy.printPolicies(allPolicies);
+
+        ArrayList <InsurancePolicy> filteredPolicies = insuranceCompany.filterByExpiryDate(100, date1);
+        System.out.println("Filtered policies with the date before " + date1 + ": ");
+        if (filteredPolicies.isEmpty())
         {
-            System.out.println(ip); // print by using toString() method
+            System.out.println("No policy is found with the date before " + date1 + "!");
         }
+        InsurancePolicy.printPolicies(filteredPolicies);
 
-        InsurancePolicy.printPolicies(policies);
-        System.out.println("Total Payment: " + InsurancePolicy.calcTotalPayments(policies, flatRate) + "$");
+        ArrayList <InsurancePolicy> filteredPolicies2 = insuranceCompany.filterByCarModel("Mercedes-Benz S-Class");
+        System.out.println("Filtered Policies by car model:");
+        InsurancePolicy.printPolicies(filteredPolicies2);
 
-        // lab 2 codes 
-
-        addPolicy(user1, tpp1);
-        addPolicy(user1, cp1);
-        addPolicy(user1, tpp2);
-        addPolicy(user1, cp2);
-        
-        user1.print();
-
-        System.out.println(user1.toString());
-
-        InsurancePolicy policy = user1.findPolicy(6);
-        if (policy == null)
+        System.out.println("Please enter Year: ");
+        int year = scanner.nextInt();
+        System.out.println("Please enter month: ");
+        int month = scanner.nextInt();
+        System.out.println("Please enter day: ");
+        int day = scanner.nextInt();
+        MyDate userDate = new MyDate(year, month, day);
+        ArrayList <InsurancePolicy> filteredPoliciesByUserDate = insuranceCompany.filterByExpiryDate(userDate);
+        System.out.println("Filtered policied by user's chosen date: ");
+        if (filteredPoliciesByUserDate.isEmpty())
         {
-            System.out.println("Policy has not been found!");
+            System.out.println("No policy is found with the date before user's chosen date!");
         }
-        policy = user1.findPolicy(4);
+        InsurancePolicy.printPolicies(filteredPoliciesByUserDate);
 
-        policy.print();
-        policy.carPriceRise(0.1);
-        policy.print();
-
-        policy.setPolicyHolderName("Robert");
-
-        policy.setCarModel ("Toyota Camry 2018");
-        
-        user1.setCity("Wollongong");
-        
-        System.out.println("Enter Street Number: ");
-        int streetNum = scanner.nextInt();
+        User user = insuranceCompany.findUser(100);
+        System.out.println("Enter the new street number: ");
+        int streetnum = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Enter Street Name: ");
+        System.out.println("Enter the new street name: ");
         String streetName = scanner.nextLine();
-        System.out.println("Enter Suburb: ");
+        System.out.println("Enter the new suburb: ");
         String suburb = scanner.nextLine();
-        System.out.println("Enter City: ");
+        System.out.println("Enter the new city: ");
         String city = scanner.nextLine();
-        Address newAddress = new Address(streetNum, streetName, suburb, city);
-        user1.setAddress(newAddress);
-        user1.print();
+        Address newAddress = new Address(streetnum, streetName, suburb, city);
+        user.setAddress(newAddress);
+        System.out.println(user);
 
-        System.out.println("Total Premium Payments: " + user1.calcTotalPremiums(flatRate) + "$");
+        System.out.println("End of Lab 3");
+        
+        // ArrayList <InsurancePolicy> policies = new ArrayList<>(); // ArrayList of Parent
+        // policies.add(tpp1); // adding children to the list
+        // policies.add(cp1);
+        // policies.add(tpp2);
+        // policies.add(cp2);
 
-        user1.carPriceRiseAll(0.1);
+        // for (InsurancePolicy ip : policies)
+        // {
+        //     System.out.println(ip); // print by using toString() method
+        // }
 
-        System.out.println("Total Premium Payments: " + user1.calcTotalPremiums(flatRate) + "$");
+        // InsurancePolicy.printPolicies(policies);
+        // System.out.println("Total Payment: " + InsurancePolicy.calcTotalPayments(policies, flatRate) + "$");
 
-        System.out.println("Enter a Car Model: ");
-        String userCarModel = scanner.nextLine();
-        ArrayList <InsurancePolicy> policyList = user1.filterByCarModel(userCarModel);
-        System.out.println("Policies matching '" + userCarModel + "' :");
-        InsurancePolicy.printPolicies(policyList);
+        // // lab 2 codes 
+
+        // addPolicy(user1, tpp1);
+        // addPolicy(user1, cp1);
+        // addPolicy(user1, tpp2);
+        // addPolicy(user1, cp2);
+        
+        // user1.print();
+
+        // System.out.println(user1.toString());
+
+        // InsurancePolicy policy = user1.findPolicy(6);
+        // if (policy == null)
+        // {
+        //     System.out.println("Policy has not been found!");
+        // }
+        // policy = user1.findPolicy(4);
+
+        // policy.print();
+        // policy.carPriceRise(0.1);
+        // policy.print();
+
+        // policy.setPolicyHolderName("Robert");
+
+        // policy.setCarModel ("Toyota Camry 2018");
+        
+        // user1.setCity("Wollongong");
+        
+        // System.out.println("Enter Street Number: ");
+        // int streetNum = scanner.nextInt();
+        // scanner.nextLine();
+        // System.out.println("Enter Street Name: ");
+        // String streetName = scanner.nextLine();
+        // System.out.println("Enter Suburb: ");
+        // String suburb = scanner.nextLine();
+        // System.out.println("Enter City: ");
+        // String city = scanner.nextLine();
+        // Address newAddress = new Address(streetNum, streetName, suburb, city);
+        // user1.setAddress(newAddress);
+        // user1.print();
+
+        // System.out.println("Total Premium Payments: " + user1.calcTotalPremiums(flatRate) + "$");
+
+        // user1.carPriceRiseAll(0.1);
+
+        // System.out.println("Total Premium Payments: " + user1.calcTotalPremiums(flatRate) + "$");
+
+        // System.out.println("Enter a Car Model: ");
+        // String userCarModel = scanner.nextLine();
+        // ArrayList <InsurancePolicy> policyList = user1.filterByCarModel(userCarModel);
+        // System.out.println("Policies matching '" + userCarModel + "' :");
+        // InsurancePolicy.printPolicies(policyList);
 
     }
 
@@ -250,13 +303,13 @@ public class Program
                 System.out.println("Policy cannot be found!");
         }
 
-        public static void addPolicy (User user, InsurancePolicy policy)
-        {
-            if (user.addPolicy(policy))
-            {
-                System.out.println("The Policy has been added successfuly!");
-            }
-            else
-                System.out.println("The Policy can not be added as the ID already exists!");
-        }
+        // public static void addPolicy (User user, InsurancePolicy policy)
+        // {
+        //     if (user.addPolicy(policy))
+        //     {
+        //         System.out.println("The Policy has been added successfuly!");
+        //     }
+        //     else
+        //         System.out.println("The Policy can not be added as the ID already exists!");
+        // }
 }
