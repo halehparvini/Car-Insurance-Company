@@ -41,6 +41,11 @@ public class Program
         User user3 = new User("Taraneh", 102, address3);
         User user4 = new User("Payam", 104, address4);
 
+        InsuranceCompany insuranceCompany = new InsuranceCompany("TrustInsure", "admin_ti", "admin@1234", 5);
+
+        login(insuranceCompany, "admin_ti", "admin@1234");
+        login(insuranceCompany, "Wrong Username", "Wrong Password");
+
         ArrayList <InsurancePolicy> policies = new ArrayList<>(); // ArrayList of Parent
         policies.add(tpp1); // adding children to the list
         policies.add(cp1);
@@ -109,6 +114,26 @@ public class Program
         InsurancePolicy.printPolicies(policyList);
 
     }
+
+        public static boolean loginSuccessful(InsuranceCompany insuranceCompany, String adminUsername, String adminPassword)
+        {
+            if (insuranceCompany.getAdminUsername().equals(adminUsername) && insuranceCompany.getAdminPassword().equals(adminPassword))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static void login (InsuranceCompany insuranceCompany, String adminUsername, String adminPassword)
+        {
+            if (loginSuccessful(insuranceCompany, adminUsername, adminPassword))
+            {
+                System.out.println("Successful login!");
+            }
+            else
+                System.out.println("Unsuccessful Login. Try again!");
+        }
+
     
         public static void addPolicy (User user, InsurancePolicy policy)
         {
