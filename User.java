@@ -61,10 +61,10 @@ public class User
     public void print ()
     {
         System.out.println("User Name: " + name + " ID: " + userID + " Address: " + address);
-        for (InsurancePolicy policy : policies)
-        {
-            policy.print();
-        }
+        // for (InsurancePolicy policy : policies)
+        // {
+        //     policy.print();
+        // }
     }
 
     public String toString ()
