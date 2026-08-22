@@ -62,6 +62,11 @@ public class Program
         addPolicy(103, cp3, insuranceCompany);
         addPolicy(8479825, cp2, insuranceCompany);
 
+        createThirdPartyPolicy(100, "Jordan Riley", 07, car6, 0, date6, "No previous claims!", insuranceCompany);
+        createComprehensivePolicy(101, "William Martinez", 8 , car3, 0, date3, 35, 2, insuranceCompany);
+        createComprehensivePolicy(68667676, "William Martinez", 9, car3, 0, date3, 18, 1, insuranceCompany);
+        createThirdPartyPolicy(100, "Jordan Riley", 7, car6, 0, date6, "No previous claims!", insuranceCompany);
+
         ArrayList <InsurancePolicy> policies = new ArrayList<>(); // ArrayList of Parent
         policies.add(tpp1); // adding children to the list
         policies.add(cp1);
@@ -178,6 +183,26 @@ public class Program
             }
             else
                 System.out.println("The policy cannot be added as the policy alread exists or the user ID is invalid!");
+        }
+
+        public static void createThirdPartyPolicy (int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, String comments, InsuranceCompany insuranceCompany)
+        {
+            if (insuranceCompany.createThirdPartyPolicy(userID, policyHolderName, id, car, numberOfClaims, expiryDate, comments))
+            {
+                System.out.println("The Third Party Policy has been added successfully!");
+            }
+            else
+                System.out.println("The Third Party Policy cannot be added as the user ID is invalid or policy ID is duplicate.");
+        }
+
+        public static void createComprehensivePolicy (int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, int driverAge, int level, InsuranceCompany insuranceCompany)
+        {
+            if (insuranceCompany.createComprehensivePolicy(userID, policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level))
+            {
+                System.out.println("The Comprenhensive Policy has been added successfully!");
+            }
+            else
+                System.out.println("The Comprehensive Policy cannot be added as the user ID is invalid or policy ID is duplicate.");
         }
 
         public static void addPolicy (User user, InsurancePolicy policy)
