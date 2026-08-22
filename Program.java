@@ -68,6 +68,12 @@ public class Program
         createThirdPartyPolicy(100, "Jordan Riley", 7, car6, 0, date6, "No previous claims!", insuranceCompany);
 
         printUserPolicies(scanner, insuranceCompany);
+
+        findAndPrintPolicy(scanner, insuranceCompany);
+
+        insuranceCompany.print();
+
+        System.out.println("End of LAB 3");
         
         ArrayList <InsurancePolicy> policies = new ArrayList<>(); // ArrayList of Parent
         policies.add(tpp1); // adding children to the list
@@ -224,6 +230,24 @@ public class Program
             }
             else
                 System.out.println("User cannot be found!");
+        }
+
+        public static void findAndPrintPolicy (Scanner scanner, InsuranceCompany insuranceCompany)
+        {
+            System.out.println("Please eneter your user ID: ");
+            int userID = scanner.nextInt();
+
+            System.out.println("Please enter policy ID: ");
+            int policyID = scanner.nextInt();
+
+            InsurancePolicy policy = insuranceCompany.findPolicy(userID, policyID);
+            
+            if (policy != null)
+            {
+                System.out.println(policy);
+            }
+            else
+                System.out.println("Policy cannot be found!");
         }
 
         public static void addPolicy (User user, InsurancePolicy policy)
