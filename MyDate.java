@@ -53,27 +53,27 @@ public class MyDate
 
     public Boolean isExpired (MyDate expiryDate)
     {
-        if (this.year > expiryDate.getYear())
-        {
-            return true;
-        }
         if (this.year < expiryDate.getYear())
         {
-            return false;
-        }
-        if (this.month > expiryDate.month)
-        {
             return true;
         }
-        if (this.month < expiryDate.getMonth())
+        if (this.year > expiryDate.getYear())
         {
             return false;
         }
-        if (this.day > expiryDate.getDay())
+        if (this.month < expiryDate.month)
         {
             return true;
         }
-        if(this.day < expiryDate.getDay())
+        if (this.month > expiryDate.getMonth())
+        {
+            return false;
+        }
+        if (this.day < expiryDate.getDay())
+        {
+            return true;
+        }
+        if(this.day > expiryDate.getDay())
         {
             return false;
         }
