@@ -39,13 +39,22 @@ public class Program
         User user1 = new User("Haleh", 100, address1);
         User user2 = new User("Parisa", 101, address2);
         User user3 = new User("Taraneh", 102, address3);
-        User user4 = new User("Payam", 104, address4);
+        User user4 = new User("Payam", 103, address4);
 
         InsuranceCompany insuranceCompany = new InsuranceCompany("TrustInsure", "admin_ti", "admin@1234", 5);
 
         login(insuranceCompany, "admin_ti", "admin@1234");
         login(insuranceCompany, "Wrong Username", "Wrong Password");
 
+        addUserVersionOne(user1, insuranceCompany);
+        addUserVersionOne(user2, insuranceCompany);
+        addUserVersionOne(user3, insuranceCompany);
+        addUserVersionOne(user4, insuranceCompany);
+        addUserVersionOne(user4, insuranceCompany);
+
+        addUserVersionTwo("Alhan", 105, address1, insuranceCompany);
+        addUserVersionTwo("Ali", 101, address2, insuranceCompany);
+        
         ArrayList <InsurancePolicy> policies = new ArrayList<>(); // ArrayList of Parent
         policies.add(tpp1); // adding children to the list
         policies.add(cp1);
@@ -132,6 +141,26 @@ public class Program
             }
             else
                 System.out.println("Unsuccessful Login. Try again!");
+        }
+
+        public static void addUserVersionOne (User user, InsuranceCompany insuranceCompany)
+        {
+            if (insuranceCompany.addUser(user))
+            {
+                System.out.println("The user has been added successfully!");
+            }
+            else
+                System.out.println("The user cannot be added as the ID already exists!");
+        }
+
+        public static void addUserVersionTwo (String name, int userID, Address address, InsuranceCompany insuranceCompany)
+        {
+            if (insuranceCompany.addUser(name, userID, address))
+            {
+                System.out.println("The user has been added successfully!");
+            }
+            else
+                System.out.println("The user cannot be added as the ID already exists!");
         }
 
     
