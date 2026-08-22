@@ -67,6 +67,8 @@ public class Program
         createComprehensivePolicy(68667676, "William Martinez", 9, car3, 0, date3, 18, 1, insuranceCompany);
         createThirdPartyPolicy(100, "Jordan Riley", 7, car6, 0, date6, "No previous claims!", insuranceCompany);
 
+        printUserPolicies(scanner, insuranceCompany);
+        
         ArrayList <InsurancePolicy> policies = new ArrayList<>(); // ArrayList of Parent
         policies.add(tpp1); // adding children to the list
         policies.add(cp1);
@@ -203,6 +205,25 @@ public class Program
             }
             else
                 System.out.println("The Comprehensive Policy cannot be added as the user ID is invalid or policy ID is duplicate.");
+        }
+
+        public static void printUserPolicies (Scanner sccaner, InsuranceCompany insuranceCompany)
+        {
+            System.out.println("Please enter your user ID: ");
+            
+            while (!sccaner.hasNextInt())
+            {
+                System.out.println("Invalid user ID, please enter an integer:");
+                sccaner.next();
+            }
+            int userID = sccaner.nextInt();
+            User user = insuranceCompany.findUser(userID);
+            if (user != null)
+            {
+                insuranceCompany.printPolicies(userID);
+            }
+            else
+                System.out.println("User cannot be found!");
         }
 
         public static void addPolicy (User user, InsurancePolicy policy)
