@@ -214,7 +214,7 @@ public class Program
                 System.out.println("Successful login!");
             }
             else
-                System.out.println("Unsuccessful Login. Try again!");
+                System.out.println("Unsuccessful Login. Invalid username or password!");
         }
 
         public static void addUserVersionOne (User user, InsuranceCompany insuranceCompany)
