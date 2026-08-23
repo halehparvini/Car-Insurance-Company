@@ -28,8 +28,8 @@ public class Program
         ComprehensivePolicy cp1 = new ComprehensivePolicy("Robert", 02, car2, 0, date2,  24, 3);
         ThirdPartyPolicy tpp2 = new ThirdPartyPolicy("Sara", 03, car3, 0, date3, "No previous claims!");
         ComprehensivePolicy cp2 = new ComprehensivePolicy("Sue", 04, car4, 5, date4, 56, 3);
-        ThirdPartyPolicy tpp3 = new ThirdPartyPolicy("Taylor Morgan", 05, car5, 2, date5, "2 previous claims!");
-        ComprehensivePolicy cp3 = new ComprehensivePolicy("Matthew Wilson", 06, car6, 10, date6, 60, 3);
+        ThirdPartyPolicy tpp3 = new ThirdPartyPolicy("Taylor", 05, car5, 2, date5, "2 previous claims!");
+        ComprehensivePolicy cp3 = new ComprehensivePolicy("Matthew", 06, car6, 10, date6, 60, 3);
 
         Address address1 = new Address(42, "Willow Street", "Greenfield", "Melbourne");
         Address address2 = new Address(9, "Willow Way", "Fairview", "Nashville");
