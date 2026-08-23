@@ -51,29 +51,31 @@ public class Program
         addUserVersionOne(user2, insuranceCompany);
         addUserVersionOne(user3, insuranceCompany);
         addUserVersionOne(user4, insuranceCompany);
-        addUserVersionOne(user4, insuranceCompany);
+        addUserVersionOne(user4, insuranceCompany); // duplicate userID
 
         addUserVersionTwo("Alhan", 105, address1, insuranceCompany);
-        addUserVersionTwo("Ali", 101, address2, insuranceCompany);
+        addUserVersionTwo("Ali", 101, address2, insuranceCompany); // duplicate userID
         
         addPolicy(100, tpp1, insuranceCompany);
         addPolicy(100, tpp2, insuranceCompany);
         addPolicy(101, cp1, insuranceCompany);
         addPolicy(103, cp3, insuranceCompany);
-        addPolicy(103, cp3, insuranceCompany);
-        addPolicy(8479825, cp2, insuranceCompany);
+        addPolicy(103, cp3, insuranceCompany); // duplicate policyID
+        addPolicy(8479825, cp2, insuranceCompany); // wrong userID
 
         createThirdPartyPolicy(100, "Jordan Riley", 07, car6, 0, date6, "No previous claims!", insuranceCompany);
         createComprehensivePolicy(101, "William Martinez", 8 , car3, 0, date3, 35, 2, insuranceCompany);
-        createComprehensivePolicy(68667676, "William Martinez", 9, car3, 0, date3, 18, 1, insuranceCompany);
-        createThirdPartyPolicy(100, "Jordan Riley", 7, car6, 0, date6, "No previous claims!", insuranceCompany);
+        createComprehensivePolicy(68667676, "William Martinez", 9, car3, 0, date3, 18, 1, insuranceCompany); // wrong userID
+        createThirdPartyPolicy(100, "Jordan Riley", 7, car6, 0, date6, "No previous claims!", insuranceCompany); // duplicate policyID for user 100
 
         printUserPolicies(scanner, insuranceCompany);
 
         findAndPrintPolicy(scanner, insuranceCompany);
 
+        System.out.println("------ Printint all users with their policies. -----");
         insuranceCompany.print();
         
+        System.out.println("----- Raising the price of cars for all users and policies by 10% -----");
         insuranceCompany.carPriceRise(0.1);
         insuranceCompany.print();
 
@@ -99,10 +101,13 @@ public class Program
         InsurancePolicy.printPolicies(filteredPolicies2);
 
         System.out.println("Please enter Year: ");
+        exceptionHandling(scanner);
         int year = scanner.nextInt();
         System.out.println("Please enter month: ");
+        exceptionHandling(scanner);
         int month = scanner.nextInt();
         System.out.println("Please enter day: ");
+        exceptionHandling(scanner);
         int day = scanner.nextInt();
         MyDate userDate = new MyDate(year, month, day);
         ArrayList <InsurancePolicy> filteredPoliciesByUserDate = insuranceCompany.filterByExpiryDate(userDate);
@@ -115,6 +120,7 @@ public class Program
 
         User user = insuranceCompany.findUser(100);
         System.out.println("Enter the new street number: ");
+        exceptionHandling(scanner);
         int streetnum = scanner.nextInt();
         scanner.nextLine();
         System.out.println("Enter the new street name: ");
@@ -270,12 +276,9 @@ public class Program
         public static void printUserPolicies (Scanner sccaner, InsuranceCompany insuranceCompany)
         {
             System.out.println("Please enter your user ID: ");
-            
-            while (!sccaner.hasNextInt())
-            {
-                System.out.println("Invalid user ID, please enter an integer:");
-                sccaner.next();
-            }
+    
+            exceptionHandling(sccaner);
+
             int userID = sccaner.nextInt();
             User user = insuranceCompany.findUser(userID);
             if (user != null)
@@ -289,9 +292,11 @@ public class Program
         public static void findAndPrintPolicy (Scanner scanner, InsuranceCompany insuranceCompany)
         {
             System.out.println("Please eneter your user ID: ");
+            exceptionHandling(scanner);
             int userID = scanner.nextInt();
 
             System.out.println("Please enter policy ID: ");
+            exceptionHandling(scanner);
             int policyID = scanner.nextInt();
 
             InsurancePolicy policy = insuranceCompany.findPolicy(userID, policyID);
@@ -302,6 +307,15 @@ public class Program
             }
             else
                 System.out.println("Policy cannot be found!");
+        }
+
+        public static void exceptionHandling(Scanner scanner)
+        {
+            while (!scanner.hasNextInt())
+            {
+                System.out.println("Invalid input! please enter an integer:");
+                scanner.next();
+            }
         }
 
         // public static void addPolicy (User user, InsurancePolicy policy)
