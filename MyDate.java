@@ -61,7 +61,7 @@ public class MyDate
         {
             return false;
         }
-        if (this.month < expiryDate.month)
+        if (this.month < expiryDate.getMonth())
         {
             return true;
         }
