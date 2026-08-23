@@ -44,7 +44,8 @@ public class Program
         InsuranceCompany insuranceCompany = new InsuranceCompany("TrustInsure", "admin_ti", "admin@1234", 5);
 
         login(insuranceCompany, "admin_ti", "admin@1234");
-        login(insuranceCompany, "Wrong Username", "Wrong Password");
+        login(insuranceCompany, "admin_ti", "Wrong Password");
+        login(insuranceCompany, "Wrong username", "admin@1234");
 
         addUserVersionOne(user1, insuranceCompany);
         addUserVersionOne(user2, insuranceCompany);
