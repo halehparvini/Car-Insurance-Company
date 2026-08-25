@@ -43,21 +43,9 @@ public class Program
 
         InsuranceCompany insuranceCompany = new InsuranceCompany("TrustInsure", "admin_ti", "admin@1234", 5);
 
-        boolean successful = false;
-        while (!successful)
-        {
-            System.out.println("Please enter your username: ");
-            String username = scanner.nextLine();
-            System.out.println("Please enter your password: ");
-            String password = scanner.nextLine();
-            if (login(insuranceCompany, username, password)) {
-                successful = true;
-            }
-        }
-        
-        // login(insuranceCompany, "admin_ti", "admin@1234");
-        // login(insuranceCompany, "admin_ti", "Wrong Password");
-        // login(insuranceCompany, "Wrong username", "admin@1234");
+        // lab 3
+
+        login(scanner, insuranceCompany);
 
         addUserVersionOne(user1, insuranceCompany);
         addUserVersionOne(user2, insuranceCompany);
@@ -216,26 +204,30 @@ public class Program
 
     }
 
-        public static boolean loginSuccessful(InsuranceCompany insuranceCompany, String adminUsername, String adminPassword)
+        public static boolean isLoginSuccessful(InsuranceCompany insuranceCompany, String adminUsername, String adminPassword)
         {
             if (insuranceCompany.getAdminUsername().equals(adminUsername) && insuranceCompany.getAdminPassword().equals(adminPassword))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public static boolean login (InsuranceCompany insuranceCompany, String adminUsername, String adminPassword)
-        {
-            
-                if (loginSuccessful(insuranceCompany, adminUsername, adminPassword))
             {
                 System.out.println("Successful login!");
                 return true;
             }
-            else
-                System.out.println("Unsuccessful Login. Invalid username or password!");
-                return false;
+            System.out.println("Unsuccessful Login. Invalid username or password!");
+            return false;
+        }
+
+        public static void login (Scanner scanner, InsuranceCompany insuranceCompany)
+        {
+            boolean successful = false;
+        while (!successful)
+        {
+            System.out.println("Please enter your username: ");
+            String username = scanner.nextLine();
+            System.out.println("Please enter your password: ");
+            String password = scanner.nextLine();
+            if (isLoginSuccessful(insuranceCompany, username, password)) {
+                successful = true;
+            }
+        }
         }
 
         public static void addUserVersionOne (User user, InsuranceCompany insuranceCompany)
