@@ -218,16 +218,16 @@ public class Program
         public static void login (Scanner scanner, InsuranceCompany insuranceCompany)
         {
             boolean successful = false;
-        while (!successful)
-        {
-            System.out.println("Please enter your username: ");
-            String username = scanner.nextLine();
-            System.out.println("Please enter your password: ");
-            String password = scanner.nextLine();
-            if (isLoginSuccessful(insuranceCompany, username, password)) {
+            while (!successful)
+            {
+                System.out.println("Please enter your username: ");
+                String username = scanner.nextLine();
+                System.out.println("Please enter your password: ");
+                String password = scanner.nextLine();
+                if (isLoginSuccessful(insuranceCompany, username, password)) {
                 successful = true;
+                }
             }
-        }
         }
 
         public static void addUserVersionOne (User user, InsuranceCompany insuranceCompany)
