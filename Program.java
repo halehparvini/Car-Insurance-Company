@@ -72,7 +72,7 @@ public class Program
 
         findAndPrintPolicy(scanner, insuranceCompany);
 
-        System.out.println("------ Printint all users with their policies. -----");
+        System.out.println("------ Printing all users with their policies. ------");
         insuranceCompany.print();
         
         System.out.println("----- Raising the price of cars for all users and policies by 10% -----");
