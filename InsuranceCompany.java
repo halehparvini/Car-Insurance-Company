@@ -210,21 +210,21 @@ public class InsuranceCompany
     public ArrayList <InsurancePolicy> filterByCarModel (int userID, String carModel)
     {
         User user = findUser(userID);
-        if (user == null)
+        if (user != null)
         {
-            return null;
+            return user.filterByCarModel(carModel);
         }
-        return user.filterByCarModel(carModel);
+        return new ArrayList<InsurancePolicy>();
     }
 
     public ArrayList <InsurancePolicy> filterByExpiryDate (int userID, MyDate date)
     {
         User user = findUser(userID);
-        if (user == null)
+        if (user != null)
         {
-            return null;
+            return user.filterByExpiryDate(date);
         }
-        return user.filterByExpiryDate(date);
+        return new ArrayList<InsurancePolicy>();
     }
 
     public ArrayList <InsurancePolicy> filterByCarModel (String carModel)
