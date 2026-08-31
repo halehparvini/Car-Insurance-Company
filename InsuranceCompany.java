@@ -150,7 +150,7 @@ public class InsuranceCompany
         User user = findUser(userID);
         if (user != null)
         {
-            user.createComprehensivePolicy(policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level);
+            return user.createComprehensivePolicy(policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level);
         }
         return false; 
     }
