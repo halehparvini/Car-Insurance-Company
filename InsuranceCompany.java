@@ -99,11 +99,11 @@ public class InsuranceCompany
     public InsurancePolicy findPolicy (int userID, int policyID)
     {
         User user = findUser(userID);
-        if (user == null)
+        if (user != null)
         {
-            return null;
+            return user.findPolicy(policyID);
         }
-        return user.findPolicy(policyID);
+        return null;
     }
 
     public void printPolicies (int userID)
@@ -138,31 +138,31 @@ public class InsuranceCompany
     public boolean createThirdPartyPolicy (int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, String comments)
     {
         User user = findUser(userID);
-        if (user == null)
+        if (user != null)
         {
-            return false;
+            return user.createThirdPartyPolicy(policyHolderName, id, car, numberOfClaims, expiryDate, comments);
         }
-        return user.createThirdPartyPolicy(policyHolderName, id, car, numberOfClaims, expiryDate, comments);
+        return false;
     }
 
     public boolean createComprehensivePolicy (int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, int driverAge, int level)
     {
         User user = findUser(userID);
-        if (user == null)
+        if (user != null)
         {
-            return false;
+            user.createComprehensivePolicy(policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level);
         }
-        return user.createComprehensivePolicy(policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level);
+        return false; 
     }
 
     public double calcTotalPayments (int userID)
     {
         User user = findUser(userID);
-        if (user == null)
+        if (user != null)
         {
-            return 0;
+            return user.calcTotalPremiums(flatRate);
         }
-        return user.calcTotalPremiums(flatRate);
+        return 0;
     }
 
     public double calcTotalPayments ()
@@ -178,12 +178,12 @@ public class InsuranceCompany
     public boolean carPriceRise (int userID, double risePercent)
     {
         User user = findUser(userID);
-        if (user == null)
+        if (user != null)
         {
-            return false;
+            user.carPriceRiseAll(risePercent);
+            return true;  
         }
-        user.carPriceRiseAll(risePercent);
-        return true;   
+        return false;
     }
 
     public void carPriceRise (double risePercent)
