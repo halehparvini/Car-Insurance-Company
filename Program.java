@@ -45,95 +45,95 @@ public class Program
 
         // lab 3
 
-        login(scanner, insuranceCompany);
+        // login(scanner, insuranceCompany);
 
-        addUserVersionOne(user1, insuranceCompany);
-        addUserVersionOne(user2, insuranceCompany);
-        addUserVersionOne(user3, insuranceCompany);
-        addUserVersionOne(user4, insuranceCompany);
-        addUserVersionOne(user4, insuranceCompany); // duplicate userID
+        //addUserVersionOne(user1, insuranceCompany);
+        // addUserVersionOne(user2, insuranceCompany);
+        // addUserVersionOne(user3, insuranceCompany);
+        // addUserVersionOne(user4, insuranceCompany);
+        // addUserVersionOne(user4, insuranceCompany); // duplicate userID
 
-        addUserVersionTwo("Alhan", 105, address1, insuranceCompany);
-        addUserVersionTwo("Ali", 101, address2, insuranceCompany); // duplicate userID
+        // addUserVersionTwo("Alhan", 105, address1, insuranceCompany);
+        // addUserVersionTwo("Ali", 101, address2, insuranceCompany); // duplicate userID
         
-        addPolicy(100, tpp1, insuranceCompany);
-        addPolicy(100, tpp2, insuranceCompany);
-        addPolicy(101, cp1, insuranceCompany);
-        addPolicy(103, cp3, insuranceCompany);
-        addPolicy(103, cp3, insuranceCompany); // duplicate policyID
-        addPolicy(8479825, cp2, insuranceCompany); // wrong userID
+        // addPolicy(100, tpp1, insuranceCompany);
+        // addPolicy(100, tpp2, insuranceCompany);
+        // addPolicy(101, cp1, insuranceCompany);
+        // addPolicy(103, cp3, insuranceCompany);
+        // addPolicy(103, cp3, insuranceCompany); // duplicate policyID
+        // addPolicy(8479825, cp2, insuranceCompany); // wrong userID
 
-        createThirdPartyPolicy(100, "Jordan Riley", 07, car6, 0, date6, "No previous claims!", insuranceCompany);
-        createComprehensivePolicy(101, "William Martinez", 8 , car3, 0, date3, 35, 2, insuranceCompany);
-        createComprehensivePolicy(68667676, "William Martinez", 9, car3, 0, date3, 18, 1, insuranceCompany); // wrong userID
-        createThirdPartyPolicy(100, "Jordan Riley", 7, car6, 0, date6, "No previous claims!", insuranceCompany); // duplicate policyID for user 100
+        // createThirdPartyPolicy(100, "Jordan Riley", 07, car6, 0, date6, "No previous claims!", insuranceCompany);
+        // createComprehensivePolicy(101, "William Martinez", 8 , car3, 0, date3, 35, 2, insuranceCompany);
+        // createComprehensivePolicy(68667676, "William Martinez", 9, car3, 0, date3, 18, 1, insuranceCompany); // wrong userID
+        // createThirdPartyPolicy(100, "Jordan Riley", 7, car6, 0, date6, "No previous claims!", insuranceCompany); // duplicate policyID for user 100
 
-        printUserPolicies(scanner, insuranceCompany);
+        //printUserPolicies(scanner, insuranceCompany);
 
-        findAndPrintPolicy(scanner, insuranceCompany);
+        // findAndPrintPolicy(scanner, insuranceCompany);
 
-        System.out.println("------ Printing all users with their policies. ------");
-        insuranceCompany.print();
+        // System.out.println("------ Printing all users with their policies. ------");
+        // insuranceCompany.print();
         
-        System.out.println("----- Raising the price of cars for all users and policies by 10% -----");
-        insuranceCompany.carPriceRise(0.1);
-        insuranceCompany.print();
+        // System.out.println("----- Raising the price of cars for all users and policies by 10% -----");
+        // insuranceCompany.carPriceRise(0.1);
+        // insuranceCompany.print();
 
-        double totalPremiumPaymentsForOneUser = insuranceCompany.calcTotalPayments(100);
-        System.out.println("Total premium payments: " + totalPremiumPaymentsForOneUser);
+        // double totalPremiumPaymentsForOneUser = insuranceCompany.calcTotalPayments(100);
+        // System.out.println("Total premium payments: " + totalPremiumPaymentsForOneUser);
 
-        double totalPremiumPaymentsForAllUsers = insuranceCompany.calcTotalPayments();
-        System.out.println("Total premium payments for all users: " + totalPremiumPaymentsForAllUsers);
+        // double totalPremiumPaymentsForAllUsers = insuranceCompany.calcTotalPayments();
+        // System.out.println("Total premium payments for all users: " + totalPremiumPaymentsForAllUsers);
 
-        ArrayList <InsurancePolicy> allPolicies = insuranceCompany.allPolicies();
-        InsurancePolicy.printPolicies(allPolicies);
+        // ArrayList <InsurancePolicy> allPolicies = insuranceCompany.allPolicies();
+        // InsurancePolicy.printPolicies(allPolicies);
 
-        ArrayList <InsurancePolicy> filteredPolicies = insuranceCompany.filterByExpiryDate(100, date1);
-        System.out.println("Filtered policies with the date before " + date1 + ": ");
-        if (filteredPolicies.isEmpty())
-        {
-            System.out.println("No policy is found with the date before " + date1 + "!");
-        }
-        InsurancePolicy.printPolicies(filteredPolicies);
+        // ArrayList <InsurancePolicy> filteredPolicies = insuranceCompany.filterByExpiryDate(100, date1);
+        // System.out.println("Filtered policies with the date before " + date1 + ": ");
+        // if (filteredPolicies.isEmpty())
+        // {
+        //     System.out.println("No policy is found with the date before " + date1 + "!");
+        // }
+        // InsurancePolicy.printPolicies(filteredPolicies);
 
-        ArrayList <InsurancePolicy> filteredPolicies2 = insuranceCompany.filterByCarModel("Mercedes-Benz S-Class");
-        System.out.println("Filtered Policies by car model:");
-        InsurancePolicy.printPolicies(filteredPolicies2);
+        // ArrayList <InsurancePolicy> filteredPolicies2 = insuranceCompany.filterByCarModel("Mercedes-Benz S-Class");
+        // System.out.println("Filtered Policies by car model:");
+        // InsurancePolicy.printPolicies(filteredPolicies2);
 
-        System.out.println("Please enter Year: ");
-        exceptionHandling(scanner);
-        int year = scanner.nextInt();
-        System.out.println("Please enter month: ");
-        exceptionHandling(scanner);
-        int month = scanner.nextInt();
-        System.out.println("Please enter day: ");
-        exceptionHandling(scanner);
-        int day = scanner.nextInt();
-        MyDate userDate = new MyDate(year, month, day);
-        ArrayList <InsurancePolicy> filteredPoliciesByUserDate = insuranceCompany.filterByExpiryDate(userDate);
-        System.out.println("Filtered policied by user's chosen date: ");
-        if (filteredPoliciesByUserDate.isEmpty())
-        {
-            System.out.println("No policy is found with the date before user's chosen date!");
-        }
-        InsurancePolicy.printPolicies(filteredPoliciesByUserDate);
+        // System.out.println("Please enter Year: ");
+        // exceptionHandling(scanner);
+        // int year = scanner.nextInt();
+        // System.out.println("Please enter month: ");
+        // exceptionHandling(scanner);
+        // int month = scanner.nextInt();
+        // System.out.println("Please enter day: ");
+        // exceptionHandling(scanner);
+        // int day = scanner.nextInt();
+        // MyDate userDate = new MyDate(year, month, day);
+        // ArrayList <InsurancePolicy> filteredPoliciesByUserDate = insuranceCompany.filterByExpiryDate(userDate);
+        // System.out.println("Filtered policied by user's chosen date: ");
+        // if (filteredPoliciesByUserDate.isEmpty())
+        // {
+        //     System.out.println("No policy is found with the date before user's chosen date!");
+        // }
+        // InsurancePolicy.printPolicies(filteredPoliciesByUserDate);
 
-        User user = insuranceCompany.findUser(100);
-        System.out.println("Enter the new street number: ");
-        exceptionHandling(scanner);
-        int streetnum = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Enter the new street name: ");
-        String streetName = scanner.nextLine();
-        System.out.println("Enter the new suburb: ");
-        String suburb = scanner.nextLine();
-        System.out.println("Enter the new city: ");
-        String city = scanner.nextLine();
-        Address newAddress = new Address(streetnum, streetName, suburb, city);
-        user.setAddress(newAddress);
-        System.out.println(user);
+        // User user = insuranceCompany.findUser(100);
+        // System.out.println("Enter the new street number: ");
+        // exceptionHandling(scanner);
+        // int streetnum = scanner.nextInt();
+        // scanner.nextLine();
+        // System.out.println("Enter the new street name: ");
+        // String streetName = scanner.nextLine();
+        // System.out.println("Enter the new suburb: ");
+        // String suburb = scanner.nextLine();
+        // System.out.println("Enter the new city: ");
+        // String city = scanner.nextLine();
+        // Address newAddress = new Address(streetnum, streetName, suburb, city);
+        // user.setAddress(newAddress);
+        // System.out.println(user);
 
-        System.out.println("End of Lab 3");
+        // System.out.println("End of Lab 3");
         
         // ArrayList <InsurancePolicy> policies = new ArrayList<>(); // ArrayList of Parent
         // policies.add(tpp1); // adding children to the list
@@ -237,7 +237,7 @@ public class Program
                 System.out.println("The user has been added successfully!");
             }
             else
-                System.out.println("The user cannot be added as the ID already exists!");
+                System.out.println("The user cannot be added as the ID already exists or it's null!");
         }
 
         public static void addUserVersionTwo (String name, int userID, Address address, InsuranceCompany insuranceCompany)
@@ -247,7 +247,7 @@ public class Program
                 System.out.println("The user has been added successfully!");
             }
             else
-                System.out.println("The user cannot be added as the ID already exists!");
+                System.out.println("The user cannot be added as the ID already exists or it's null!");
         }
 
         public static void addPolicy (int userID, InsurancePolicy policy, InsuranceCompany insuranceCompany)
@@ -280,13 +280,11 @@ public class Program
                 System.out.println("The Comprehensive Policy cannot be added as the user ID is invalid or policy ID is duplicate.");
         }
 
-        public static void printUserPolicies (Scanner sccaner, InsuranceCompany insuranceCompany)
+        public static void printUserPolicies (Scanner scaner, InsuranceCompany insuranceCompany)
         {
             System.out.println("Please enter your user ID: ");
-    
-            exceptionHandling(sccaner);
-
-            int userID = sccaner.nextInt();
+            exceptionHandling(scaner);
+            int userID = scaner.nextInt();
             User user = insuranceCompany.findUser(userID);
             if (user != null)
             {
