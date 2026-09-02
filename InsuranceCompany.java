@@ -9,6 +9,7 @@ public class InsuranceCompany
     private String adminUsername; 
     private String adminPassword; 
     private int flatRate;
+    private ArrayList<Car> updatedCars = new ArrayList<>();
 
     public InsuranceCompany (String name, String adminUsername, String adminPassword, int flatRate)
     {
@@ -130,7 +131,7 @@ public class InsuranceCompany
         String result = "";
         for (User user : users)
         {
-            result += user.toString();
+            result += user.toString() + "\n";
         }
         return result;
     }
@@ -175,13 +176,21 @@ public class InsuranceCompany
         return totalPayment;
     }
 
-    public boolean carPriceRise (int userID, double risePercent)
+    public boolean carPriceRise(int userID, double risePercent)
     {
         User user = findUser(userID);
         if (user != null)
         {
-            user.carPriceRiseAll(risePercent);
-            return true;  
+            for (InsurancePolicy policy : user.policies)
+            {
+                Car car = policy.car;
+                if (!updatedCars.contains(car))
+                {
+                    car.priceRise(risePercent);
+                    updatedCars.add(car);
+                }
+            }
+            return true;
         }
         return false;
     }
