@@ -285,4 +285,18 @@ public class InsuranceCompany
         }
         return cities;
     }
+
+    public double getTotalPaymentForCity (String city)
+    {
+        double totalPayment = 0;
+        for (User user : users)
+        {
+            if (user.getAddress().getCity().equals(city))
+            {
+                totalPayment += user.calcTotalPremiums(flatRate);
+
+            }
+        }
+        return totalPayment;
+    }
 }
