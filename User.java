@@ -155,4 +155,18 @@ public class User
             } 
             return models;
     }
+
+    public int getTotalCountForCarModel (String carModel)
+    {
+        int count = 0;
+        for (InsurancePolicy policy : policies)
+        {
+            String model = policy.getCar().getModel();
+            if (model.equals(carModel))
+            {
+            count++;
+            }
+        }
+        return count;
+    }
 }
