@@ -107,6 +107,9 @@ public class UserInterface
                     updateAddressByAdmin();
                     break;
                 case "9":
+                    reportPaymentPerCity();
+                    break;
+                case "10":
                     mainMenu();
                 default:
                     System.out.println("Invalid option!");
@@ -341,6 +344,13 @@ public class UserInterface
         Address address = enterAddress();
         user.setAddress(address);
         System.out.println(user);
+    }
+
+    public void reportPaymentPerCity ()
+    {
+        ArrayList <String> cities = insuranceCompany.populateDistinctCityNames();
+        ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCity(cities);
+        insuranceCompany.reportPaymentPerCity(cities, payments);
     }
 
     public void pause ()
