@@ -94,7 +94,7 @@ public class UserInterface
                     pause();
                     break;
                 case "4":
-                    createComprehensiveByAdmin();
+                    createComprehensivePolicyByAdmin();
                     pause();
                     break;
                 case "5":
@@ -202,7 +202,7 @@ public class UserInterface
             System.out.println("The Third Party Policy cannot be added as the user ID is invalid or policy ID is duplicate.");
     }
 
-    public void createComprehensiveByAdmin ()
+    public void createComprehensivePolicyByAdmin ()
     {
         System.out.println("Create Comprehensive Policy");
         System.out.println("Enter Policy Information: ");
