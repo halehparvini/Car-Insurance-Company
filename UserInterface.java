@@ -75,7 +75,7 @@ public class UserInterface
     public void adminMenu ()
     {   
         String adminOption = "";
-        while (!adminOption.equals("11"))
+        while (!adminOption.equals("12"))
         {
             displayAdminMenu();
             adminOption = scanner.nextLine();
@@ -122,6 +122,10 @@ public class UserInterface
                     pause();
                     break;
                 case "11":
+                    changeAdminPassword();
+                    pause();
+                    break;
+                case "12":
                     break;
                 default:
                     System.out.println("Invalid option!");
@@ -144,7 +148,8 @@ public class UserInterface
         System.out.println("8. Update Address");
         System.out.println("9. Payment Report Per City");
         System.out.println("10. Payment Report Per Car Model");
-        System.out.println("11. Log Out");
+        System.out.println("11. Change Admin Password");
+        System.out.println("12. Log Out");
     }  
 
     public void createUserByAdmin ()
