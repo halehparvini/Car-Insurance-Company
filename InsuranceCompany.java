@@ -377,6 +377,20 @@ public class InsuranceCompany
         }
     }
 
+    public boolean removeUserByAdmin (int userID)
+    {
+        User user = findUser(userID);
+        if (user != null)
+        {
+            users.remove(user);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void changeAdminPassword (String newPass)
     {
         adminPassword = newPass;
