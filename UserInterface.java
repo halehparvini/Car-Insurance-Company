@@ -75,7 +75,7 @@ public class UserInterface
     public void adminMenu ()
     {   
         String adminOption = "";
-        while (!adminOption.equals("13"))
+        while (!adminOption.equals("14"))
         {
             displayAdminMenu();
             adminOption = scanner.nextLine();
@@ -130,6 +130,10 @@ public class UserInterface
                     pause();
                     break;
                 case "13":
+                    removePolicyByAdmin();
+                    pause();
+                    break;
+                case "14":
                     break;
                 default:
                     System.out.println("Invalid option!");
@@ -154,7 +158,8 @@ public class UserInterface
         System.out.println("10. Payment Report Per Car Model");
         System.out.println("11. Change Admin Password");
         System.out.println("12. Remove User");
-        System.out.println("13. Log Out");
+        System.out.println("13. Remove Policy");
+        System.out.println("14. Log Out");
     }  
 
     public void createUserByAdmin ()
@@ -381,6 +386,24 @@ public class UserInterface
     {
         System.out.println("Please press any key to continue...");
         scanner.nextLine();
+    }
+
+    public void removePolicyByAdmin ()
+    {
+        System.out.print("Enter userID: ");
+        int userID = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter policy ID to remove: ");
+        int policyID = scanner.nextInt();
+        scanner.nextLine();
+        if (insuranceCompany.removePolicy(userID, policyID))
+        {
+            System.out.println("Policy with ID: " + policyID + " has been removed successfully!");
+        }
+        else
+        {
+            System.out.println("Policy ID " + policyID + " cannot be found for this user.");
+        }
     }
 
     public void removeUserByAdmin ()
