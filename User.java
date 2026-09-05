@@ -141,4 +141,18 @@ public class User
     {
         return InsurancePolicy.filterByExpiryDate(policies, date);
     }
+
+    public ArrayList <String> populateDistinctCarModels ()
+    {
+        ArrayList <String> models = new ArrayList<>();
+        for (InsurancePolicy policy : policies)
+            {
+                String model = policy.getCar().getModel();
+                if (!models.contains(model))
+                {
+                    models.add(model);
+                }
+            } 
+            return models;
+    }
 }
