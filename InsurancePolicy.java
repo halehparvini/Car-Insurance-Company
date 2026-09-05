@@ -23,6 +23,11 @@ public abstract class InsurancePolicy
     {
         return id;
     }
+    
+    public Car getCar ()
+    {
+        return car;
+    }
 
     public void setPolicyHolderName (String policyHolderName)
     {
