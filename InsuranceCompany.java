@@ -395,4 +395,14 @@ public class InsuranceCompany
     {
         adminPassword = newPass;
     }
+
+    public boolean removePolicy (int userID, int policyID)
+    {
+        User user = findUser(userID);
+        if (user != null)
+        {
+            return user.removePolicy(policyID);
+        }
+        return false;
+    }
 }
