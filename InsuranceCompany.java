@@ -309,4 +309,13 @@ public class InsuranceCompany
         }
         return payments;
     }
+
+    public void reportPaymentPerCity (ArrayList <String> cities, ArrayList <Double> payments)
+    {
+        System.out.println("City Name \t \t Total Premium Payment");
+        for (int i = 0; i < cities.size(); i++)
+        {
+            System.out.println(cities.get(i) + "\t\t" + payments.get(i) + "$");
+        }
+    }
 }
