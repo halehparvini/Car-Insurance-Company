@@ -183,4 +183,14 @@ public class User
         }
         return total;
     }
+
+    public ArrayList <Integer> getTotalCountPerCarModel (ArrayList <String> carModels)
+    {
+        ArrayList <Integer> totalCounts = new ArrayList<>();
+        for (String model : carModels)
+        {
+            totalCounts.add(getTotalCountForCarModel(model));
+        }
+        return totalCounts;
+    }
 }
