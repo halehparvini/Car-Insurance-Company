@@ -342,4 +342,10 @@ public class UserInterface
         user.setAddress(address);
         System.out.println(user);
     }
+
+    public void pause ()
+    {
+        System.out.println("Please press any key to continue...");
+        scanner.nextLine();
+    } 
 }
