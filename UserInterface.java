@@ -127,7 +127,8 @@ public class UserInterface
         System.out.println("6. Filter by Car Model");
         System.out.println("7. Filter by Expiry Date");
         System.out.println("8. Update Address");
-        System.out.println("9. Log Out");
+        System.out.println("9. Payment Report Per City");
+        System.out.println("10. Log Out");
     }  
 
     public void createUserByAdmin ()
