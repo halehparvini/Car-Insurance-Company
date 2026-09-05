@@ -217,4 +217,18 @@ public class User
             System.out.println(model + "\t\t" + payment + "$" + "\t\t" + average + "$");
         }
     }
+
+    public boolean removePolicy (int policyID)
+    {
+        InsurancePolicy policy = findPolicy(policyID);
+        if (policy != null)
+        {
+            policies.remove(policy);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
