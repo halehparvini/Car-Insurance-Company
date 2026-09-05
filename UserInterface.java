@@ -368,6 +368,14 @@ public class UserInterface
         scanner.nextLine();
     }
 
+    public void reportPaymentPerCarModel ()
+    {
+        ArrayList <String> carModels = insuranceCompany.populateDistinctCarModels();
+        ArrayList <Integer> counts = insuranceCompany.getTotalCountPerCarModel(carModels);
+        ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCarModel(carModels);
+        insuranceCompany.reportPaymentsPerCarModel(carModels, counts, payments);
+    }
+
     public void displayUserMenu ()
     {
         System.out.println("1. Add a Policy");
