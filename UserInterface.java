@@ -6,10 +6,12 @@ import java.util.Scanner;
 public class UserInterface
 {
     InsuranceCompany insuranceCompany;
+    User user;
     Scanner scanner = new Scanner(System.in);
-    public UserInterface (InsuranceCompany insuranceCompany)
+    public UserInterface (InsuranceCompany insuranceCompany, User user)
     {
         this.insuranceCompany = insuranceCompany;
+        this.user = user;
     }
 
     public void mainMenu ()
@@ -27,11 +29,8 @@ public class UserInterface
                         adminMenu();
                     }
                     break;
-                case "2": 
-                    //if (userLogin())
-                    //{
-                    //    userMenu();
-                    //}
+                case "2":
+                    //userMenu();
                     break;
                 case "3" :
                     System.out.println("Goodbye!");
@@ -367,5 +366,21 @@ public class UserInterface
     {
         System.out.println("Please press any key to continue...");
         scanner.nextLine();
-    } 
+    }
+
+    public void displayUserMenu ()
+    {
+        System.out.println("1. Add a Policy");
+        System.out.println("2. Find a Policy");
+        System.out.println("3. Print Policy Information");
+        System.out.println("4. Print All Policies");
+        System.out.println("5. Calculate Total Premiums");
+        System.out.println("6. Rise All Car Prices");
+        System.out.println("7. Filter By Car Model");
+        System.out.println("8. Filter By Expiry Date");
+        System.out.println("9. Change City");
+        System.out.println("10. Create Third Party Policy");
+        System.out.println("11. Create Comprehensive Policy");
+        System.out.println("12. Log Out");
+    }
 }
