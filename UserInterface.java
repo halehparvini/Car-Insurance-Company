@@ -373,6 +373,14 @@ public class UserInterface
         scanner.nextLine();
     }
 
+    public void changeAdminPassword ()
+    {
+        System.out.print("Enter new admin password: ");
+        String newPass = scanner.nextLine();
+        insuranceCompany.changeAdminPassword(newPass);
+        System.out.println("Admin password changed successfully!");
+    }
+
     public void reportPaymentPerCarModel ()
     {
         ArrayList <String> carModels = insuranceCompany.populateDistinctCarModels();
