@@ -348,4 +348,19 @@ public class InsuranceCompany
         }
         return totalCounts;
     }
+
+    public ArrayList <Double> getTotalPaymentPerCarModel (ArrayList <String> carModels)
+    {
+        ArrayList <Double> totalPayments = new ArrayList<>();
+        for (String model : carModels)
+        {
+            double payment = 0;
+            for (User user : users)
+            {
+                payment += user.getTotalPaymentForCarModel(model);
+            }
+            totalPayments.add(payment);
+        }
+        return totalPayments;
+    }
 }
