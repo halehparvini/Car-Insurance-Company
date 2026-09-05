@@ -169,4 +169,18 @@ public class User
         }
         return count;
     }
+
+    public double getTotalPaymentForCarModel (String carModel)
+    {
+        double total = 0;
+        for (InsurancePolicy policy : policies)
+        {
+            String model = policy.getCar().getModel();
+            if (model.equals(carModel))
+            {
+                total += policy.calcPayment(flatRate);
+            }
+        }
+        return total;
+    }
 }
