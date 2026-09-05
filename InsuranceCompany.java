@@ -333,4 +333,19 @@ public class InsuranceCompany
         }
         return carModels;
     }
+
+    public ArrayList <Integer> getTotalCountPerCarModel (ArrayList <String> carModels)
+    {
+        ArrayList <Integer> totalCounts = new ArrayList<>();
+        for (String model : carModels)
+        {
+            int count = 0;
+            for (User user : users)
+            {
+                count += user.getTotalCountForCarModel(model);
+            }
+            totalCounts.add(count);
+        }
+        return totalCounts;
+    }
 }
