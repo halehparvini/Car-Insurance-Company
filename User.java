@@ -193,4 +193,14 @@ public class User
         }
         return totalCounts;
     }
+
+    public ArrayList <Double> getTotalPaymentPerCarModel (ArrayList <String> carModels)
+    {
+        ArrayList <Double> totalPayments = new ArrayList<>();
+        for (String model : carModels)
+        {
+            totalPayments.add(getTotalPaymentForCarModel(model));
+        }
+        return totalPayments;
+    }
 }
