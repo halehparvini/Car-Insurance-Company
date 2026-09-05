@@ -7,12 +7,13 @@ public class User
     private String name; //the name of the account holder
     private int userID; //the user ID/number
     private Address address;
+    private static int count;
     ArrayList <InsurancePolicy> policies; //list of all the Insurance Policies this user hold
 
-    public User (String name, int userID, Address address)
+    public User (String name, Address address)
     {
         this.name = name;
-        this.userID = userID;
+        this.userID = ++count;
         this.address = address;
         policies = new ArrayList<InsurancePolicy>();
     }
