@@ -383,4 +383,44 @@ public class UserInterface
         System.out.println("11. Create Comprehensive Policy");
         System.out.println("12. Log Out");
     }
+
+    public void userMenu ()
+    {
+        String userOption = "";
+        while (!userOption.equals("12"))
+        {
+            displayUserMenu();
+            userOption = scanner.nextLine();
+            switch (userOption)
+            {
+                case "1":
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    break;
+                case "4":
+                    break;
+                case "5":
+                    break;
+                case "6":
+                    break;
+                case "7":
+                    break;
+                case "8":
+                    break;
+                case "9":
+                    break;
+                case "10":
+                    break;
+                case "11":
+                    break;
+                case "12":
+                    break;
+                default:
+                    System.out.println("Invalid option!");
+                    break;
+            }
+        }
+    }
 }
