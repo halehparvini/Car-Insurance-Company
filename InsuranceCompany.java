@@ -299,4 +299,14 @@ public class InsuranceCompany
         }
         return totalPayment;
     }
+
+    public ArrayList <Double> getTotalPaymentPerCity (ArrayList <String> cities)
+    {
+        ArrayList <Double> payments = new ArrayList<>();
+        for (String city : cities)
+        {
+            payments.add(getTotalPaymentForCity(city));
+        }
+        return payments;
+    }
 }
