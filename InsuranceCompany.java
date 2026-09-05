@@ -68,7 +68,7 @@ public class InsuranceCompany
 
     public Boolean addUser (String name, int userID, Address address)
     {
-        User user = new User(name, userID, address);
+        User user = new User(name, address);
         return addUser(user);
     }
 
