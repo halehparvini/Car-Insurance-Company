@@ -76,7 +76,7 @@ public class UserInterface
     public void adminMenu ()
     {   
         String adminOption = "";
-        while (!adminOption.equals("9"))
+        while (!adminOption.equals("10"))
         {
             displayAdminMenu();
             adminOption = scanner.nextLine();
@@ -84,33 +84,42 @@ public class UserInterface
             {
                 case "1":
                     // testCode(insuranceCompany);
+                    pause();
                     break;
                 case "2":
                     createUserByAdmin();
+                    pause();
                     break;
                 case "3":
                     createThirdPartyPolicyByAdmin();
+                    pause();
                     break;
                 case "4":
                     createComprehensiveByAdmin();
+                    pause();
                     break;
                 case "5":
                     printUserPolicies(scanner, insuranceCompany);
+                    pause();
                     break;
                 case "6":
                     filterByCarModelByAdmin();
+                    pause();
                     break;
                 case "7":
-                    filterByExpiryDateByAdmin();      
+                    filterByExpiryDateByAdmin();  
+                    pause();    
                     break;
                 case "8":
                     updateAddressByAdmin();
+                    pause();
                     break;
                 case "9":
                     reportPaymentPerCity();
+                    pause();
                     break;
                 case "10":
-                    mainMenu();
+                    break;
                 default:
                     System.out.println("Invalid option!");
                     break;
@@ -281,6 +290,7 @@ public class UserInterface
         System.out.println("Please enter your user ID: ");
         exceptionHandling(scaner);
         int userID = scaner.nextInt();
+        scaner.nextLine();
         User user = insuranceCompany.findUser(userID);
         if (user != null)
         {
