@@ -263,4 +263,26 @@ public class InsuranceCompany
         }
         return result;
     }
+
+    public ArrayList <String> populateDistinctCityNames ()
+    {
+        ArrayList <String> cities = new ArrayList<>();
+        for (User user : users)
+        {
+            boolean found = false;
+            for (String city : cities)
+            {
+                if (user.getAddress().getCity().equals(city))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                cities.add(user.getAddress().getCity());
+            }
+        }
+        return cities;
+    }
 }
