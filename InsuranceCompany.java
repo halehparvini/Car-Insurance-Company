@@ -363,4 +363,17 @@ public class InsuranceCompany
         }
         return totalPayments;
     }
+
+    public void reportPaymentsPerCarModel (ArrayList <String> carModels ,ArrayList <Integer> counts, ArrayList <Double> premiumPayments)
+    {
+        System.out.println("Car Model \t\t Total Premium Payment \t\t Average Premium Payment");
+        for (int i = 0; i < carModels.size(); i++)
+        {
+            String model = carModels.get(i);
+            int count = counts.get(i);
+            double payment = premiumPayments.get(i);
+            double average = payment / count;
+            System.out.println(model + "\t\t" + payment + "$" + "\t\t" + average + "$");
+        }
+    }
 }
