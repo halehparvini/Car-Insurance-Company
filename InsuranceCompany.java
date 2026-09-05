@@ -318,4 +318,19 @@ public class InsuranceCompany
             System.out.println(cities.get(i) + "\t\t" + payments.get(i) + "$");
         }
     }
+
+    public ArrayList <String> populateDistinctCarModels ()
+    {
+        ArrayList <String> carModels = new ArrayList<>();
+        for (User user : users)
+        {
+            for (String model : user.populateDistinctCarModels())
+            {
+                if (!carModels.contains(model)){
+                    carModels.add(model);
+                }
+            }
+        }
+        return carModels;
+    }
 }
