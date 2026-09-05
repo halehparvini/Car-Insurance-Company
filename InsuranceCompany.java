@@ -376,4 +376,9 @@ public class InsuranceCompany
             System.out.println(model + "\t\t" + payment + "$" + "\t\t" + average + "$");
         }
     }
+
+    public void changeAdminPassword (String newPass)
+    {
+        adminPassword = newPass;
+    }
 }
