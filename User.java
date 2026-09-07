@@ -7,7 +7,7 @@ public class User
     private String name; //the name of the account holder
     private int userID; //the user ID/number
     private Address address;
-    private static int count;
+    private int count;
     ArrayList <InsurancePolicy> policies; //list of all the Insurance Policies this user hold
 
     public User (String name, Address address)
