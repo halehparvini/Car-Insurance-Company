@@ -5,14 +5,12 @@ import java.util.Scanner;
 
 public class UserInterfaceForAdmin
 {
-    InsuranceCompany insuranceCompany;
-    User user;
-    UserInterfaceForUser userUI;
+    private InsuranceCompany insuranceCompany;
+    private UserInterfaceForUser userUI;
     Scanner scanner = new Scanner(System.in);
-    public UserInterfaceForAdmin (InsuranceCompany insuranceCompany, User user, UserInterfaceForUser userUI)
+    public UserInterfaceForAdmin (InsuranceCompany insuranceCompany, UserInterfaceForUser userUI)
     {
         this.insuranceCompany = insuranceCompany;
-        this.user = user;
         this.userUI = userUI;
     }
 
@@ -49,7 +47,7 @@ public class UserInterfaceForAdmin
         }
     }
 
-    public static void displayMainMenu ()
+    public void displayMainMenu ()
     {
         System.out.println("Welcom to the TrustInsure company!");
         System.out.println("1. Admin Login");
@@ -104,7 +102,7 @@ public class UserInterfaceForAdmin
                     pause();
                     break;
                 case "5":
-                    printUserPolicies(scanner, insuranceCompany);
+                    printUserPolicies(insuranceCompany);
                     pause();
                     break;
                 case "6":
@@ -149,7 +147,7 @@ public class UserInterfaceForAdmin
 
     }
 
-    public static void displayAdminMenu ()
+    public void displayAdminMenu ()
     {
         System.out.println("Admin Menu");
         System.out.println("1. Test Code");
@@ -264,7 +262,7 @@ public class UserInterfaceForAdmin
         System.out.println("Enter user car information: ");
         System.out.print("- Car Model: ");
         String carModel = scanner.nextLine();
-        CarType carType = getCarType(scanner);
+        CarType carType = getCarType();
         System.out.print("- Manufacturing Year: ");
         int manufacturingYear = scanner.nextInt();
         scanner.nextLine();
@@ -275,7 +273,7 @@ public class UserInterfaceForAdmin
         return car;
     }
 
-    public CarType getCarType(Scanner scanner)
+    public CarType getCarType ()
     {
         CarType carType = null;
         while (carType == null)
@@ -310,12 +308,12 @@ public class UserInterfaceForAdmin
         return expiryDate;
     }
 
-    public void printUserPolicies (Scanner scaner, InsuranceCompany insuranceCompany)
+    public void printUserPolicies (InsuranceCompany insuranceCompany)
     {
         System.out.println("Please enter your user ID: ");
-        exceptionHandling(scaner);
-        int userID = scaner.nextInt();
-        scaner.nextLine();
+        exceptionHandling();
+        int userID = scanner.nextInt();
+        scanner.nextLine();
         User user = insuranceCompany.findUser(userID);
         if (user != null)
         {
@@ -325,7 +323,7 @@ public class UserInterfaceForAdmin
             System.out.println("User cannot be found!");
     }
 
-    public void exceptionHandling(Scanner scanner)
+    public void exceptionHandling()
     {
         while (!scanner.hasNextInt())
         {
