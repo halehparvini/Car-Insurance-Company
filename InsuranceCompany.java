@@ -25,6 +25,11 @@ public class InsuranceCompany
         return name;
     }
 
+    public ArrayList <User> getUsers ()
+    {
+        return users;
+    }
+
     public String getAdminUsername ()
     {
         return adminUsername;
@@ -357,7 +362,7 @@ public class InsuranceCompany
             double payment = 0;
             for (User user : users)
             {
-                payment += user.getTotalPaymentForCarModel(model);
+                payment += user.getTotalPaymentForCarModel(model, flatRate);
             }
             totalPayments.add(payment);
         }
