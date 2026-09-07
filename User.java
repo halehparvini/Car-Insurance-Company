@@ -114,14 +114,14 @@ public class User
     public boolean createThirdPartyPolicy (String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, String comments)
     {
         for (InsurancePolicy policy : policies)
-            {
-                if (policy.getPolicyID() == id)
-                    return false;
-            }   
+        {
+            if (policy.getPolicyID() == id)
+                return false;
+        }   
 
-            ThirdPartyPolicy thirdPartyPolicy = new ThirdPartyPolicy(policyHolderName, id, car, numberOfClaims, expiryDate, comments);
-            addPolicy(thirdPartyPolicy);
-            return true;
+        ThirdPartyPolicy thirdPartyPolicy = new ThirdPartyPolicy(policyHolderName, id, car, numberOfClaims, expiryDate, comments);
+        addPolicy(thirdPartyPolicy);
+        return true;
     }
 
     public boolean createComprehensivePolicy (String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, int driverAge, int level)
@@ -171,7 +171,7 @@ public class User
         return count;
     }
 
-    public double getTotalPaymentForCarModel (String carModel)
+    public double getTotalPaymentForCarModel (String carModel, double flatRate)
     {
         double total = 0;
         for (InsurancePolicy policy : policies)
@@ -195,12 +195,12 @@ public class User
         return totalCounts;
     }
 
-    public ArrayList <Double> getTotalPaymentPerCarModel (ArrayList <String> carModels)
+    public ArrayList <Double> getTotalPaymentPerCarModel (ArrayList <String> carModels, double flatRate)
     {
         ArrayList <Double> totalPayments = new ArrayList<>();
         for (String model : carModels)
         {
-            totalPayments.add(getTotalPaymentForCarModel(model));
+            totalPayments.add(getTotalPaymentForCarModel(model, flatRate));
         }
         return totalPayments;
     }
