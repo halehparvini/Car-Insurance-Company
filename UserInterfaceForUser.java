@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class UserInterfaceForUser {
 
-    User user;
-    InsuranceCompany insuranceCompany;
-    InsurancePolicy policy;
+    private User user;
+    private InsuranceCompany insuranceCompany;
+    private InsurancePolicy policy;
     Scanner scanner = new Scanner(System.in);
     public UserInterfaceForUser (InsuranceCompany insuranceCompany, InsurancePolicy policy)
     {
@@ -43,7 +43,7 @@ public class UserInterfaceForUser {
             switch (userOption)
             {
                 case "1":
-                    addPolicyByUser(policy);
+                    addPolicyByUser();
                     pause();
                     break;
                 case "2":
@@ -116,7 +116,7 @@ public class UserInterfaceForUser {
         System.out.println("13. Log Out");
     }
 
-    public void addPolicyByUser (InsurancePolicy policy)
+    public void addPolicyByUser ()
     {
         if (user.addPolicy(policy))
         {
@@ -249,7 +249,7 @@ public class UserInterfaceForUser {
         System.out.println("Enter user car information: ");
         System.out.print("- Car Model: ");
         String carModel = scanner.nextLine();
-        CarType carType = getCarType(scanner);
+        CarType carType = getCarType();
         System.out.print("- Manufacturing Year: ");
         int manufacturingYear = scanner.nextInt();
         scanner.nextLine();
@@ -260,7 +260,7 @@ public class UserInterfaceForUser {
         return car;
     }
 
-    public CarType getCarType (Scanner scanner)
+    public CarType getCarType ()
     {
         CarType carType = null;
         while (carType == null)
