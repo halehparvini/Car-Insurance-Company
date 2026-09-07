@@ -9,9 +9,8 @@ public class UserInterfaceForUser {
     InsuranceCompany insuranceCompany;
     InsurancePolicy policy;
     Scanner scanner = new Scanner(System.in);
-    public UserInterfaceForUser (User user, InsuranceCompany insuranceCompany, InsurancePolicy policy)
+    public UserInterfaceForUser (InsuranceCompany insuranceCompany, InsurancePolicy policy)
     {
-        this.user = user;
         this.insuranceCompany = insuranceCompany;
         this.policy = policy;
     }
@@ -33,8 +32,9 @@ public class UserInterfaceForUser {
         return null;
     }
 
-    public void userMenu ()
+    public void userMenu (User user)
     {
+        this.user = user;
         String userOption = "";
         while (!userOption.equals("13"))
         {
