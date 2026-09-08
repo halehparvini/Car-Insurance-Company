@@ -317,7 +317,10 @@ public class Test
         testRemoveUserByAdmin(100);
         System.out.println("\u001B[32mExpected result: Admin password will be changed successfully.\u001B[0m");
         testChangeAdminPassword("newPassword");
-        
+        System.out.println("\u001B[32mExpected result: Policy will be removed successfully.\u001B[0m");
+        testRemovePolicy(1, 1);
+        System.out.println("\u001B[32mExpected result: Policy cannot be removed because the user ID is invalid.\u001B[0m");
+        testRemovePolicy(999, 1); // invalid userID
     }
 
     public void testPopulateDistinctCityNames ()
@@ -415,5 +418,16 @@ public class Test
         }
         else
             System.out.println("Admin password was not changed!");
+    }
+
+    public void testRemovePolicy (int userID, int policyID)
+    {
+        boolean result = insuranceCompany.removePolicy(userID, policyID);
+        if (result)
+        {
+            System.out.println("Policy with ID " + policyID + " was removed successfully from user " + userID);
+        }
+        else
+            System.out.println("Policy with ID " + policyID + " could not be removed from user " + userID);
     }
 }
