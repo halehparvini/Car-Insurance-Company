@@ -303,6 +303,8 @@ public class Test
         testGetTotalPaymentPerCity(cities);
         System.out.println("\u001B[32mExpected result: Payment report for each city will be displayed.\u001B[0m");
         testReportPaymentPerCity();
+        System.out.println("\u001B[32mExpected result: All distinct car models will be displayed. (Honda CR-V, Honda Civic Hatchback, A3 Sportback, A3 Sportback, E-Class)\u001B[0m");
+        testPopulateDistinctCarModels();
     }
 
     public void testPopulateDistinctCityNames ()
@@ -339,5 +341,14 @@ public class Test
         ArrayList <String> cities = insuranceCompany.populateDistinctCityNames();
         ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCity(cities);
         insuranceCompany.reportPaymentPerCity(cities, payments);
+    }
+
+    public void testPopulateDistinctCarModels ()
+    {
+        ArrayList <String> carModels = insuranceCompany.populateDistinctCarModels();
+        for (String model : carModels)
+        {
+            System.out.println(model);
+        }
     }
 }
