@@ -285,4 +285,23 @@ public class Test
         else
             System.out.println("No policy was found with this expiry date.");
     }
+
+    public void testStandardAndAdvanced ()
+    {
+        testPopulateDistinctCityNames();
+    }
+
+    public void testPopulateDistinctCityNames ()
+    {
+        ArrayList <String> cities = insuranceCompany.populateDistinctCityNames();
+        if (!cities.isEmpty())
+        {
+            for (String city : cities)
+            {
+                System.out.println(city);
+            }
+        }
+        else
+            System.out.println("No cities found!");
+    }
 }
