@@ -326,10 +326,10 @@ public class InsuranceCompany
 
     public void reportPaymentPerCity (ArrayList <String> cities, ArrayList <Double> payments)
     {
-        System.out.println("City Name \t \t Total Premium Payment");
+        System.out.printf("%-20s %s%n", "City Name", "Total Premium Payment");
         for (int i = 0; i < cities.size(); i++)
         {
-            System.out.println(cities.get(i) + "\t\t" + payments.get(i) + "$");
+            System.out.printf("%-20s %.2f$%n", cities.get(i), payments.get(i));
         }
     }
 
