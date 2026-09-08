@@ -288,7 +288,16 @@ public class Test
 
     public void testStandardAndAdvanced ()
     {
+        System.out.println("\u001B[32mExpected result: Melbourne, Miami, Dallas \u001B[0m");
         testPopulateDistinctCityNames();
+        System.out.println("\u001B[32mExpected Value for Melbourne: 6139.6$ \u001B[0m");
+        testGetTotalPaymentForCity("Melbourne");
+        System.out.println("\u001B[32mExpected Value for Miami: 3055.7799999999997$ \u001B[0m");
+        testGetTotalPaymentForCity("Miami");
+        System.out.println("\u001B[32mExpected Value for Dallas: 2719.58$ \u001B[0m");
+        testGetTotalPaymentForCity("Dallas");
+        System.out.println("\u001B[32mExpected Value for Isfahan: 0$ (becuase we don't have this city)\u001B[0m");
+        testGetTotalPaymentForCity("Isfahan");
     }
 
     public void testPopulateDistinctCityNames ()
@@ -303,5 +312,11 @@ public class Test
         }
         else
             System.out.println("No cities found!");
+    }
+
+    public void testGetTotalPaymentForCity (String city)
+    {
+        double totalPayment = insuranceCompany.getTotalPaymentForCity(city);
+        System.out.println("Total Payment for City " + city + " " + totalPayment);
     }
 }
