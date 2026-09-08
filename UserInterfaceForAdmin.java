@@ -86,7 +86,8 @@ public class UserInterfaceForAdmin
             switch (adminOption)
             {
                 case "1":
-                    // testCode(insuranceCompany);
+                    Test test = new Test();
+                    test.testCore();
                     pause();
                     break;
                 case "2":
