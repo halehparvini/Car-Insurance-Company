@@ -315,6 +315,9 @@ public class Test
         testRemoveUserByAdmin(1);
         System.out.println("\u001B[32mExpected result: User with ID 100 will not be found.\u001B[0m");
         testRemoveUserByAdmin(100);
+        System.out.println("\u001B[32mExpected result: Admin password will be changed successfully.\u001B[0m");
+        testChangeAdminPassword("newPassword");
+        
     }
 
     public void testPopulateDistinctCityNames ()
@@ -401,5 +404,16 @@ public class Test
         else
             System.out.println("User with ID " + userID + " was not found!");
 
+    }
+
+    public void testChangeAdminPassword (String newPass)
+    {
+        insuranceCompany.changeAdminPassword(newPass);
+        if (insuranceCompany.validateAdmin("admin_ti", newPass))
+        {
+            System.out.println("Admin password changed successfully!");
+        }
+        else
+            System.out.println("Admin password was not changed!");
     }
 }
