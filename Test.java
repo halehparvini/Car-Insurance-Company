@@ -298,6 +298,9 @@ public class Test
         testGetTotalPaymentForCity("Dallas");
         System.out.println("\u001B[32mExpected Value for Isfahan: 0$ (becuase we don't have this city)\u001B[0m");
         testGetTotalPaymentForCity("Isfahan");
+        ArrayList <String> cities = insuranceCompany.populateDistinctCityNames();
+        System.out.println("\u001B[32mExpected result: Total payment for each city will be printed.\u001B[0m");
+        testGetTotalPaymentPerCity(cities);
     }
 
     public void testPopulateDistinctCityNames ()
@@ -318,5 +321,14 @@ public class Test
     {
         double totalPayment = insuranceCompany.getTotalPaymentForCity(city);
         System.out.println("Total Payment for City " + city + " " + totalPayment);
+    }
+
+    public void testGetTotalPaymentPerCity (ArrayList <String> cities)
+    {
+        ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCity(cities);
+        for (int i = 0; i < cities.size(); i++)
+        {
+            System.out.println(cities.get(i) + " : " + payments.get(i));
+        }
     }
 }
