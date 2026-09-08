@@ -301,6 +301,8 @@ public class Test
         ArrayList <String> cities = insuranceCompany.populateDistinctCityNames();
         System.out.println("\u001B[32mExpected result: Total payment for each city will be printed.\u001B[0m");
         testGetTotalPaymentPerCity(cities);
+        System.out.println("\u001B[32mExpected result: Payment report for each city will be displayed.\u001B[0m");
+        testReportPaymentPerCity();
     }
 
     public void testPopulateDistinctCityNames ()
@@ -330,5 +332,12 @@ public class Test
         {
             System.out.println(cities.get(i) + " : " + payments.get(i));
         }
+    }
+
+    public void testReportPaymentPerCity ()
+    {
+        ArrayList <String> cities = insuranceCompany.populateDistinctCityNames();
+        ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCity(cities);
+        insuranceCompany.reportPaymentPerCity(cities, payments);
     }
 }
