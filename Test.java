@@ -309,7 +309,8 @@ public class Test
         testGetTotalCountPerCarModel();
         System.out.println("\u001B[32mExpected result: Total payment for each car model will be displayed.\u001B[0m");
         testGetTotalPaymentPerCarModels();
-
+        System.out.println("\u001B[32mExpected result: Payment report for each car model will be displayed.\u001B[0m");
+        testReportPaymentPerCarModel();
     }
 
     public void testPopulateDistinctCityNames ()
@@ -376,5 +377,13 @@ public class Test
             System.out.println(carModels.get(i) + ": " + totalPayments.get(i));
         }
         
+    }
+
+    public void testReportPaymentPerCarModel ()
+    {
+        ArrayList <String> carModels = insuranceCompany.populateDistinctCarModels();
+        ArrayList <Integer> counts = insuranceCompany.getTotalCountPerCarModel(carModels);
+        ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCarModel(carModels);
+        insuranceCompany.reportPaymentsPerCarModel(carModels, counts, payments);
     }
 }
