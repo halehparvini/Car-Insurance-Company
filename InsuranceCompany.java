@@ -202,9 +202,18 @@ public class InsuranceCompany
 
     public void carPriceRise (double risePercent)
     {
+        ArrayList<Car> cars = new ArrayList<Car>();
         for (User user : users)
         {
-            user.carPriceRiseAll(risePercent);
+            for (InsurancePolicy policy : user.getPolicies())
+            {
+                Car car = policy.getCar();
+                if (!cars.contains(car))
+                {
+                    car.priceRise(risePercent);
+                    cars.add(car);
+                }
+            }
         }
     }
 
