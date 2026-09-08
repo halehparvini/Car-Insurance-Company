@@ -305,6 +305,8 @@ public class Test
         testReportPaymentPerCity();
         System.out.println("\u001B[32mExpected result: All distinct car models will be displayed. (Honda CR-V, Honda Civic Hatchback, A3 Sportback, A3 Sportback, E-Class)\u001B[0m");
         testPopulateDistinctCarModels();
+        System.out.println("\u001B[32mExpected result: Total count of each car model will be displayed.\u001B[0m");
+        testGetTotalCountPerCarModel();
     }
 
     public void testPopulateDistinctCityNames ()
@@ -349,6 +351,16 @@ public class Test
         for (String model : carModels)
         {
             System.out.println(model);
+        }
+    }
+
+    public void testGetTotalCountPerCarModel ()
+    {
+        ArrayList <String> carModels = insuranceCompany.populateDistinctCarModels();
+        ArrayList <Integer> totalCounts = insuranceCompany.getTotalCountPerCarModel(carModels);
+        for  (int i = 0; i < carModels.size(); i++)
+        {
+            System.out.println(carModels.get(i) + " : " + totalCounts.get(i));
         }
     }
 }
