@@ -86,8 +86,7 @@ public class UserInterfaceForAdmin
             switch (adminOption)
             {
                 case "1":
-                    Test test = new Test();
-                    test.testCore();
+                    testMenu();
                     pause();
                     break;
                 case "2":
@@ -440,5 +439,38 @@ public class UserInterfaceForAdmin
         ArrayList <Integer> counts = insuranceCompany.getTotalCountPerCarModel(carModels);
         ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCarModel(carModels);
         insuranceCompany.reportPaymentsPerCarModel(carModels, counts, payments);
+    }
+
+    public void testMenu ()
+    {
+        Test test = new Test();
+        String choice = "";
+        while (!choice.equals("3"))
+        {
+            displayTestMenu();
+            choice = scanner.nextLine();
+            switch (choice)
+            {
+                case "1":
+                    test.testCore();
+                    break;
+                case "2":
+                    test.testStandardAndAdvanced();
+                    break;
+                case "3":
+                    break;
+                default:
+                    System.out.println("Invalid option. Try again!");
+                    break;
+            }
+        }
+    }
+    
+    public void displayTestMenu ()
+    {
+        System.out.println("1. Show Test Core");
+        System.out.println("2. Show Test Standard/Advanced");
+        System.out.println("3. Return to Admin Menu");
+        System.out.println("Enter your choice 1 to 3");
     }
 }
