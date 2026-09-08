@@ -7,7 +7,7 @@ public class User
     private String name; //the name of the account holder
     private int userID; //the user ID/number
     private Address address;
-    private int count;
+    private static int count;
     ArrayList <InsurancePolicy> policies; //list of all the Insurance Policies this user hold
 
     public User (String name, Address address)
@@ -17,7 +17,7 @@ public class User
         this.address = address;
         policies = new ArrayList<InsurancePolicy>();
     }
-
+    
     public String getName ()
     {
         return name;
@@ -31,6 +31,11 @@ public class User
     public Address getAddress ()
     {
         return address;
+    }
+
+    public ArrayList <InsurancePolicy> getPolicies ()
+    {
+        return policies;
     }
 
     public void setAddress (Address address)
@@ -61,7 +66,7 @@ public class User
 
     public void print ()
     {
-        System.out.println("User Name: " + name + " ID: " + userID + " Address: " + address);
+        System.out.println("\u001B[34mUser Name: " + name + " ID: " + userID + " Address: " + address + "\u001B[0m");
         // for (InsurancePolicy policy : policies)
         // {
         //     policy.print();
