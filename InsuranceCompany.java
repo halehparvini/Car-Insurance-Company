@@ -387,7 +387,7 @@ public class InsuranceCompany
             int count = counts.get(i);
             double payment = premiumPayments.get(i);
             double average = payment / count;
-            System.out.printf("%-25s %-25.2f$ %-25.2f$%n", model, payment, average);
+            System.out.printf("%-25s $%-25.2f $%-25.2f%n", model, payment, average);
         }
     }
 
