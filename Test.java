@@ -311,6 +311,10 @@ public class Test
         testGetTotalPaymentPerCarModels();
         System.out.println("\u001B[32mExpected result: Payment report for each car model will be displayed.\u001B[0m");
         testReportPaymentPerCarModel();
+        System.out.println("\u001B[32mExpected result: User with ID 1 will be removed successfully.\u001B[0m");
+        testRemoveUserByAdmin(1);
+        System.out.println("\u001B[32mExpected result: User with ID 100 will not be found.\u001B[0m");
+        testRemoveUserByAdmin(100);
     }
 
     public void testPopulateDistinctCityNames ()
@@ -385,5 +389,17 @@ public class Test
         ArrayList <Integer> counts = insuranceCompany.getTotalCountPerCarModel(carModels);
         ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCarModel(carModels);
         insuranceCompany.reportPaymentsPerCarModel(carModels, counts, payments);
+    }
+
+    public void testRemoveUserByAdmin (int userID)
+    {
+        boolean result = insuranceCompany.removeUserByAdmin(userID);
+        if (result)
+        {
+            System.out.println("User with ID " + userID + " was removed successfully!");
+        }
+        else
+            System.out.println("User with ID " + userID + " was not found!");
+
     }
 }
