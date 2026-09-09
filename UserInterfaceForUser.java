@@ -216,7 +216,7 @@ public class UserInterfaceForUser {
         int numberOfClaims = scanner.nextInt();
         scanner.nextLine();
         MyDate expiryDate = enterExpiryDate();
-        System.out.println("- Comment: ");
+        System.out.print("- Comment: ");
         String comment = scanner.nextLine();
         if (user.createThirdPartyPolicy(policyHolderName, policyID, car, numberOfClaims, expiryDate, comment))
         {
