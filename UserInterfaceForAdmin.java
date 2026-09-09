@@ -166,21 +166,21 @@ public class UserInterfaceForAdmin
         System.out.println("14. Log Out");
     }  
 
-    public void createUserByAdmin ()
+    public void createUserByAdmin()
     {
         System.out.println("Create User");
         System.out.println("Please enter username: ");
         String username = scanner.nextLine();
-        System.out.println("Please enter user ID: ");
-        int userID = scanner.nextInt();
-        scanner.nextLine();
         Address address = enterAddress();
-        if (insuranceCompany.addUser(username, userID, address))
-            {
-                System.out.println("The user has been added successfully!");
-            }
-            else
-                System.out.println("The user cannot be added as the ID already exists!");
+        if (insuranceCompany.addUser(username, address))
+        {
+            System.out.println("The user has been added successfully!");
+            System.out.println("Created User ID: " + insuranceCompany.getUsers().get(insuranceCompany.getUsers().size() - 1).getUserID());
+        }
+        else
+        {
+            System.out.println("The user cannot be added!");
+        }
     }
 
     public Address enterAddress ()
