@@ -7,7 +7,10 @@ public class Program
     static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args)
     {
-    
+        InsuranceCompany insuranceCompany = new InsuranceCompany("TrustInsure", "admin_ti", "admin@1234", 100);
+        UserInterfaceForUser userUI = new UserInterfaceForUser(insuranceCompany);
+        UserInterfaceForAdmin adminUI = new UserInterfaceForAdmin(insuranceCompany, userUI);
+        adminUI.mainMenu();
     }
     
         // lab 3
