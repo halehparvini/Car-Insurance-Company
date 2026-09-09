@@ -7,12 +7,10 @@ public class UserInterfaceForUser {
 
     private User user;
     private InsuranceCompany insuranceCompany;
-    private InsurancePolicy policy;
     Scanner scanner = new Scanner(System.in);
-    public UserInterfaceForUser (InsuranceCompany insuranceCompany, InsurancePolicy policy)
+    public UserInterfaceForUser (InsuranceCompany insuranceCompany)
     {
         this.insuranceCompany = insuranceCompany;
-        this.policy = policy;
     }
 
     public User loginUser ()
@@ -55,42 +53,30 @@ public class UserInterfaceForUser {
                     pause();
                     break;
                 case "4":
-                    printAllPoliciesByUser(insuranceCompany.getFlatRate());
-                    pause();
-                    break;
-                case "5":
                     calcTotalPremiumsByUser(insuranceCompany.getFlatRate());
                     pause();
                     break;
-                case "6":
+                case "5":
                     filterByCarModelByUser();
                     pause();
                     break;
-                case "7":
+                case "6":
                     filterByExpiryDateByUser();
                     pause();
                     break;
-                case "8":
+                case "7":
                     changeAddressByUser();
                     pause();
                     break;
-                case "9":
-                    createThirdPartyPolicyByUser();
-                    pause();
-                    break;
-                case "10":
-                    createComprehensivePolicyByUser();
-                    pause();
-                    break;
-                case "11":
+                case "8":
                     reportPaymentPerCarModelByUser();
                     pause();
                     break;
-                case "12":
+                case "9":
                     removePolicyByUser();
                     pause();
                     break;
-                case "13":
+                case "10":
                     break;
                 default:
                     System.out.println("Invalid option!");
@@ -104,26 +90,34 @@ public class UserInterfaceForUser {
         System.out.println("1. Add a Policy");
         System.out.println("2. Find a Policy");
         System.out.println("3. Print Policy Information");
-        System.out.println("4. Print All Policies");
-        System.out.println("5. Calculate Total Premiums");
-        System.out.println("6. Filter By Car Model");
-        System.out.println("7. Filter By Expiry Date");
-        System.out.println("8. Change Address");
-        System.out.println("9. Create Third Party Policy");
-        System.out.println("10. Create Comprehensive Policy");
-        System.out.println("11. Payment Report Per Car Model");
-        System.out.println("12. Remove Policy");
-        System.out.println("13. Log Out");
+        System.out.println("4. Calculate Total Premiums");
+        System.out.println("5. Filter By Car Model");
+        System.out.println("6. Filter By Expiry Date");
+        System.out.println("7. Change Address");
+        System.out.println("8. Payment Report Per Car Model");
+        System.out.println("9. Remove Policy");
+        System.out.println("10. Log Out");
     }
 
     public void addPolicyByUser ()
     {
-        if (user.addPolicy(policy))
+        System.out.println("Choose Policy Type:");
+        System.out.println("1. Third Party");
+        System.out.println("2. Comprehensive");
+        System.out.print("Enter option: ");
+        String option = scanner.nextLine();
+        switch (option)
         {
-            System.out.println("The Policy has been added successfuly!");
+            case "1":
+                createThirdPartyPolicyByUser();
+                break;
+            case "2":
+                createComprehensivePolicyByUser();
+                break;
+            default:
+                System.out.println("Invalid option!");
+                break;
         }
-        else
-        System.out.println("The Policy can not be added as the ID already exists!");
     }
 
     public void findPolicyByUser ()
@@ -141,24 +135,30 @@ public class UserInterfaceForUser {
 
     public void printPolicyInformationByUser ()
     {
-        user.toString();
-    }
-
-    public void printAllPoliciesByUser (int flatRate)
-    {
-        user.printPolicies(flatRate);
+        System.out.println(user);
     }
     
     public void calcTotalPremiumsByUser (int flatRate)
     {
-        user.calcTotalPremiums(flatRate);
+        double total = user.calcTotalPremiums(flatRate);
+        System.out.println("Total Premiums: " + total);
     }
 
     public void filterByCarModelByUser ()
     {
         System.out.print("Enter Car Model to filter: ");
         String carModel = scanner.nextLine();
-        user.filterByCarModel(carModel);
+        ArrayList <InsurancePolicy> policies = user.filterByCarModel(carModel);
+        if (!policies.isEmpty())
+        {
+            for (InsurancePolicy policy : policies)
+            {
+                System.out.println(policy);
+            }
+        }
+        else
+            System.out.println("No policy was found");
+        
     }
 
     public void filterByExpiryDateByUser ()
@@ -169,23 +169,33 @@ public class UserInterfaceForUser {
         System.out.print("- Month: ");
         int month = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("- Day: ");
+        System.out.print("- Day: ");
         int day = scanner.nextInt();
         scanner.nextLine();
         MyDate expiryDate = new MyDate(year, month, day);
-        user.filterByExpiryDate(expiryDate);
+        ArrayList <InsurancePolicy> policies = user.filterByExpiryDate(expiryDate);
+        if(!policies.isEmpty())
+        {
+            for (InsurancePolicy policy : policies)
+            {
+                System.out.println(policy);
+            }
+        }
+        else
+            System.out.println("No Policy was found!");
+        
     }
 
     public void changeAddressByUser ()
     {
-        System.out.println("- Street Number: ");
+        System.out.print("- Street Number: ");
         int streetNum = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("- Street: ");
+        System.out.print("- Street: ");
         String street = scanner.nextLine();
-        System.out.println("- Suburb: ");
+        System.out.print("- Suburb: ");
         String suburb = scanner.nextLine();
-        System.out.println("- City: ");
+        System.out.print("- City: ");
         String city = scanner.nextLine();
         Address newAddress = new Address(streetNum, street, suburb, city);
         user.setAddress(newAddress);
@@ -310,7 +320,7 @@ public class UserInterfaceForUser {
         scanner.nextLine();
         if (user.removePolicy(policyID))
         {
-            System.out.println("Policy with ID: " + policyID + " has been removed successfully!");
+            System.out.println("Policy with ID " + policyID + " has been removed successfully!");
         }
         else
         {
