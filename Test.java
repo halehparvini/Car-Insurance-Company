@@ -151,7 +151,7 @@ public class Test
         System.out.println("\u001B[33mExpected result: No car will be found as user 1 dose not have that car model. \u001B[0m");
         testFilterByCarModel(1, "Peykan");
         MyDate expiryDate1 = new MyDate(2025, 12, 3);
-        System.out.println("\u001B[33mExpected result: Based on the date " + expiryDate1 + ", 3 insurance policies were found for user 1 that expired before that date. \u001B[0m");
+        System.out.println("\u001B[33mExpected result: Based on the date " + expiryDate1 + ", 3 insurance policies were found for user 2 that expired before that date. \u001B[0m");
         testFilterByExpiryDate(2, expiryDate1);
         System.out.println("\u001B[33mExpected result: All policies with car model Honda CR-V will be printed.\u001B[0m");
         testFilterByCarModel("Honda CR-V");
@@ -160,49 +160,37 @@ public class Test
         System.out.println("\u001B[33mExpected result: All policies with the expiry date before " + expiryDate1 + " will be printed.\u001B[0m");
         testFilterByExpiryDate(expiryDate1);
         System.out.println("\u001B[33mExpected result: No policy should be found with this expiry date.\u001B[0m");
-        testFilterByExpiryDate(new MyDate(1, 1, 2050));
+        testFilterByExpiryDate(new MyDate(2010, 1, 1));
     }
 
     public void testValidateAdmin (String adminUsername, String adminPassword)
     {
         if (insuranceCompany.validateAdmin(adminUsername, adminPassword))
         {
-            System.out.println("\u001B[32mPASSED\u001B[0m");
             System.out.println("Seccussful login!");
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("Invalid username or password!");
-        }
     }
 
     public void testAddUser (User user)
     {
         if (insuranceCompany.addUser(user))
         {
-            System.out.println("\u001B[32mPASSED\u001B[0m");
             System.out.println("User has been added succussfully!");
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("User cannot be added as the userID is invalid or duplicate!");
-        }
     }
 
     public void testAddUser (String name, int userID, Address address)
     {
         if (insuranceCompany.addUser(name, address))
         {
-            System.out.println("\u001B[32mPASSED\u001B[0m");
             System.out.println("User has been added succussfully!");
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("User cannot be added as the userID is invalid or duplicate!");
-        }
     }
 
     public void testFindUser (int userID)
@@ -210,28 +198,20 @@ public class Test
         User user = insuranceCompany.findUser(userID);
         if (user != null)
         {
-            System.out.println("\u001B[32mPASSED\u001B[0m");
             System.out.println("User has been found successfully!");
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("User connot be found as the userID is invalid");
-        }
     }
 
     public void testAddPolicy (int userID, InsurancePolicy policy)
     {
         if (insuranceCompany.addPolicy(userID, policy))
         {
-            System.out.println("\u001B[32mPASSED\u001B[0m");
             System.out.println("Policy has been added successfully!");
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("Policy cannot be added as the userID is invalid or policyID is duplicate!");
-        }
     }
 
     public void testFindPolicy (int userID, int policyID)
@@ -239,42 +219,30 @@ public class Test
         InsurancePolicy policy = insuranceCompany.findPolicy(userID, policyID);
         if (policy != null)
         {
-            System.out.println("\u001B[32mPASSED\u001B[0m");
             System.out.println("Policy has been found succussfully!");
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("Policy cannot be found as the userID or policyID is invalid!");
-        }
     }
 
     public void testCreateThirdPartyPolicy (int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, String comments)
     {
         if (insuranceCompany.createThirdPartyPolicy(userID, policyHolderName, id, car, numberOfClaims, expiryDate, comments))
         {
-            System.out.println("\u001B[32mPASSED\u001B[0m");
             System.out.println("Third Party Policy has been created successfully!");
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("Third Party Policy cannot be created ad the userID is invalid or policyID is duplicate!");
-        }
     }
 
     public void testCreateComprehensivePolicy (int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, int driverAge, int level)
     {
         if (insuranceCompany.createComprehensivePolicy(userID, policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level))
         {
-            System.out.println("\u001B[32mPASSED\u001B[0m");
             System.out.println("Comprehensive Policy has been created successfully!");
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("Comprehensive Policy cannot be created as the userID is invalid or policyID is duplicate!");
-        }
     }
 
     public void testFilterByCarModel (int userID, String carModel)
@@ -284,15 +252,12 @@ public class Test
         {
             for (InsurancePolicy policy : filteredPoliciesByCarModel)
             {
-                System.out.println("\u001B[32mPASSED\u001B[0m");
                 System.out.println(policy);
             }
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("No policy was found for this user with this car model.");
-        }
+
     }
 
     public void testFilterByExpiryDate (int userID, MyDate date)
@@ -302,15 +267,11 @@ public class Test
         {
             for (InsurancePolicy policy : filteredPoliciesByExpiryDate)
             {
-                System.out.println("\u001B[32mPASSED\u001B[0m");
                 System.out.println(policy);
             }
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("No policy was found for this user with this expiry date.");
-        }
     }
 
     public void testFilterByCarModel (String carModel)
@@ -320,15 +281,11 @@ public class Test
         {
             for (InsurancePolicy policy : result)
             {
-                System.out.println("\u001B[32mPASSED\u001B[0m");
                 System.out.println(policy);
             }
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("No policy was found with this car model.");
-        }
     
     }
 
@@ -339,15 +296,11 @@ public class Test
         {
             for (InsurancePolicy policy : result)
             {
-                System.out.println("\u001B[32mPASSED\u001B[0m");
                 System.out.println(policy);
             }
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("No policy was found with this expiry date.");
-        }
     }
 
     public void testStandardAndAdvanced ()
@@ -394,20 +347,15 @@ public class Test
         {
             for (String city : cities)
             {
-                System.out.println("\u001B[32mPASSED\u001B[0m");
                 System.out.println(city);
             }
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("No cities found!");
-        }
     }
 
     public void testGetTotalPaymentForCity (String city)
     {
-        System.out.println("\u001B[32mPASSED\u001B[0m");
         double totalPayment = insuranceCompany.getTotalPaymentForCity(city);
         System.out.println("Total Payment for City " + city + " " + totalPayment);
     }
@@ -471,14 +419,10 @@ public class Test
         boolean result = insuranceCompany.removeUserByAdmin(userID);
         if (result)
         {
-            System.out.println("\u001B[32mPASSED\u001B[0m");
             System.out.println("User with ID " + userID + " was removed successfully!");
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("User with ID " + userID + " was not found!");
-        }
 
     }
 
@@ -487,14 +431,10 @@ public class Test
         insuranceCompany.changeAdminPassword(newPass);
         if (insuranceCompany.validateAdmin("admin_ti", newPass))
         {
-            System.out.println("\u001B[32mPASSED\u001B[0m");
             System.out.println("Admin password changed successfully!");
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("Admin password was not changed!");
-        }
     }
 
     public void testRemovePolicy (int userID, int policyID)
@@ -502,13 +442,9 @@ public class Test
         boolean result = insuranceCompany.removePolicy(userID, policyID);
         if (result)
         {
-            System.out.println("\u001B[32mPASSED\u001B[0m");
             System.out.println("Policy with ID " + policyID + " was removed successfully from user " + userID);
         }
         else
-        {
-            System.out.println("\u001B[31mFAILED\u001B[0m");
             System.out.println("Policy with ID " + policyID + " could not be removed from user " + userID);
-        }
     }
 }
