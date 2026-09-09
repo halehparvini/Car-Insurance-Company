@@ -71,7 +71,7 @@ public class InsuranceCompany
             return false;
     }
 
-    public Boolean addUser (String name, int userID, Address address)
+    public Boolean addUser (String name, Address address)
     {
         User user = new User(name, address);
         return addUser(user);
