@@ -447,4 +447,92 @@ public class Test
         else
             System.out.println("Policy with ID " + policyID + " could not be removed from user " + userID);
     }
+
+    // lab 4
+
+    public void copyPolicies () throws CloneNotSupportedException
+    {
+        User bahar = new User("Bahar", new Address(19, "King", "downtown", "London") );
+        bahar.addPolicy(cp1);
+        bahar.addPolicy(tpp3);
+        ArrayList <InsurancePolicy> deepCopy = bahar.deepCopyPolicies();
+        ArrayList <InsurancePolicy> shallowCopy = bahar.shallowCopyPolicies();
+
+        bahar.setCity("New York");
+
+        ThirdPartyPolicy tpp = new ThirdPartyPolicy("Justin", 10, new Car("Mazda 3", CarType.HATCH, 2020, 35000), 0, new MyDate(2027, 1, 1), "No previous claims!");
+        bahar.addPolicy(tpp);
+
+        ArrayList <InsurancePolicy> sortedPolicies = bahar.sortPoliciesByDate();
+
+        System.out.println("\nShallow Copy");
+        for (InsurancePolicy policy : shallowCopy)
+        {
+            System.out.println(policy);
+        }
+        System.out.println("\nDeep Copy");
+        for (InsurancePolicy policy : deepCopy)
+        {
+            System.out.println(policy);
+        }
+        System.out.println("\nUser's Policies (sorted by date and contains one new policy)");
+        for (InsurancePolicy policy : sortedPolicies)
+        {
+            System.out.println(policy);
+        }
+    }
+
+    public void copyUsers () throws CloneNotSupportedException
+    {
+        InsuranceCompany company = new InsuranceCompany("TestCompany", "admin", "1234",100);
+        company.addUser(user1);
+        company.addUser(user2);
+        company.addUser(user3);
+        company.addUser(user4);
+        company.addUser(user5);
+        company.addUser(user6);
+        ArrayList <User> deepCopyUsers = company.deepCopyUsers();
+        ArrayList <User> shallowCopyUsers = company.shallowCopyUsers();
+
+        company.addUser("Hailey", new Address(12, "Garden st", "Downtown", "Boston"));
+
+        ArrayList <User> sortedUsers = company.sortUsers(); // sorted by city
+
+        System.out.println("\nBefore changing the city of user with ID 8");
+        System.out.println("\nShallow Copy");
+        for (User user : shallowCopyUsers)
+        {
+            System.out.println(user);
+        }
+        System.out.println("\nDeep Copy");
+        for (User user : deepCopyUsers)
+        {
+            System.out.println(user);
+        }
+        System.out.println("\nCompany's Users (sorted by city and contains one new user.)");
+        for (User user : sortedUsers)
+        {
+            System.out.println(user);
+        }
+
+        System.out.println("\nAfter changing the city of user with ID 8");
+        user1.setCity("New York");
+        System.out.println("\nShallow Copy");
+        for (User user : shallowCopyUsers)
+        {
+            System.out.println(user);
+        }
+        System.out.println("\nDeep Copy");
+        for (User user : deepCopyUsers)
+        {
+            System.out.println(user);
+        }
+        System.out.println("\nCompany's Users (sorted by city and contains one new user.)");
+        for (User user : sortedUsers)
+        {
+            System.out.println(user);
+        }
+
+
+    }
 }
