@@ -127,4 +127,24 @@ public abstract class InsurancePolicy implements Cloneable
         policy.expiryDate = expiryDate.clone();
         return policy;
     }
+
+    public static ArrayList <InsurancePolicy> shallowCopy (ArrayList <InsurancePolicy> policies)
+    {
+        ArrayList <InsurancePolicy> shallowCopy = new ArrayList<>();
+        for (InsurancePolicy policy : policies)
+        {
+            shallowCopy.add(policy);
+        }
+        return shallowCopy;
+    }
+
+    public static ArrayList <InsurancePolicy> deepCopy (ArrayList <InsurancePolicy> policies) throws CloneNotSupportedException
+    {
+        ArrayList <InsurancePolicy> deepCopy = new ArrayList<>();
+        for (InsurancePolicy policy : policies)
+        {
+            deepCopy.add(policy.clone());
+        }
+        return deepCopy;
+    }
 }
