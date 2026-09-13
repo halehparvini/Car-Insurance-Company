@@ -1,6 +1,6 @@
 package WEEK1;
 
-public class Address
+public class Address implements Cloneable
 {
     private int streetNum;
     private String street;
@@ -68,5 +68,10 @@ public class Address
         street = address.street;
         suburb = address.suburb;
         city = address.city;
+    }
+
+    public Address clone () throws CloneNotSupportedException
+    {
+        return (Address)super.clone();
     }
 }
