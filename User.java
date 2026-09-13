@@ -267,5 +267,25 @@ public class User implements Cloneable
             user.policies.add(policy.clone());
         }
         return user;
-    } 
+    }
+
+    public static ArrayList <User> shallowCopy (ArrayList <User> users)
+    {
+        ArrayList <User> shallowCopy = new ArrayList<>();
+        for (User user : users)
+        {
+            shallowCopy.add(user);
+        }
+        return shallowCopy;
+    }
+
+    public static ArrayList <User> deepCopy (ArrayList <User> users) throws CloneNotSupportedException
+    {
+        ArrayList <User> deepCopy = new ArrayList<>();
+        for (User user : users)
+        {
+            deepCopy.add(user.clone());
+        }
+        return deepCopy;
+    }
 }
