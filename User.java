@@ -2,7 +2,7 @@ package WEEK1;
 
 import java.util.ArrayList;
 
-public class User implements Cloneable
+public class User implements Cloneable, Comparable <User>
 {
     private String name; //the name of the account holder
     private int userID; //the user ID/number
@@ -307,5 +307,11 @@ public class User implements Cloneable
             shallowCopy.add(policy);
         }
         return shallowCopy;
+    }
+
+    @Override 
+    public int compareTo (User other)
+    {
+        return address.compareTo(other.address);
     }
 }
