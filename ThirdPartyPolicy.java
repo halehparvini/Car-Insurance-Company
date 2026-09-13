@@ -28,4 +28,11 @@ public class ThirdPartyPolicy extends InsurancePolicy
     {
         return car.getPrice()/100 + numberOfClaims * 200 + flatRate;
     }
+
+    // lab 4 
+    public ThirdPartyPolicy (ThirdPartyPolicy tp)
+    {
+        super(tp);
+        comments = tp.comments;
+    }
 }
