@@ -109,4 +109,14 @@ public abstract class InsurancePolicy
         }
         return filteredExpiredPolicies;
     }
+
+    // lab 4
+    public InsurancePolicy (InsurancePolicy ip)
+    {
+        policyHolderName = ip.policyHolderName;
+        id = ip.id;
+        car = new Car(ip.car);
+        numberOfClaims = ip.numberOfClaims;
+        expiryDate = new MyDate(ip.expiryDate);
+    }
 }
