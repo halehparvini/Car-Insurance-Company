@@ -1,6 +1,7 @@
 package WEEK1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class User implements Cloneable, Comparable <User>
 {
@@ -328,5 +329,16 @@ public class User implements Cloneable, Comparable <User>
             otherTotal += policy.calcPayment(100);
         }
         return Double.compare(total, otherTotal);
+    }
+
+    public ArrayList <InsurancePolicy> sortPoliciesByDate ()
+    {
+        ArrayList <InsurancePolicy> sorted = new ArrayList<>();
+        for (InsurancePolicy policy : policies)
+        {
+            sorted.add(policy); 
+        }
+        Collections.sort(sorted);
+        return sorted;
     }
 }
