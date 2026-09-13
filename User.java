@@ -314,4 +314,19 @@ public class User implements Cloneable, Comparable <User>
     {
         return address.compareTo(other.address);
     }
+
+    public int compareTo1 (User other)
+    {
+        double total = 0;
+        for (InsurancePolicy policy : policies)
+        {
+            total += policy.calcPayment(100);
+        }
+        double otherTotal = 0;
+        for (InsurancePolicy policy : other.policies)
+        {
+            otherTotal += policy.calcPayment(100);
+        }
+        return Double.compare(total, otherTotal);
+    }
 }
