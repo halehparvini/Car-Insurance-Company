@@ -60,4 +60,13 @@ public class Address
     {
         return streetNum + " " + street + ", " + suburb + ", " + city;
     }
+
+    // lab 4
+    public Address (Address address)
+    {
+        streetNum = address.streetNum;
+        street = address.street;
+        suburb = address.suburb;
+        city = address.city;
+    }
 }
