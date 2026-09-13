@@ -1,6 +1,7 @@
 package WEEK1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class InsuranceCompany implements Cloneable
 {
@@ -473,5 +474,16 @@ public class InsuranceCompany implements Cloneable
             shallowCopy.add(user);
         }
         return shallowCopy;
+    }
+
+    public ArrayList <User> sortUsers ()
+    {
+        ArrayList <User> sorted = new ArrayList<>();
+        for (User user : users)
+        {
+            sorted.add(user);
+        }
+        Collections.sort(sorted);
+        return sorted;
     }
 }
