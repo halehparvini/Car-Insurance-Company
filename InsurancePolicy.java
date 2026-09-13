@@ -2,7 +2,7 @@ package WEEK1;
 
 import java.util.ArrayList;
 
-public abstract class InsurancePolicy
+public abstract class InsurancePolicy implements Cloneable
 {
     protected String policyHolderName;
     protected int id;
@@ -118,5 +118,13 @@ public abstract class InsurancePolicy
         car = new Car(ip.car);
         numberOfClaims = ip.numberOfClaims;
         expiryDate = new MyDate(ip.expiryDate);
+    }
+
+    public InsurancePolicy clone () throws CloneNotSupportedException
+    {
+        InsurancePolicy policy = (InsurancePolicy)super.clone();
+        policy.car = car.clone();
+        policy.expiryDate = expiryDate.clone();
+        return policy;
     }
 }
