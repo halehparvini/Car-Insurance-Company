@@ -2,7 +2,7 @@ package WEEK1;
 
 import java.util.ArrayList;
 
-public class InsuranceCompany
+public class InsuranceCompany implements Cloneable
 {
     private String name;
     private ArrayList <User> users;
@@ -437,5 +437,21 @@ public class InsuranceCompany
         {
             updatedCars.add(new Car(car));
         }
+    }
+
+    public InsuranceCompany clone () throws CloneNotSupportedException
+    {
+        InsuranceCompany insuranceCompany = (InsuranceCompany)super.clone();
+        insuranceCompany.users = new ArrayList<>();
+        for (User user : users)
+        {
+            insuranceCompany.users.add(user.clone());
+        }
+        insuranceCompany.updatedCars = new ArrayList<>();
+        for (Car car : updatedCars)
+        {
+            insuranceCompany.updatedCars.add(car.clone());
+        }
+        return insuranceCompany;
     }
 }
