@@ -1,6 +1,6 @@
 package WEEK1;
 
-public class MyDate
+public class MyDate implements Cloneable
 {
     private int year;
     private int month;
@@ -87,5 +87,10 @@ public class MyDate
         year = myDate.year;
         month = myDate.month;
         day = myDate.day;
+    }
+
+    public MyDate clone () throws CloneNotSupportedException
+    {
+        return (MyDate)super.clone();
     }
 }
