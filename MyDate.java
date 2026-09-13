@@ -1,6 +1,6 @@
 package WEEK1;
 
-public class MyDate implements Cloneable
+public class MyDate implements Cloneable, Comparable <MyDate>
 {
     private int year;
     private int month;
@@ -92,5 +92,16 @@ public class MyDate implements Cloneable
     public MyDate clone () throws CloneNotSupportedException
     {
         return (MyDate)super.clone();
+    }
+
+    @Override 
+    public int compareTo (MyDate other)
+    {
+        if (year != other.year)
+            return Integer.compare(year, other.year);
+        if (month != other.month)
+            return Integer.compare(month, other.month);
+        
+        return Integer.compare(day, other.day);
     }
 }
