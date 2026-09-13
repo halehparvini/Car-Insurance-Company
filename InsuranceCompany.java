@@ -419,4 +419,23 @@ public class InsuranceCompany
         }
         return false;
     }
+
+    // lab 4
+    public InsuranceCompany (InsuranceCompany insuranceCompany)
+    {
+        name = insuranceCompany.name;
+        users = new ArrayList<>();
+        for (User user : insuranceCompany.users)
+        {
+            users.add(new User(user));
+        }
+        adminUsername = insuranceCompany.adminUsername;
+        adminPassword = insuranceCompany.adminPassword;
+        flatRate = insuranceCompany.flatRate;
+        updatedCars = new ArrayList<>();
+        for (Car car : insuranceCompany.updatedCars)
+        {
+            updatedCars.add(new Car(car));
+        }
+    }
 }
