@@ -40,4 +40,13 @@ public class Car
     {
         return model + " Type: " + type + " Manufacturing Year: " + manufacturingYear + " Price: " + price + "$";
     }
+
+    // lab 4
+    public Car (Car car)
+    {
+        model = car.model;
+        type = car.type;
+        manufacturingYear = car.manufacturingYear;
+        price = car.price;
+    }
 }
