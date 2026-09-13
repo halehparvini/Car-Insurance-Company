@@ -34,4 +34,12 @@ public class ComprehensivePolicy extends InsurancePolicy
         }
         return payment;
     }
+
+    // lab 4
+    public ComprehensivePolicy (ComprehensivePolicy cp)
+    {
+        super(cp);
+        driverAge = cp.driverAge;
+        level = cp.level;
+    }
 }
