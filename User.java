@@ -2,7 +2,7 @@ package WEEK1;
 
 import java.util.ArrayList;
 
-public class User
+public class User implements Cloneable
 {
     private String name; //the name of the account holder
     private int userID; //the user ID/number
@@ -255,5 +255,17 @@ public class User
                 policies.add(new ComprehensivePolicy((ComprehensivePolicy) policy));
             }
         }
+    }
+    
+    public User clone () throws CloneNotSupportedException
+    {
+        User user = (User)super.clone();
+        user.address = address.clone();
+        user.policies = new ArrayList<>();
+        for (InsurancePolicy policy : policies)
+        {
+            user.policies.add(policy.clone());
+        }
+        return user;
     } 
 }
