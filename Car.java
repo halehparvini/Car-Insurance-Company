@@ -1,6 +1,6 @@
 package WEEK1;
 
-public class Car
+public class Car implements Cloneable
 {
     private String model;
     private CarType type;
@@ -48,5 +48,10 @@ public class Car
         type = car.type;
         manufacturingYear = car.manufacturingYear;
         price = car.price;
+    }
+
+    public Car clone () throws CloneNotSupportedException
+    {
+        return (Car)super.clone();
     }
 }
