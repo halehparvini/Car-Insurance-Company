@@ -1,6 +1,6 @@
 package WEEK1;
 
-public class Address implements Cloneable
+public class Address implements Cloneable, Comparable <Address>
 {
     private int streetNum;
     private String street;
@@ -73,5 +73,11 @@ public class Address implements Cloneable
     public Address clone () throws CloneNotSupportedException
     {
         return (Address)super.clone();
+    }
+
+    @Override 
+    public int compareTo (Address other)
+    {
+        return city.compareTo(other.city);
     }
 }
