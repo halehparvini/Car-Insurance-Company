@@ -80,4 +80,12 @@ public class MyDate
         else
             return false;
     }
+
+    // lab 4
+    public  MyDate (MyDate myDate)
+    {
+        year = myDate.year;
+        month = myDate.month;
+        day = myDate.day;
+    }
 }
