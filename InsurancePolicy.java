@@ -2,7 +2,7 @@ package WEEK1;
 
 import java.util.ArrayList;
 
-public abstract class InsurancePolicy implements Cloneable
+public abstract class InsurancePolicy implements Cloneable, Comparable <InsurancePolicy> 
 {
     protected String policyHolderName;
     protected int id;
@@ -146,5 +146,11 @@ public abstract class InsurancePolicy implements Cloneable
             deepCopy.add(policy.clone());
         }
         return deepCopy;
+    }
+
+    @Override 
+    public int compareTo (InsurancePolicy other)
+    {
+        return expiryDate.compareTo(other.expiryDate);
     }
 }
