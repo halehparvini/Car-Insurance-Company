@@ -449,21 +449,20 @@ public class Test
     }
 
     // lab 4
-
     public void copyPolicies () throws CloneNotSupportedException
     {
-        User bahar = new User("Bahar", new Address(19, "King", "downtown", "London") );
-        bahar.addPolicy(cp1);
-        bahar.addPolicy(tpp3);
-        ArrayList <InsurancePolicy> deepCopy = bahar.deepCopyPolicies();
-        ArrayList <InsurancePolicy> shallowCopy = bahar.shallowCopyPolicies();
+        User sina = new User("Sina", new Address(19, "King", "downtown", "London") );
+        sina.addPolicy(cp1);
+        sina.addPolicy(tpp3);
+        ArrayList <InsurancePolicy> deepCopy = sina.deepCopyPolicies();
+        ArrayList <InsurancePolicy> shallowCopy = sina.shallowCopyPolicies();
 
-        bahar.setCity("New York");
+        sina.setCity("New York");
 
         ThirdPartyPolicy tpp = new ThirdPartyPolicy("Justin", 10, new Car("Mazda 3", CarType.HATCH, 2020, 35000), 0, new MyDate(2027, 1, 1), "No previous claims!");
-        bahar.addPolicy(tpp);
+        sina.addPolicy(tpp);
 
-        ArrayList <InsurancePolicy> sortedPolicies = bahar.sortPoliciesByDate();
+        ArrayList <InsurancePolicy> sortedPolicies = sina.sortPoliciesByDate();
 
         System.out.println("\nShallow Copy");
         for (InsurancePolicy policy : shallowCopy)
@@ -498,7 +497,7 @@ public class Test
 
         ArrayList <User> sortedUsers = company.sortUsers(); // sorted by city
 
-        System.out.println("\nBefore changing the city of user with ID 8");
+        System.out.println("\nBefore changing the city of user with ID 1");
         System.out.println("\nShallow Copy");
         for (User user : shallowCopyUsers)
         {
@@ -515,7 +514,7 @@ public class Test
             System.out.println(user);
         }
 
-        System.out.println("\nAfter changing the city of user with ID 8");
+        System.out.println("\nAfter changing the city of user with ID 1");
         user1.setCity("New York");
         System.out.println("\nShallow Copy");
         for (User user : shallowCopyUsers)
@@ -532,7 +531,45 @@ public class Test
         {
             System.out.println(user);
         }
+    }
 
+    public void cloneInsuranceCompany () throws CloneNotSupportedException
+    {
+        InsuranceCompany insuranceCompany = new InsuranceCompany("clone copmany", "clone", "1234", 100);
+        
+        insuranceCompany.addUser(user1);
+        insuranceCompany.addUser(user2);
+        insuranceCompany.addUser(user3);
+        insuranceCompany.addUser(user4);
+        insuranceCompany.addUser(user5);
+        insuranceCompany.addUser(user6);
 
+        user1.addPolicy(tpp1);
+        user2.addPolicy(cp1);
+        user3.addPolicy(tpp2);
+        user4.addPolicy(cp2);
+        user5.addPolicy(tpp3);
+        user6.addPolicy(cp3);
+
+        InsuranceCompany clone = insuranceCompany.clone();
+
+        System.out.println("\nOrginal Insurance Company");
+        System.out.println(insuranceCompany);
+        System.out.println("Clone Insurance Company");
+        System.out.println(clone);
+
+        insuranceCompany.addPolicy(1, cp1);
+        insuranceCompany.addUser(new User("Diba", new Address(23, "Queen st", "GreenHouse", "London")));
+        insuranceCompany.carPriceRise(0.1);
+        insuranceCompany.createComprehensivePolicy(6, "Adele", 9, car1, 0, date1, 60, 3);
+        ArrayList <User> sortedUser = insuranceCompany.sortUsers();
+        System.out.println("\nOrginal Insurance Company");
+        for (User user : sortedUser)
+        {
+            System.out.println("\n" + user);
+        }
+    
+        System.out.println("\nClone Insurance Company");
+        System.out.println(clone);
     }
 }
