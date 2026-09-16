@@ -458,31 +458,17 @@ public class InsuranceCompany implements Cloneable
 
     public ArrayList <User> deepCopyUsers () throws CloneNotSupportedException
     {
-        ArrayList <User> deepCopy = new ArrayList<>();
-        for (User user : users)
-        {
-            deepCopy.add(user.clone());
-        }
-        return deepCopy;
+        return User.deepCopy(users);
     }
 
     public ArrayList <User> shallowCopyUsers ()
     {
-        ArrayList <User> shallowCopy = new ArrayList<>();
-        for (User user : users)
-        {
-            shallowCopy.add(user);
-        }
-        return shallowCopy;
+        return User.shallowCopy(users);
     }
 
     public ArrayList <User> sortUsers ()
     {
-        ArrayList <User> sorted = new ArrayList<>();
-        for (User user : users)
-        {
-            sorted.add(user);
-        }
+        ArrayList <User> sorted = User.shallowCopy(users);
         Collections.sort(sorted);
         return sorted;
     }
