@@ -82,7 +82,7 @@ public class MyDate implements Cloneable, Comparable <MyDate>
     }
 
     // lab 4
-    public  MyDate (MyDate myDate)
+    public MyDate (MyDate myDate)
     {
         year = myDate.year;
         month = myDate.month;
