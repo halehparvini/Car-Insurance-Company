@@ -292,22 +292,12 @@ public class User implements Cloneable, Comparable <User>
 
     public ArrayList <InsurancePolicy> deepCopyPolicies () throws CloneNotSupportedException
     {
-        ArrayList <InsurancePolicy> deepCopy = new ArrayList<>();
-        for (InsurancePolicy policy : policies)
-        {
-            deepCopy.add(policy.clone());
-        }
-        return deepCopy;
+        return InsurancePolicy.deepCopy(policies);
     }
 
     public ArrayList <InsurancePolicy> shallowCopyPolicies ()
     {
-        ArrayList <InsurancePolicy> shallowCopy = new ArrayList<>();
-        for (InsurancePolicy policy : policies)
-        {
-            shallowCopy.add(policy);
-        }
-        return shallowCopy;
+        return InsurancePolicy.shallowCopy(policies);
     }
 
     @Override 
@@ -318,26 +308,14 @@ public class User implements Cloneable, Comparable <User>
 
     public int compareTo1 (User other)
     {
-        double total = 0;
-        for (InsurancePolicy policy : policies)
-        {
-            total += policy.calcPayment(100);
-        }
-        double otherTotal = 0;
-        for (InsurancePolicy policy : other.policies)
-        {
-            otherTotal += policy.calcPayment(100);
-        }
+        double total = InsurancePolicy.calcTotalPayments(policies, 100);
+        double otherTotal = InsurancePolicy.calcTotalPayments(other.policies, 100);
         return Double.compare(total, otherTotal);
     }
 
     public ArrayList <InsurancePolicy> sortPoliciesByDate ()
     {
-        ArrayList <InsurancePolicy> sorted = new ArrayList<>();
-        for (InsurancePolicy policy : policies)
-        {
-            sorted.add(policy); 
-        }
+        ArrayList <InsurancePolicy> sorted = InsurancePolicy.shallowCopy(policies);
         Collections.sort(sorted);
         return sorted;
     }
