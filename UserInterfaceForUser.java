@@ -2,6 +2,7 @@ package WEEK1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInterfaceForUser {
@@ -17,7 +18,7 @@ public class UserInterfaceForUser {
     public User loginUser ()
     {
         System.out.print("Enter User ID: ");
-        int userID = scanner.nextInt();
+        int userID = exceptionHandlingInt();
         scanner.nextLine();
         for (User user : insuranceCompany.getUsers().values())
         {
@@ -124,7 +125,7 @@ public class UserInterfaceForUser {
     public void findPolicyByUser ()
     {
         System.out.println("Please enter policy ID: ");
-        int policyID = scanner.nextInt();
+        int policyID = exceptionHandlingInt();
         InsurancePolicy policy = user.findPolicy(policyID);
         if (policy != null)
         {
@@ -165,13 +166,13 @@ public class UserInterfaceForUser {
     public void filterByExpiryDateByUser ()
     {
         System.out.print("- Year: ");
-        int year = scanner.nextInt();
+        int year = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("- Month: ");
-        int month = scanner.nextInt();
+        int month = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("- Day: ");
-        int day = scanner.nextInt();
+        int day = exceptionHandlingInt();
         scanner.nextLine();
         MyDate expiryDate = new MyDate(year, month, day);
         HashMap <Integer, InsurancePolicy> policies = user.filterByExpiryDate(expiryDate);
@@ -190,7 +191,7 @@ public class UserInterfaceForUser {
     public void changeAddressByUser ()
     {
         System.out.print("- Street Number: ");
-        int streetNum = scanner.nextInt();
+        int streetNum = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("- Street: ");
         String street = scanner.nextLine();
@@ -210,11 +211,11 @@ public class UserInterfaceForUser {
         System.out.print("- Policy Holder Name: ");
         String policyHolderName = scanner.nextLine();
         System.out.print("- Policy ID: ");
-        int policyID = scanner.nextInt();
+        int policyID = exceptionHandlingInt();
         scanner.nextLine();
         Car car = enterCar();
         System.out.print("- Number of Claims: ");
-        int numberOfClaims = scanner.nextInt();
+        int numberOfClaims = exceptionHandlingInt();
         scanner.nextLine();
         MyDate expiryDate = enterExpiryDate();
         System.out.print("- Comment: ");
@@ -240,18 +241,18 @@ public class UserInterfaceForUser {
         System.out.print("- Policy Holder Name: ");
         String policyHolderName = scanner.nextLine();
         System.out.print("- Policy ID: ");
-        int policyID = scanner.nextInt();
+        int policyID = exceptionHandlingInt();
         scanner.nextLine();
         Car car = enterCar();
         System.out.print("- Number of Claims: ");
-        int numberOfClaims = scanner.nextInt();
+        int numberOfClaims = exceptionHandlingInt();
         scanner.nextLine();
         MyDate expiryDate = enterExpiryDate();
         System.out.print("- Driver Age: ");
-        int driverAge = scanner.nextInt();
+        int driverAge = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("- Level: ");
-        int level = scanner.nextInt();
+        int level = exceptionHandlingInt();
         scanner.nextLine();
         try
         {
@@ -275,10 +276,10 @@ public class UserInterfaceForUser {
         String carModel = scanner.nextLine();
         CarType carType = getCarType();
         System.out.print("- Manufacturing Year: ");
-        int manufacturingYear = scanner.nextInt();
+        int manufacturingYear = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("- Price: ");
-        double price = scanner.nextDouble();
+        double price = exceptionHandlingDouble();
         scanner.nextLine();
         Car car = new Car(carModel, carType, manufacturingYear, price);
         return car;
@@ -307,13 +308,13 @@ public class UserInterfaceForUser {
     {
         System.out.println("Enter Policy Expiry Date: ");
         System.out.print("- Year: ");
-        int year = scanner.nextInt();
+        int year = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("- Month: ");
-        int month = scanner.nextInt();
+        int month = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("- Day: ");
-        int day = scanner.nextInt();
+        int day = exceptionHandlingInt();
         scanner.nextLine();
         MyDate expiryDate = new MyDate(year, month, day);
         return expiryDate;
@@ -330,7 +331,7 @@ public class UserInterfaceForUser {
     public void removePolicyByUser ()
     {
         System.out.print("Enter policy ID: ");
-        int policyID = scanner.nextInt();
+        int policyID = exceptionHandlingInt();
         scanner.nextLine();
         if (user.removePolicy(policyID))
         {
@@ -346,5 +347,47 @@ public class UserInterfaceForUser {
     {
         System.out.println("Please press any key to continue...");
         scanner.nextLine();
+    }
+
+    public int exceptionHandlingInt()
+    {
+        boolean success = false;
+        int number = 0;
+
+        while (!success)
+        {
+            try
+            {
+                number = scanner.nextInt();
+                success = true;
+            }
+            catch (InputMismatchException e)
+            {
+                System.out.println("Invalid input! Please enter an integer!");
+                scanner.next();
+            }
+        }
+        return number;
+    }
+
+    public Double exceptionHandlingDouble()
+    {
+        boolean success = false;
+        double number = 0;
+
+        while (!success)
+        {
+            try
+            {
+                number = scanner.nextDouble();
+                success = true;
+            }
+            catch (InputMismatchException e)
+            {
+                System.out.println("Invalid input! Please enter a number!");
+                scanner.next();
+            }
+        }
+        return number;
     }
 }

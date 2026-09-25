@@ -2,6 +2,7 @@ package WEEK1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInterfaceForAdmin
@@ -205,7 +206,7 @@ public class UserInterfaceForAdmin
     {
         System.out.println("Enter user address: ");
         System.out.print("- Street Number: ");
-        int streetNumb = scanner.nextInt();
+        int streetNumb = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("- Street: ");
         String street = scanner.nextLine();
@@ -222,16 +223,16 @@ public class UserInterfaceForAdmin
         System.out.println("Create Third Party Policy");
         System.out.println("Enter Policy Information: ");
         System.out.print("- User ID: ");
-        int userID = scanner.nextInt();
+        int userID = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("- Policy Holder Name: ");
         String policyHolderName = scanner.nextLine();
         System.out.print("- Policy ID: ");
-        int policyID = scanner.nextInt();
+        int policyID = exceptionHandlingInt();
         scanner.nextLine();
         Car car = enterCar();
         System.out.print("- Number of Claims: ");
-        int numberOfClaims = scanner.nextInt();
+        int numberOfClaims = exceptionHandlingInt();
         scanner.nextLine();
         MyDate expiryDate = enterExpiryDate();
         System.out.println("- Comment: ");
@@ -254,23 +255,23 @@ public class UserInterfaceForAdmin
         System.out.println("Create Comprehensive Policy");
         System.out.println("Enter Policy Information: ");
         System.out.print("- User ID: ");
-        int userID = scanner.nextInt();
+        int userID = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("- Policy Holder Name: ");
         String policyHolderName = scanner.nextLine();
         System.out.print("- Policy ID: ");
-        int policyID = scanner.nextInt();
+        int policyID = exceptionHandlingInt();
         scanner.nextLine();
         Car car = enterCar();
         System.out.print("- Number of Claims: ");
-        int numberOfClaims = scanner.nextInt();
+        int numberOfClaims = exceptionHandlingInt();
         scanner.nextLine();
         MyDate expiryDate = enterExpiryDate();
         System.out.print("- Driver Age: ");
-        int driverAge = scanner.nextInt();
+        int driverAge = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("- Level: ");
-        int level = scanner.nextInt();
+        int level = exceptionHandlingInt();
         scanner.nextLine();
         try
         {
@@ -292,10 +293,10 @@ public class UserInterfaceForAdmin
         String carModel = scanner.nextLine();
         CarType carType = getCarType();
         System.out.print("- Manufacturing Year: ");
-        int manufacturingYear = scanner.nextInt();
+        int manufacturingYear = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("- Price: ");
-        double price = scanner.nextDouble();
+        double price = exceptionHandlingDouble();
         scanner.nextLine();
         Car car = new Car(carModel, carType, manufacturingYear, price);
         return car;
@@ -324,13 +325,13 @@ public class UserInterfaceForAdmin
     {
         System.out.println("Enter Policy Expiry Date: ");
         System.out.print("- Year: ");
-        int year = scanner.nextInt();
+        int year = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("- Month: ");
-        int month = scanner.nextInt();
+        int month = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("- Day: ");
-        int day = scanner.nextInt();
+        int day = exceptionHandlingInt();
         scanner.nextLine();
         MyDate expiryDate = new MyDate(year, month, day);
         return expiryDate;
@@ -339,8 +340,7 @@ public class UserInterfaceForAdmin
     public void printUserPolicies (InsuranceCompany insuranceCompany)
     {
         System.out.println("Please enter your user ID: ");
-        exceptionHandling();
-        int userID = scanner.nextInt();
+        int userID = exceptionHandlingInt();
         scanner.nextLine();
         User user = insuranceCompany.findUser(userID);
         if (user != null)
@@ -351,13 +351,46 @@ public class UserInterfaceForAdmin
             System.out.println("User cannot be found!");
     }
 
-    public void exceptionHandling()
+    public int exceptionHandlingInt()
     {
-        while (!scanner.hasNextInt())
+        boolean success = false;
+        int number = 0;
+
+        while (!success)
         {
-            System.out.println("Invalid input! please enter an integer:");
-            scanner.next();
+            try
+            {
+                number = scanner.nextInt();
+                success = true;
+            }
+            catch (InputMismatchException e)
+            {
+                System.out.println("Invalid input! Please enter an integer!");
+                scanner.next();
+            }
         }
+        return number;
+    }
+
+    public Double exceptionHandlingDouble()
+    {
+        boolean success = false;
+        double number = 0;
+
+        while (!success)
+        {
+            try
+            {
+                number = scanner.nextDouble();
+                success = true;
+            }
+            catch (InputMismatchException e)
+            {
+                System.out.println("Invalid input! Please enter a number!");
+                scanner.next();
+            }
+        }
+        return number;
     }
 
     public void filterByCarModelByAdmin ()
@@ -373,7 +406,7 @@ public class UserInterfaceForAdmin
     public void filterByExpiryDateByAdmin ()
     {
         System.out.println("Please enter user ID: ");
-        int userID = scanner.nextInt();
+        int userID = exceptionHandlingInt();
         scanner.nextLine();
         User user = insuranceCompany.findUser(userID);
         if (user == null)
@@ -394,7 +427,7 @@ public class UserInterfaceForAdmin
     public void updateAddressByAdmin ()
     {
         System.out.println("Please enter user ID: ");
-        int userID = scanner.nextInt();
+        int userID = exceptionHandlingInt();
         scanner.nextLine();
         User user = insuranceCompany.findUser(userID);
         if (user == null)
@@ -423,10 +456,10 @@ public class UserInterfaceForAdmin
     public void removePolicyByAdmin ()
     {
         System.out.print("Enter userID: ");
-        int userID = scanner.nextInt();
+        int userID = exceptionHandlingInt();
         scanner.nextLine();
         System.out.print("Enter policy ID to remove: ");
-        int policyID = scanner.nextInt();
+        int policyID = exceptionHandlingInt();
         scanner.nextLine();
         if (insuranceCompany.removePolicy(userID, policyID))
         {
@@ -441,7 +474,7 @@ public class UserInterfaceForAdmin
     public void removeUserByAdmin ()
     {
         System.out.print("Enter user ID to remove: ");
-        int userIDToRemove = scanner.nextInt();
+        int userIDToRemove = exceptionHandlingInt();
         scanner.nextLine();
         if (insuranceCompany.removeUserByAdmin(userIDToRemove))
         {
@@ -506,8 +539,7 @@ public class UserInterfaceForAdmin
     public void testReportUser ()
     {
         System.out.print("Enter user ID: ");
-        exceptionHandling();
-        int userID = scanner.nextInt();
+        int userID = exceptionHandlingInt();
         User user = insuranceCompany.findUser(userID);
         if (user != null)
         {
