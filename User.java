@@ -363,15 +363,15 @@ public class User implements Cloneable, Comparable <User>
         return user;
     }
 
-    // public static ArrayList <User> shallowCopy (ArrayList <User> users)
-    // {
-    //     ArrayList <User> shallowCopy = new ArrayList<>();
-    //     for (User user : users)
-    //     {
-    //         shallowCopy.add(user);
-    //     }
-    //     return shallowCopy;
-    // }
+    public static ArrayList <User> shallowCopy (ArrayList <User> users)
+    {
+        ArrayList <User> shallowCopy = new ArrayList<>();
+        for (User user : users)
+        {
+            shallowCopy.add(user);
+        }
+        return shallowCopy;
+    }
 
     public static ArrayList <User> shallowCopy (HashMap <Integer, User> users)
     {
@@ -393,15 +393,15 @@ public class User implements Cloneable, Comparable <User>
         return shallowCopy;
     }
 
-    // public static ArrayList <User> deepCopy (ArrayList <User> users) throws CloneNotSupportedException
-    // {
-    //     ArrayList <User> deepCopy = new ArrayList<>();
-    //     for (User user : users)
-    //     {
-    //         deepCopy.add(user.clone());
-    //     }
-    //     return deepCopy;
-    // }
+    public static ArrayList <User> deepCopy (ArrayList <User> users) throws CloneNotSupportedException
+    {
+        ArrayList <User> deepCopy = new ArrayList<>();
+        for (User user : users)
+        {
+            deepCopy.add(user.clone());
+        }
+        return deepCopy;
+    }
 
     public static ArrayList <User> deepCopy (HashMap <Integer, User> users) throws CloneNotSupportedException
     {
