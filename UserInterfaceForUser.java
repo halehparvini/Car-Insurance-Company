@@ -1,6 +1,7 @@
 package WEEK1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class UserInterfaceForUser {
@@ -18,7 +19,7 @@ public class UserInterfaceForUser {
         System.out.print("Enter User ID: ");
         int userID = scanner.nextInt();
         scanner.nextLine();
-        for (User user : insuranceCompany.getUsers())
+        for (User user : insuranceCompany.getUsers().values())
         {
             if (user.getUserID() == userID)
             {
@@ -148,10 +149,10 @@ public class UserInterfaceForUser {
     {
         System.out.print("Enter Car Model to filter: ");
         String carModel = scanner.nextLine();
-        ArrayList <InsurancePolicy> policies = user.filterByCarModel(carModel);
+        HashMap <Integer, InsurancePolicy> policies = user.filterByCarModel(carModel);
         if (!policies.isEmpty())
         {
-            for (InsurancePolicy policy : policies)
+            for (InsurancePolicy policy : policies.values())
             {
                 System.out.println(policy);
             }
@@ -173,10 +174,10 @@ public class UserInterfaceForUser {
         int day = scanner.nextInt();
         scanner.nextLine();
         MyDate expiryDate = new MyDate(year, month, day);
-        ArrayList <InsurancePolicy> policies = user.filterByExpiryDate(expiryDate);
+        HashMap <Integer, InsurancePolicy> policies = user.filterByExpiryDate(expiryDate);
         if(!policies.isEmpty())
         {
-            for (InsurancePolicy policy : policies)
+            for (InsurancePolicy policy : policies.values())
             {
                 System.out.println(policy);
             }
@@ -218,12 +219,18 @@ public class UserInterfaceForUser {
         MyDate expiryDate = enterExpiryDate();
         System.out.print("- Comment: ");
         String comment = scanner.nextLine();
-        if (user.createThirdPartyPolicy(policyHolderName, policyID, car, numberOfClaims, expiryDate, comment))
+        try
         {
+        if (user.createThirdPartyPolicy(policyHolderName, policyID, car, numberOfClaims, expiryDate, comment))
             System.out.println("The Third Party Policy has been added successfully!");
-        }
         else
             System.out.println("The Third Party Policy cannot be added as the user ID is invalid or policy ID is duplicate.");
+        }
+        catch (PolicyException e)
+        {
+            System.out.println(e);
+        }
+
     }
     
     public void createComprehensivePolicyByUser ()
@@ -246,12 +253,19 @@ public class UserInterfaceForUser {
         System.out.print("- Level: ");
         int level = scanner.nextInt();
         scanner.nextLine();
-        if (user.createComprehensivePolicy(policyHolderName, policyID, car, numberOfClaims, expiryDate, driverAge, level))
+        try
         {
-            System.out.println("The Comprenhensive Policy has been added successfully!");
+            if (user.createComprehensivePolicy(policyHolderName, policyID, car, numberOfClaims, expiryDate, driverAge, level))
+            {
+                System.out.println("The Comprenhensive Policy has been added successfully!");
+            }
+            else
+                System.out.println("The Comprehensive Policy cannot be added as the user ID is invalid or policy ID is duplicate.");
         }
-        else
-            System.out.println("The Comprehensive Policy cannot be added as the user ID is invalid or policy ID is duplicate.");
+        catch (PolicyException e)
+        {
+            System.out.println(e);
+        }
     }
 
     public Car enterCar ()

@@ -8,10 +8,11 @@ public class Program
     public static void main(String[] args) throws CloneNotSupportedException
     {
         Test test = new Test();
-        test.copyPolicies();
-        test.copyUsers();
-        test.cloneInsuranceCompany();
-        InsuranceCompany insuranceCompany = new InsuranceCompany("TrustInsure", "admin_ti", "admin@1234", 100);
+        // test.copyPolicies();
+        // test.copyUsers();
+        // test.cloneInsuranceCompany();
+        test.testAggregation();
+        InsuranceCompany insuranceCompany = test.getInsuranceCompany();
         UserInterfaceForUser userUI = new UserInterfaceForUser(insuranceCompany);
         UserInterfaceForAdmin adminUI = new UserInterfaceForAdmin(insuranceCompany, userUI);
         adminUI.mainMenu();
