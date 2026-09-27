@@ -349,6 +349,7 @@ public class UserInterfaceForUser {
         scanner.nextLine();
     }
 
+    // lab 5
     public int exceptionHandlingInt()
     {
         boolean success = false;

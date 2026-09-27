@@ -351,48 +351,6 @@ public class UserInterfaceForAdmin
             System.out.println("User cannot be found!");
     }
 
-    public int exceptionHandlingInt()
-    {
-        boolean success = false;
-        int number = 0;
-
-        while (!success)
-        {
-            try
-            {
-                number = scanner.nextInt();
-                success = true;
-            }
-            catch (InputMismatchException e)
-            {
-                System.out.println("Invalid input! Please enter an integer!");
-                scanner.next();
-            }
-        }
-        return number;
-    }
-
-    public Double exceptionHandlingDouble()
-    {
-        boolean success = false;
-        double number = 0;
-
-        while (!success)
-        {
-            try
-            {
-                number = scanner.nextDouble();
-                success = true;
-            }
-            catch (InputMismatchException e)
-            {
-                System.out.println("Invalid input! Please enter a number!");
-                scanner.next();
-            }
-        }
-        return number;
-    }
-
     public void filterByCarModelByAdmin ()
     {
         System.out.println("Please enter car model to filter: ");
@@ -536,6 +494,48 @@ public class UserInterfaceForAdmin
     }
 
     // lab 5
+    public int exceptionHandlingInt()
+    {
+        boolean success = false;
+        int number = 0;
+
+        while (!success)
+        {
+            try
+            {
+                number = scanner.nextInt();
+                success = true;
+            }
+            catch (InputMismatchException e)
+            {
+                System.out.println("Invalid input! Please enter an integer!");
+                scanner.next();
+            }
+        }
+        return number;
+    }
+
+    public Double exceptionHandlingDouble()
+    {
+        boolean success = false;
+        double number = 0;
+
+        while (!success)
+        {
+            try
+            {
+                number = scanner.nextDouble();
+                success = true;
+            }
+            catch (InputMismatchException e)
+            {
+                System.out.println("Invalid input! Please enter a number!");
+                scanner.next();
+            }
+        }
+        return number;
+    }
+    
     public void testReportUser ()
     {
         System.out.print("Enter user ID: ");

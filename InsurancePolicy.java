@@ -49,28 +49,10 @@ public abstract class InsurancePolicy implements Cloneable, Comparable <Insuranc
         }
     }
 
-    public static void printPolicies (HashMap <Integer, InsurancePolicy> policies)
-    {
-        for (InsurancePolicy policy : policies.values())
-        {
-            policy.print();
-        }
-    }
-
     public static double calcTotalPayments (ArrayList <InsurancePolicy> policies, double flatRate) //calculates the total premium payments for a list of policies. 
     {
         double totalPayment = 0;
         for (InsurancePolicy policy : policies)
-        {
-            totalPayment += policy.calcPayment(flatRate);
-        }
-        return totalPayment;
-    }
-
-    public static double calcTotalPayments (HashMap <Integer, InsurancePolicy> policies, double flatRate)
-    {
-        double totalPayment = 0;
-        for (InsurancePolicy policy : policies.values())
         {
             totalPayment += policy.calcPayment(flatRate);
         }
@@ -90,14 +72,6 @@ public abstract class InsurancePolicy implements Cloneable, Comparable <Insuranc
         }
     }
 
-    public static void carPriceRiseAll (HashMap <Integer, InsurancePolicy> policies, double risePercent)
-    {
-        for (InsurancePolicy policy : policies.values())
-        {
-            policy.carPriceRise(risePercent);
-        }
-    }
-
     public static ArrayList <InsurancePolicy> filterByCarModel (ArrayList <InsurancePolicy> policies, String carModel)
     {
         ArrayList <InsurancePolicy> filteredPolicies = new ArrayList<>();
@@ -106,19 +80,6 @@ public abstract class InsurancePolicy implements Cloneable, Comparable <Insuranc
             if (policy.car.getModel().contains(carModel))
             {
                 filteredPolicies.add(policy);
-            }
-        }
-        return filteredPolicies;
-    }
-
-    public static HashMap <Integer, InsurancePolicy> filterByCarModel (HashMap <Integer, InsurancePolicy> policies, String carModel)
-    {
-        HashMap <Integer, InsurancePolicy> filteredPolicies = new HashMap<>();
-        for (InsurancePolicy policy : policies.values())
-        {
-            if (policy.car.getModel().contains(carModel))
-            {
-                filteredPolicies.put(policy.getPolicyID(), policy);
             }
         }
         return filteredPolicies;
@@ -151,19 +112,6 @@ public abstract class InsurancePolicy implements Cloneable, Comparable <Insuranc
             if (policy.expiryDate.isExpired(date))
             {
                 filteredExpiredPolicies.add(policy);
-            }
-        }
-        return filteredExpiredPolicies;
-    }
-
-    public static HashMap <Integer, InsurancePolicy> filterByExpiryDate (HashMap <Integer, InsurancePolicy> policies, MyDate date)
-    {
-        HashMap <Integer, InsurancePolicy> filteredExpiredPolicies = new HashMap<>();
-        for (InsurancePolicy policy : policies.values())
-        {
-            if (policy.expiryDate.isExpired(date))
-            {
-                filteredExpiredPolicies.put(policy.getPolicyID(), policy);
             }
         }
         return filteredExpiredPolicies;
@@ -214,6 +162,57 @@ public abstract class InsurancePolicy implements Cloneable, Comparable <Insuranc
     }
 
     // lab 5
+    public static void printPolicies (HashMap <Integer, InsurancePolicy> policies)
+    {
+        for (InsurancePolicy policy : policies.values())
+        {
+            policy.print();
+        }
+    }
+
+    public static HashMap <Integer, InsurancePolicy> filterByCarModel (HashMap <Integer, InsurancePolicy> policies, String carModel)
+    {
+        HashMap <Integer, InsurancePolicy> filteredPolicies = new HashMap<>();
+        for (InsurancePolicy policy : policies.values())
+        {
+            if (policy.car.getModel().contains(carModel))
+            {
+                filteredPolicies.put(policy.getPolicyID(), policy);
+            }
+        }
+        return filteredPolicies;
+    }
+
+    public static HashMap <Integer, InsurancePolicy> filterByExpiryDate (HashMap <Integer, InsurancePolicy> policies, MyDate date)
+    {
+        HashMap <Integer, InsurancePolicy> filteredExpiredPolicies = new HashMap<>();
+        for (InsurancePolicy policy : policies.values())
+        {
+            if (policy.expiryDate.isExpired(date))
+            {
+                filteredExpiredPolicies.put(policy.getPolicyID(), policy);
+            }
+        }
+        return filteredExpiredPolicies;
+    }
+
+    public static double calcTotalPayments (HashMap <Integer, InsurancePolicy> policies, double flatRate)
+    {
+        double totalPayment = 0;
+        for (InsurancePolicy policy : policies.values())
+        {
+            totalPayment += policy.calcPayment(flatRate);
+        }
+        return totalPayment;
+    }
+
+    public static void carPriceRiseAll (HashMap <Integer, InsurancePolicy> policies, double risePercent)
+    {
+        for (InsurancePolicy policy : policies.values())
+        {
+            policy.carPriceRise(risePercent);
+        }
+    }
 
     public static ArrayList <InsurancePolicy> shallowCopy (HashMap <Integer, InsurancePolicy> policies)
     {
