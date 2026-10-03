@@ -1,6 +1,11 @@
 package WEEK1;
 
-import java.io.Serializable;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable; 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -253,5 +258,47 @@ public abstract class InsurancePolicy implements Cloneable, Comparable <Insuranc
             deepCopy.put(policy.getPolicyID(), policy.clone());
         }
         return deepCopy;
+    }
+
+    // lab 6
+    public static HashMap <Integer, InsurancePolicy> load (String fileName)
+    {
+        try
+        {
+            FileInputStream file = new FileInputStream(fileName);
+            ObjectInputStream inputStream = new ObjectInputStream(file);
+            Object obj = inputStream.readObject();
+            HashMap <Integer, InsurancePolicy> policies = (HashMap <Integer, InsurancePolicy>) obj;
+            inputStream.close();
+            file.close();
+            return policies;
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error while reading the file");
+        }
+        catch (ClassNotFoundException e)
+        {
+            System.out.println("Class not found");
+        }
+        return null;
+    }
+
+    public static Boolean save (HashMap <Integer, InsurancePolicy> policies, String fileName)
+    {
+        try
+        {
+            FileOutputStream file = new FileOutputStream(fileName);
+            ObjectOutputStream outputStream = new ObjectOutputStream(file);
+            outputStream.writeObject(policies);
+            outputStream.close();
+            file.close();
+            return true;
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error while writing to the file");
+        }
+        return false;
     }
 }
