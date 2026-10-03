@@ -1,6 +1,8 @@
 package WEEK1;
 
-public class MyDate implements Cloneable, Comparable <MyDate>
+import java.io.Serializable;
+
+public class MyDate implements Cloneable, Comparable <MyDate>, Serializable
 {
     private int year;
     private int month;

@@ -1,10 +1,11 @@
 package WEEK1;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class InsuranceCompany implements Cloneable
+public class InsuranceCompany implements Cloneable, Serializable
 {
     private String name;
     //private ArrayList <User> users;

@@ -1,10 +1,11 @@
 package WEEK1;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public abstract class InsurancePolicy implements Cloneable, Comparable <InsurancePolicy> 
+public abstract class InsurancePolicy implements Cloneable, Comparable <InsurancePolicy>, Serializable
 {
     protected String policyHolderName;
     protected int id;

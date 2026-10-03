@@ -1,6 +1,8 @@
 package WEEK1;
 
-public class Car implements Cloneable
+import java.io.Serializable;
+
+public class Car implements Cloneable, Serializable
 {
     private String model;
     private CarType type;

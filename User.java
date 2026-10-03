@@ -1,10 +1,11 @@
 package WEEK1;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class User implements Cloneable, Comparable <User>
+public class User implements Cloneable, Comparable <User>, Serializable
 {
     private String name; //the name of the account holder
     private int userID; //the user ID/number

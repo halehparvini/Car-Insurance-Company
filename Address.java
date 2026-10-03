@@ -1,6 +1,8 @@
 package WEEK1;
 
-public class Address implements Cloneable, Comparable <Address>
+import java.io.Serializable;
+
+public class Address implements Cloneable, Comparable <Address>, Serializable
 {
     private int streetNum;
     private String street;
