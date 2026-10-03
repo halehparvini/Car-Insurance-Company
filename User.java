@@ -1,9 +1,17 @@
 package WEEK1;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+
+import javax.management.ObjectName;
 
 public class User implements Cloneable, Comparable <User>, Serializable
 {
@@ -586,5 +594,47 @@ public class User implements Cloneable, Comparable <User>, Serializable
             System.out.printf("%-30s $%-24.2f $%-24.2f%n", model, total, average);
         }
 
+    }
+
+    // lab 6
+    public static HashMap <Integer, User> load (String fileName)
+    {
+        try
+        {
+        FileInputStream file = new FileInputStream(fileName);
+        ObjectInputStream inputStream = new ObjectInputStream(file);
+        Object obj = inputStream.readObject();
+        HashMap <Integer, User> users = (HashMap <Integer, User>)obj;
+        inputStream.close();
+        file.close();
+        return users;
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error while reading the file");
+        }
+        catch (ClassNotFoundException e)
+        {
+            System.out.println("Class not found.");
+        }
+        return null;
+    }
+
+    public static Boolean save (HashMap <Integer, User> users, String fileName)
+    {
+        try
+        {
+            FileOutputStream file = new FileOutputStream(fileName);
+            ObjectOutputStream outputStream = new ObjectOutputStream(file);
+            outputStream.writeObject(users);
+            outputStream.close();
+            file.close();
+            return true;
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error while writing to the file");
+        }
+        return false;
     }
 }
