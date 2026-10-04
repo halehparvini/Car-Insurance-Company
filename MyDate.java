@@ -106,4 +106,10 @@ public class MyDate implements Cloneable, Comparable <MyDate>, Serializable
         
         return Integer.compare(day, other.day);
     }
+
+    // lab 6
+    public String toDelimitedString ()
+    {
+        return year + "," + month + "," + day;
+    }
 }

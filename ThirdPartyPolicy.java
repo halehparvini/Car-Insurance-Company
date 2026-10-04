@@ -35,4 +35,10 @@ public class ThirdPartyPolicy extends InsurancePolicy
         super(tp);
         comments = tp.comments;
     }
+
+    // lab 6
+    public String toDelimitedString ()
+    {
+        return "TPP," + super.toDelimitedString() + "," + comments;
+    }
 }

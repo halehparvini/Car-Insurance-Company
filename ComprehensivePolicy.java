@@ -42,4 +42,10 @@ public class ComprehensivePolicy extends InsurancePolicy
         driverAge = cp.driverAge;
         level = cp.level;
     }
+
+    // lab 6
+    public String toDelimitedString ()
+    {
+        return "CP," + super.toDelimitedString() + "," + driverAge + "," + level;
+    }
 }

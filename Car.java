@@ -56,4 +56,10 @@ public class Car implements Cloneable, Serializable
     {
         return (Car)super.clone();
     }
+
+    // lab 6
+    public String toDelimitedString ()
+    {
+        return model + "," + type + "," + manufacturingYear + "," + price;
+    }
 }

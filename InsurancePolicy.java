@@ -301,4 +301,9 @@ public abstract class InsurancePolicy implements Cloneable, Comparable <Insuranc
         }
         return false;
     }
+
+    public String toDelimitedString ()
+    {
+        return policyHolderName + "," + id + "," + car.toDelimitedString() + "," + numberOfClaims + "," + expiryDate.toDelimitedString();
+    }
 }
