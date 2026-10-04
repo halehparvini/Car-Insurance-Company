@@ -1,5 +1,10 @@
 package WEEK1;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -848,5 +853,53 @@ public class InsuranceCompany implements Cloneable, Serializable
 
                 System.out.printf("%-30s $%-24.2f $%-24.2f%n", model, total, average);
             }
+    }
+
+    // lab 6
+    public InsuranceCompany ()
+    {
+        users = new HashMap<>();
+        updatedCars = new ArrayList<>();
+    }
+
+    public Boolean load (String fileName)
+    {
+        try
+        {
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName));
+            InsuranceCompany company = (InsuranceCompany) inputStream.readObject();
+
+            this.name = company.name;
+            this.users = company.users;
+            this.adminUsername = company.adminUsername;
+            this.adminPassword = company.adminPassword;
+            this.flatRate = company.flatRate;
+            this.updatedCars = company.updatedCars;
+
+            inputStream.close();
+
+            return true;
+        }
+        catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("Error while loading the file.");
+            return false;
+        }
+    }
+
+    public Boolean save (String fileName)
+    {
+        try
+        {
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName));
+            outputStream.writeObject(this);
+            outputStream.close();
+            return true;
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error while saving the file.");
+            return false;
+        }
     }
 }
