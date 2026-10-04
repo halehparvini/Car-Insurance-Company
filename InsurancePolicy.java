@@ -1,7 +1,11 @@
 package WEEK1;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -305,5 +309,90 @@ public abstract class InsurancePolicy implements Cloneable, Comparable <Insuranc
     public String toDelimitedString ()
     {
         return policyHolderName + "," + id + "," + car.toDelimitedString() + "," + numberOfClaims + "," + expiryDate.toDelimitedString();
+    }
+
+    public static HashMap <Integer, InsurancePolicy> loadTextFile (String fileName)
+    {
+        HashMap <Integer, InsurancePolicy> policies = new HashMap<>();
+        try
+        {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+            String line = bufferedReader.readLine();
+            while (line != null)
+            {
+                line = line.trim();
+                String [] field = line.split(",");
+                
+                if (field[0].equals("TPP"))
+                {
+                    String policyHolderName = field[1];
+                    int id = Integer.parseInt(field[2]);
+                    String model = field[3];
+                    CarType type = CarType.valueOf(field[4]);
+                    int manufacturingYear = Integer.parseInt(field[5]);
+                    double price = Double.parseDouble(field[6]);
+                    Car car = new Car(model, type, manufacturingYear, price);
+                    int numberOfClaims = Integer.parseInt(field[7]);
+                    int year = Integer.parseInt(field[8]);
+                    int month = Integer.parseInt(field[9]);
+                    int day = Integer.parseInt(field[10]);
+                    MyDate expiryDate = new MyDate(year, month, day);
+                    String comments = field[11];
+                    ThirdPartyPolicy policy = new ThirdPartyPolicy(policyHolderName, id, car, numberOfClaims, expiryDate, comments);
+                    policies.put(id, policy);
+                }
+                else if (field[0].equals("CP"))
+                {
+                    String policyHolderName = field[1];
+                    int id = Integer.parseInt(field[2]);
+                    String model = field[3];
+                    CarType type = CarType.valueOf(field[4]);
+                    int manufacturingYear = Integer.parseInt(field[5]);
+                    double price = Double.parseDouble(field[6]);
+                    Car car = new Car(model, type, manufacturingYear, price);
+                    int numberOfClaims = Integer.parseInt(field[7]);
+                    int year = Integer.parseInt(field[8]);
+                    int month = Integer.parseInt(field[9]);
+                    int day = Integer.parseInt(field[10]);
+                    MyDate expirDate = new MyDate(year, month, day);
+                    int driverAge = Integer.parseInt(field[11]);
+                    int level = Integer.parseInt(field[12]);
+                    ComprehensivePolicy policy = new ComprehensivePolicy(policyHolderName, id, car, numberOfClaims, expirDate, driverAge, level);
+                    policies.put(id, policy);
+                }
+                line = bufferedReader.readLine();
+            }
+            bufferedReader.close();
+            return policies;
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error while reading the text file.");
+        }
+        catch (PolicyException e)
+        {
+            System.out.println("Error while creating policy.");
+        }
+        return null;
+    }
+
+    public static Boolean saveTextFile (HashMap <Integer, InsurancePolicy> policies, String fileName)
+    {
+        try
+        {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName));
+            for (InsurancePolicy policy : policies.values())
+            {
+                bufferedWriter.write(policy.toDelimitedString());
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+            return true;
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error while writing to the text file.");
+            return false;
+        }
     }
 }
