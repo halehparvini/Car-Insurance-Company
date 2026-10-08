@@ -56,6 +56,11 @@ public class User implements Cloneable, Comparable <User>, Serializable
         return policies;
     }
 
+    public void setUserID (int userID)
+    {
+        this.userID = userID;
+    }
+
     public void setAddress (Address address)
     {
         this.address = address;
