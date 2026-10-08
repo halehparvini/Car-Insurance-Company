@@ -1,7 +1,11 @@
 package WEEK1;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -899,6 +903,125 @@ public class InsuranceCompany implements Cloneable, Serializable
         catch (IOException e)
         {
             System.out.println("Error while saving the file.");
+            return false;
+        }
+    }
+
+    public String toDelimitedString ()
+    {
+        String result = name + "," + adminUsername + "," + adminPassword + "," + flatRate + "," + users.size();
+
+        for (User user : users.values())
+        {
+            result += "\n" + user.toDelimitedString();
+        }
+        return result;
+    }
+
+    public Boolean loadTextFile (String fileName)
+    {
+        try
+        {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+            String line = bufferedReader.readLine();
+            if (line == null)
+            {
+                bufferedReader.close();
+                return false;
+            }
+            String [] companyFields = line.split(",");
+
+            this.name = companyFields[0];
+            this.adminUsername = companyFields[1];
+            this.adminPassword = companyFields[2];
+            this.flatRate = Integer.parseInt(companyFields[3]);
+            int numberOfUsers = Integer.parseInt(companyFields[4]);
+            this.users = new HashMap<>();
+            for (int i = 0; i < numberOfUsers; i++)
+            {
+                line = bufferedReader.readLine();
+                String[] field = line.split(",");
+                String userName = field[0];
+                int userID = Integer.parseInt(field[1]);
+                int streetNum = Integer.parseInt(field[2]);
+                String street = field[3];
+                String suburb = field[4];
+                String city = field[5];
+                Address address = new Address(streetNum, street, suburb, city);
+                User user = new User(userName, address);
+                user.setUserID(userID);
+                int numberOfPolicies = Integer.parseInt(field[6]);
+                int index = 7;
+                for (int j = 0; j < numberOfPolicies; j++)
+                {
+                    if (field[index].equals("TPP"))
+                    {
+                        String policyHolderName = field[index+1];
+                        int id = Integer.parseInt(field[index + 2]);
+                        String model = field[index+3];
+                        CarType type = CarType.valueOf(field[index+4]);
+                        int manufacturingYear = Integer.parseInt(field[index+5]);
+                        double price = Double.parseDouble(field[index+6]);
+                        Car car = new Car(model, type, manufacturingYear, price);
+                        int numberOfClaims = Integer.parseInt(field[index+7]);
+                        int year = Integer.parseInt(field[index+8]);
+                        int month = Integer.parseInt(field[index+9]);
+                        int day = Integer.parseInt(field[index+10]);
+                        MyDate expiryDate = new MyDate(year, month, day);
+                        String comments = field[index+11];
+                        ThirdPartyPolicy policy = new ThirdPartyPolicy(policyHolderName, id, car, numberOfClaims, expiryDate, comments);
+                        user.addPolicy(policy);
+                        index += 12;
+                    }
+                    else if (field[index].equals("CP"))
+                    {
+                        String policyHolderName = field[index+1];
+                        int id = Integer.parseInt(field[index+2]);
+                        String model = field[index+3];
+                        CarType type = CarType.valueOf(field[index+4]);
+                        int manufacturingYear = Integer.parseInt(field[index+5]);
+                        double price = Double.parseDouble(field[index+6]);
+                        Car car = new Car(model, type, manufacturingYear, price);
+                        int numberOfClaims = Integer.parseInt(field[index+7]);
+                        int year = Integer.parseInt(field[index+8]);
+                        int month = Integer.parseInt(field[index+9]);
+                        int day = Integer.parseInt(field[index+10]);
+                        MyDate expiryDate = new MyDate(year, month, day);
+                        int driverAge = Integer.parseInt(field[index+11]);
+                        int level = Integer.parseInt(field[index+12]);
+                        ComprehensivePolicy policy = new ComprehensivePolicy(policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level);
+                        user.addPolicy(policy);
+                        index += 13;
+                    }
+                }
+                users.put(userID, user);
+            }
+            bufferedReader.close();
+            return true;
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error while reading the text file.");
+        }
+        catch (PolicyException e)
+        {
+            System.out.println("Error while creating policy");
+        }
+        return false;
+    }
+
+    public Boolean saveTextFile (String fileName)
+    {
+        try
+        {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName));
+            bufferedWriter.write(toDelimitedString());
+            bufferedWriter.close();
+            return true;
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error while writing to the text file.");
             return false;
         }
     }
