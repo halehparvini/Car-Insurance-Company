@@ -81,7 +81,7 @@ public class UserInterfaceForAdmin
     public void adminMenu ()
     {   
         String adminOption = "";
-        while (!adminOption.equals("17"))
+        while (!adminOption.equals("21"))
         {
             displayAdminMenu();
             adminOption = scanner.nextLine();
@@ -152,6 +152,18 @@ public class UserInterfaceForAdmin
                     pause();
                     break;
                 case "17":
+                    saveBinaryFile(insuranceCompany);
+                    break;
+                case "18":
+                    loadBinaryFile(insuranceCompany);
+                    break;
+                case "19":
+                    saveTextFile(insuranceCompany);
+                    break;
+                case "20":
+                    loadTextFile(insuranceCompany);
+                    break;
+                case "21":
                     break;
                 default:
                     System.out.println("Invalid option!");
@@ -181,7 +193,12 @@ public class UserInterfaceForAdmin
         System.out.println("14. Report for one user");
         System.out.println("15. Report Total Premium Per City");
         System.out.println("16. Report Across All Users");
-        System.out.println("17. Log Out");
+        // lab 6
+        System.out.println("17. Save Company to Binary File");
+        System.out.println("18. Load Company from Binary File");
+        System.out.println("19. Save Company to Text File");
+        System.out.println("20. Load Company to Text File");
+        System.out.println("21. Log Out");
     }  
 
     public void createUserByAdmin()
@@ -558,4 +575,55 @@ public class UserInterfaceForAdmin
     {
         insuranceCompany.reportAcrossAllUsers();
     }
+
+    // lab 6
+
+    public static void saveBinaryFile (InsuranceCompany insuranceCompany)
+    {
+        if (insuranceCompany.save("company.ser"))
+        {
+            System.out.println("Company saved successfully to binary file");
+        }
+        else
+        {
+            System.out.println("Error while saving company.");
+        }
+    }
+
+    public static void loadBinaryFile (InsuranceCompany insuranceCompany)
+    {
+        if (insuranceCompany.load("company.ser"))
+        {
+            System.out.println("Company loaded successfully from binary file.");
+        }
+        else
+        {
+            System.out.println("Error while loading company.");
+        }
+    }
+
+    public static void saveTextFile (InsuranceCompany insuranceCompany)
+    {
+        if (insuranceCompany.saveTextFile("comapny.txt"))
+        {
+            System.out.println("Company saved successfully to text file.");
+        }
+        else
+        {
+            System.out.println("Error while saving company.");
+        }
+    }
+
+    public static void loadTextFile (InsuranceCompany insuranceCompany)
+    {
+        if (insuranceCompany.loadTextFile("company.txt"))
+        {
+            System.out.println("Company loaded successfully from text file.");
+        }
+        else
+        {
+            System.out.println("Error while loading company.");
+        }
+    }
+
 }
