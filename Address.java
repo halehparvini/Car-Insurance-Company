@@ -82,4 +82,10 @@ public class Address implements Cloneable, Comparable <Address>, Serializable
     {
         return city.compareTo(other.city);
     }
+
+    // lab 6
+    public String toDelimitedString ()
+    {
+        return streetNum + "," + street + "," + suburb + "," + city;
+    }
 }

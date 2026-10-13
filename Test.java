@@ -778,6 +778,104 @@ public class Test
         System.out.println();
         testReportAcrossAllUsersCompany();
         System.out.println();
-    }   
+    }
 
+    // lab 6
+
+    public void testSaveAndLoad () throws PolicyException
+    {
+        HashMap <Integer, InsurancePolicy> policies = new HashMap<>();
+        policies.put(1, tpp1);
+        policies.put(2, cp1);
+        policies.put(3, tpp2);
+        policies.put(4, cp2);
+        policies.put(5, tpp3);
+        policies.put(6, cp3);
+        policies.put(7, tpp4);
+
+        InsurancePolicy.save(policies, "policies.ser");
+        policies.clear();
+        policies = InsurancePolicy.load("policies.ser");
+
+        if (policies != null)
+        {
+            InsurancePolicy.printPolicies(policies);
+            policies.put(1, tpp1);
+            policies.put(2, cp1);
+            policies.put(3, tpp2);
+            policies.put(4, cp2);
+            policies.put(5, tpp3);
+            policies.put(6, cp3);
+            policies.put(7, tpp4);
+            policies.clear();
+            policies = InsurancePolicy.load("policies.ser");
+            if (policies != null)
+            {
+                InsurancePolicy.printPolicies(policies);
+            }
+        }
+
+        HashMap <Integer, User> users = new HashMap<>();
+        User user = new User("Jack", address1);
+        user.addPolicy(cp1);
+        users.put(user.getUserID(), user);
+        User.save(users, "users.ser");
+        users.clear();
+        users = User.load("users.ser");
+        if (users != null)
+        {
+            User.printUsers(users);
+        }
+
+        InsuranceCompany insuranceCompany1 = new InsuranceCompany();
+        insuranceCompany1.addUser("Mahan", address2);
+        insuranceCompany1.save("company.ser");
+        insuranceCompany1.clearUsers();
+        InsuranceCompany insuranceCompany2 = new InsuranceCompany();
+        insuranceCompany2.load("companu.ser");
+        System.out.println(insuranceCompany2);
+
+        HashMap <Integer, InsurancePolicy> policies2 = new HashMap<>();
+        policies2.put(1, tpp1);
+        policies2.put(2, cp1);
+        policies2.put(3, tpp2);
+        policies2.put(4, cp2);
+        policies2.put(5, tpp3);
+        policies2.put(6, cp3);
+        policies2.put(7, tpp4);;
+        InsurancePolicy.saveTextFile(policies2, "policies.txt");
+        policies2.clear();
+        policies2 = InsurancePolicy.loadTextFile("policies.txt");
+        if (policies2 != null)
+        {
+            InsurancePolicy.printPolicies(policies2);
+        }
+
+        HashMap <Integer, User> users2 = new HashMap<>();
+        User user2 = new User("Ladan", address3);
+        user2.addPolicy(tpp4);
+        user2.addPolicy(cp1);
+        users2.put(user2.getUserID(), user2);
+        User.saveTextFile(users2, "users.txt");
+        if (users2 != null)
+        {
+            User.printUsers(users2);
+        }
+
+        InsuranceCompany insuranceCompany3 = new InsuranceCompany();
+        insuranceCompany3.addUser("Haleh", address1);
+        insuranceCompany3.addUser("Parisa",address2);
+        insuranceCompany3.addUser("Taraneh",address3);
+        insuranceCompany3.addUser("Payam", address4);
+        insuranceCompany3.addUser("Sarina", address5);
+        insuranceCompany3.addUser("Behzad", address6);
+
+
+        insuranceCompany3.saveTextFile("company.txt");
+        insuranceCompany3.clearUsers();
+        InsuranceCompany insuranceCompany4 = new InsuranceCompany();
+        insuranceCompany4.loadTextFile("company.txt");
+        System.out.println(insuranceCompany4);
+
+    }
 }

@@ -5,13 +5,14 @@ import java.util.*;
 public class Program
 {
     static Scanner scanner = new Scanner(System.in);
-    public static void main(String[] args) throws CloneNotSupportedException
+    public static void main(String[] args) throws CloneNotSupportedException, PolicyException
     {
         Test test = new Test();
         // test.copyPolicies();
         // test.copyUsers();
         // test.cloneInsuranceCompany();
-        test.testAggregation();
+        // test.testAggregation();
+        test.testSaveAndLoad();
         InsuranceCompany insuranceCompany = test.getInsuranceCompany();
         UserInterfaceForUser userUI = new UserInterfaceForUser(insuranceCompany);
         UserInterfaceForAdmin adminUI = new UserInterfaceForAdmin(insuranceCompany, userUI);

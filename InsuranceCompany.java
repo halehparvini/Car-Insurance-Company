@@ -862,8 +862,18 @@ public class InsuranceCompany implements Cloneable, Serializable
     // lab 6
     public InsuranceCompany ()
     {
+        name = "TrustInsure";
+        adminUsername = "admin_ti";
+        adminPassword = "admin@1234";
+        flatRate = 100;
+        
         users = new HashMap<>();
         updatedCars = new ArrayList<>();
+    }
+
+    public void clearUsers ()
+    {
+        users.clear();
     }
 
     public Boolean load (String fileName)

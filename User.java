@@ -2,6 +2,7 @@ package WEEK1;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -607,21 +608,18 @@ public class User implements Cloneable, Comparable <User>, Serializable
     {
         try
         {
-        FileInputStream file = new FileInputStream(fileName);
-        ObjectInputStream inputStream = new ObjectInputStream(file);
-        Object obj = inputStream.readObject();
-        HashMap <Integer, User> users = (HashMap <Integer, User>)obj;
-        inputStream.close();
-        file.close();
-        return users;
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName));
+            HashMap <Integer, User> users = (HashMap <Integer, User>) inputStream.readObject();
+            inputStream.close();
+            return users;
         }
         catch (IOException e)
         {
-            System.out.println("Error while reading the file");
+            System.out.println("Error while loding the file.");
         }
         catch (ClassNotFoundException e)
         {
-            System.out.println("Class not found.");
+            System.out.println("Class not found!");
         }
         return null;
     }
@@ -630,11 +628,9 @@ public class User implements Cloneable, Comparable <User>, Serializable
     {
         try
         {
-            FileOutputStream file = new FileOutputStream(fileName);
-            ObjectOutputStream outputStream = new ObjectOutputStream(file);
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName));
             outputStream.writeObject(users);
             outputStream.close();
-            file.close();
             return true;
         }
         catch (IOException e)
@@ -646,7 +642,7 @@ public class User implements Cloneable, Comparable <User>, Serializable
 
     public String toDelimitedString ()
     {
-        String result = name + "," + userID + "," + address.getStreetNum() + "," + address.getStreet() + "," + address.getSuburb() + "," + address.getCity() + "," + policies.size();
+        String result = name + "," + userID + "," + address.toDelimitedString() + "," + policies.size();
         for (InsurancePolicy policy : policies.values())
         {
             result += "," + policy.toDelimitedString();
@@ -752,6 +748,14 @@ public class User implements Cloneable, Comparable <User>, Serializable
         {
             System.out.println("Error while writing to the text file.");
             return false;
+        }
+    }
+
+    public static void printUsers (HashMap <Integer, User> users)
+    {
+        for (User user : users.values())
+        {
+            user.print();
         }
     }
 }

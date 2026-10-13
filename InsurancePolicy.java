@@ -269,21 +269,18 @@ public abstract class InsurancePolicy implements Cloneable, Comparable <Insuranc
     {
         try
         {
-            FileInputStream file = new FileInputStream(fileName);
-            ObjectInputStream inputStream = new ObjectInputStream(file);
-            Object obj = inputStream.readObject();
-            HashMap <Integer, InsurancePolicy> policies = (HashMap <Integer, InsurancePolicy>) obj;
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName));
+            HashMap <Integer, InsurancePolicy> policies = (HashMap <Integer, InsurancePolicy>) inputStream.readObject();
             inputStream.close();
-            file.close();
             return policies;
         }
         catch (IOException e)
         {
-            System.out.println("Error while reading the file");
+            System.out.println("Error while reading the file.");
         }
         catch (ClassNotFoundException e)
         {
-            System.out.println("Class not found");
+            System.out.println("Class is not found.");
         }
         return null;
     }
@@ -292,11 +289,9 @@ public abstract class InsurancePolicy implements Cloneable, Comparable <Insuranc
     {
         try
         {
-            FileOutputStream file = new FileOutputStream(fileName);
-            ObjectOutputStream outputStream = new ObjectOutputStream(file);
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName));
             outputStream.writeObject(policies);
             outputStream.close();
-            file.close();
             return true;
         }
         catch (IOException e)
