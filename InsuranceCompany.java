@@ -1068,4 +1068,19 @@ public class InsuranceCompany implements Cloneable, Serializable
         Collections.sort(userList, comparator);
         return userList;
     }
+
+    public HashMap <String, ArrayList<User>> getUsersPerCity ()
+    {
+        HashMap <String, ArrayList <User>> usersPerCity = new HashMap<>();
+        for (User user : users.values())
+        {
+            String cityName = user.getCity();
+            if (!usersPerCity.containsKey(cityName))
+            {
+                usersPerCity.put(cityName, new ArrayList<User>());
+            }
+            usersPerCity.get(cityName).add(user);
+        }
+        return usersPerCity;
+    }
 }
