@@ -585,6 +585,19 @@ public class InsuranceCompany implements Cloneable, Serializable
         return policies;
     }
 
+    public HashMap <Integer, InsurancePolicy> allPoliciesHashMap ()
+    {
+        HashMap <Integer, InsurancePolicy> policies = new HashMap<>();
+        for (User user : users.values())
+        {
+            for (InsurancePolicy policy : user.policies.values())
+            {
+                policies.put(policy.getPolicyID(), policy);
+            }
+        }
+        return policies;
+    }
+
     public HashMap <Integer, InsurancePolicy> filterByCarModel (int userID, String carModel)
     {
         User user = findUser(userID);
@@ -862,11 +875,6 @@ public class InsuranceCompany implements Cloneable, Serializable
     // lab 6
     public InsuranceCompany ()
     {
-        name = "TrustInsure";
-        adminUsername = "admin_ti";
-        adminPassword = "admin@1234";
-        flatRate = 100;
-        
         users = new HashMap<>();
         updatedCars = new ArrayList<>();
     }

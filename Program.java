@@ -12,7 +12,8 @@ public class Program
         // test.copyUsers();
         // test.cloneInsuranceCompany();
         // test.testAggregation();
-        test.testSaveAndLoad();
+        //test.testSaveAndLoad();
+        test.filingTest();
         InsuranceCompany insuranceCompany = test.getInsuranceCompany();
         UserInterfaceForUser userUI = new UserInterfaceForUser(insuranceCompany);
         UserInterfaceForAdmin adminUI = new UserInterfaceForAdmin(insuranceCompany, userUI);
