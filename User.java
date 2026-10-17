@@ -397,12 +397,12 @@ public class User implements Cloneable, Comparable <User>, Serializable
         return address.compareTo(other.address);
     }
 
-    public int compareTo1 (User other)
-    {
-        double total = InsurancePolicy.calcTotalPayments(policies, 100);
-        double otherTotal = InsurancePolicy.calcTotalPayments(other.policies, 100);
-        return Double.compare(total, otherTotal);
-    }
+    // public int compareTo1 (User other)
+    // {
+    //     double total = InsurancePolicy.calcTotalPayments(policies, 100);
+    //     double otherTotal = InsurancePolicy.calcTotalPayments(other.policies, 100);
+    //     return Double.compare(total, otherTotal);
+    // }
 
     // public ArrayList <InsurancePolicy> sortPoliciesByDate ()
     // {
