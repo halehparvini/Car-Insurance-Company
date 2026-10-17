@@ -761,4 +761,10 @@ public class User implements Cloneable, Comparable <User>, Serializable
             user.print();
         }
     }
+
+    // Assignment 2
+    public String getCity ()
+    {
+        return address.getCity();
+    }
 }
