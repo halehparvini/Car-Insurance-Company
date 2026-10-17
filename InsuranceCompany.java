@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class InsuranceCompany implements Cloneable, Serializable
@@ -1042,5 +1043,25 @@ public class InsuranceCompany implements Cloneable, Serializable
             System.out.println("Error while writing to the text file.");
             return false;
         }
+    }
+
+    // Asignment 2
+
+    public class UserComparator implements Comparator <User>
+    {
+        public int compare (User user1, User user2)
+        {
+            double totalPaymentsUser1 = InsurancePolicy.calcTotalPayments(user1.getPolicies(), flatRate);
+            double totalPaymentsUser2 = InsurancePolicy.calcTotalPayments(user2.getPolicies(), flatRate);
+            return Double.compare(totalPaymentsUser1, totalPaymentsUser2);
+        }
+    }
+
+    public ArrayList <User> sortUsersByPremium ()
+    {
+        ArrayList <User> userList = new ArrayList<>(users.values());
+        UserComparator comparator = new UserComparator();
+        Collections.sort(userList, comparator);
+        return userList;
     }
 }
