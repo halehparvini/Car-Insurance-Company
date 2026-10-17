@@ -1,5 +1,6 @@
 package WEEK1;
 
+import java.io.EOFException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -877,5 +878,110 @@ public class Test
         insuranceCompany4.loadTextFile("company.txt");
         System.out.println(insuranceCompany4);
 
+    }
+
+    public void filingTest ()
+    {
+        InsuranceCompany insuranceCompany1 = new InsuranceCompany("TrustInsure", "admin_ti", "admin@1234",100);
+
+        insuranceCompany1.addUser(user1);
+        insuranceCompany1.addUser(user2);
+        insuranceCompany1.addUser(user3);
+        insuranceCompany1.addUser(user4);
+        insuranceCompany1.addUser(user5);
+        insuranceCompany1.addUser(user6);
+
+        user1.addPolicy(tpp1);
+        user1.addPolicy(cp1);
+        user2.addPolicy(tpp1);
+        user2.addPolicy(tpp2);
+        user3.addPolicy(cp1);
+        user3.addPolicy(cp2);
+        user3.addPolicy(cp3);
+        user4.addPolicy(tpp3);
+        user4.addPolicy(tpp4);
+        user4.addPolicy(cp1);
+        
+
+
+        // testing the save and load policies in/from BINARY FILE
+        try
+        {
+            InsurancePolicy.save(insuranceCompany1.allPoliciesHashMap(), "policies.ser");
+            HashMap <Integer, InsurancePolicy> policies = InsurancePolicy.load("policies.ser");
+            System.out.println("Printing a list of policies loaded from binary file");
+            InsurancePolicy.printPolicies(policies);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
+        // testing the save and load policies in/from TEXT FILE
+        try
+        {
+            InsurancePolicy.saveTextFile(insuranceCompany1.allPoliciesHashMap(), "policies.txt");
+            HashMap <Integer, InsurancePolicy> policies = InsurancePolicy.loadTextFile("policies.txt");
+            System.out.println("Printing a list of policies loaded from text file");
+            InsurancePolicy.printPolicies(policies);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
+        // testing the save and load users in/from BINARY FILE
+        try
+        {
+            User.save(insuranceCompany1.getUsers(), "users.ser");
+            HashMap <Integer, User> users = User.load("users.ser");
+            System.out.println("Printing a list of users loaded from binary file");
+            System.out.println(users.values());
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
+        // testing the save and load users in/from TEXT FILE
+        try
+        {
+            User.saveTextFile(insuranceCompany1.getUsers(), "users.txt");
+            HashMap <Integer, User> users = User.loadTextFile("users.txt");
+            System.out.println("Printing a list of users loaded from text file");
+            System.out.println(users.values());
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
+        // testing the save and load InsuranceCompany in/from BINARY FILE
+        try
+        {
+            insuranceCompany1.save("company.ser");
+            InsuranceCompany insuranceCompany2 = new InsuranceCompany();
+            insuranceCompany2.load("company.ser");
+            System.out.println("Printing the insurance conpany loaded from bunart file");
+            System.out.println(insuranceCompany2);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
+        // testing the save and load InsuranceCompany in/from TEXT FILE
+        try
+        {
+            insuranceCompany1.saveTextFile("company.txt");
+            InsuranceCompany insuranceCompany2 = new InsuranceCompany();
+            insuranceCompany2.loadTextFile("company.txt");
+            System.out.println("Printing the insurance company loaded from text file");
+            System.out.println(insuranceCompany2);          
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+        }
     }
 }
