@@ -155,7 +155,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         // return result;
     // }
 
-    public boolean createThirdPartyPolicy (int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, String comments) throws PolicyException
+    public boolean createThirdPartyPolicy (int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, String comments) throws PolicyException, PolicyHolderNameException
     {
         User user = findUser(userID);
         if (user != null)
@@ -165,7 +165,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         return false;
     }
 
-    public boolean createComprehensivePolicy (int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, int driverAge, int level) throws PolicyException
+    public boolean createComprehensivePolicy (int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, int driverAge, int level) throws PolicyException, PolicyHolderNameException
     {
         User user = findUser(userID);
         if (user != null)
@@ -1025,6 +1025,10 @@ public class InsuranceCompany implements Cloneable, Serializable
         catch (PolicyException e)
         {
             System.out.println("Error while creating policy");
+        }
+        catch (PolicyHolderNameException e)
+        {
+            System.out.println("Invalid policy holder name!");
         }
         return false;
     }

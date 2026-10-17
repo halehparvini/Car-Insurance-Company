@@ -231,6 +231,10 @@ public class UserInterfaceForUser {
         {
             System.out.println(e);
         }
+        catch (PolicyHolderNameException e)
+        {
+            System.out.println("Invalid policy holder name!");
+        }
 
     }
     
@@ -266,6 +270,10 @@ public class UserInterfaceForUser {
         catch (PolicyException e)
         {
             System.out.println(e);
+        }
+        catch (PolicyHolderNameException e)
+        {
+            System.out.println("Invalid policy holder name!");
         }
     }
 

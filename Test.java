@@ -52,13 +52,13 @@ public class Test
     public Test()
     {
         User.resetCount();
-        tpp1 = makeThirdPartyPolicy("James", 01, car1, 2, date1, "2 previous claims!");
-        cp1 = makeComprehensivePolicy("Robert", 02, car2, 0, date2,  24, 3);
-        tpp2 = makeThirdPartyPolicy("Sara", 03, car3, 0, date3, "No previous claims!");
-        cp2 = makeComprehensivePolicy("Sue", 04, car4, 5, date4, 56, 3);
-        tpp3 = makeThirdPartyPolicy("Taylor", 05, car5, 2, date5, "2 previous claims!");
-        cp3 = makeComprehensivePolicy("Matthew", 06, car6, 1, date6, 60, 3);
-        tpp4 = makeThirdPartyPolicy("Jack", 7, car7, 0, date1, "No previous claims!");
+        tpp1 = makeThirdPartyPolicy("James Smith", 01, car1, 2, date1, "2 previous claims!");
+        cp1 = makeComprehensivePolicy("Robert Johnson", 02, car2, 0, date2,  24, 3);
+        tpp2 = makeThirdPartyPolicy("Sara Williams", 03, car3, 0, date3, "No previous claims!");
+        cp2 = makeComprehensivePolicy("Sue Brown", 04, car4, 5, date4, 56, 3);
+        tpp3 = makeThirdPartyPolicy("Taylor Jones", 05, car5, 2, date5, "2 previous claims!");
+        cp3 = makeComprehensivePolicy("Matthew Miller", 06, car6, 1, date6, 60, 3);
+        tpp4 = makeThirdPartyPolicy("Jack Davis", 7, car7, 0, date1, "No previous claims!");
     }
 
     public ThirdPartyPolicy makeThirdPartyPolicy (String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, String comments)
@@ -79,8 +79,17 @@ public class Test
                 System.out.println(e2);
                 return null;
             }
+            catch (PolicyHolderNameException e3)
+            {
+                System.out.println("Invalid policy holder name!");
+                return null;
+            }
         }
-
+        catch (PolicyHolderNameException e)
+        {
+            System.out.println("Invalid policy holder name!");
+            return null;
+        }
     }
 
     public ComprehensivePolicy makeComprehensivePolicy (String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, int driverAge, int level)
@@ -101,6 +110,16 @@ public class Test
                 System.out.println(e2);
                 return null;
             }
+            catch (PolicyHolderNameException e3)
+            {
+                System.out.println("Invalid policy holder name");
+                return null;
+            }
+        }
+        catch (PolicyHolderNameException e)
+        {
+            System.out.println("Invalid policy holder name!");
+            return null;
         }
     }
 
@@ -301,6 +320,10 @@ public class Test
         {
             System.out.println(e);
         }
+        catch (PolicyHolderNameException e)
+        {
+            System.out.println("Invalid policy holder name!");
+        }
     }
 
     public void testCreateComprehensivePolicy (int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, int driverAge, int level)
@@ -318,6 +341,10 @@ public class Test
         {
             System.out.println(e);
         }    
+        catch (PolicyHolderNameException e)
+        {
+            System.out.println("Invalid policy holder name!");
+        }
     }
 
     public void testFilterByCarModel (int userID, String carModel)
@@ -543,6 +570,10 @@ public class Test
         {
             System.out.println(e);
         }
+        catch (PolicyHolderNameException e)
+        {
+            System.out.println("Invalid policy holder name!");
+        }
 
         ArrayList <InsurancePolicy> sortedPolicies = sina.sortPoliciesByDate();
 
@@ -650,6 +681,10 @@ public class Test
         catch (PolicyException e)
         {
             System.out.println(e);
+        }
+        catch (PolicyHolderNameException e)
+        {
+            System.out.println("Invalid policy holder name!");
         }
         ArrayList <User> sortedUser = insuranceCompany.sortUsers();
         System.out.println("\nOrginal Insurance Company");

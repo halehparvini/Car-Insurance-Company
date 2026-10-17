@@ -265,6 +265,10 @@ public class UserInterfaceForAdmin
         {
             System.out.println(e);
         }
+        catch (PolicyHolderNameException e)
+        {
+            System.out.println("Invalid policy holder name!");
+        }
     }
 
     public void createComprehensivePolicyByAdmin ()
@@ -300,6 +304,10 @@ public class UserInterfaceForAdmin
         catch (PolicyException e)
         {
             System.out.println(e);
+        }
+        catch (PolicyHolderNameException e)
+        {
+            System.out.println("Invalid policy holder name!");
         }
     }
 

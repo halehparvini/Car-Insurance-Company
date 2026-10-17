@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.regex.*;;
 
 public abstract class InsurancePolicy implements Cloneable, Comparable <InsurancePolicy>, Serializable
 {
@@ -22,9 +23,19 @@ public abstract class InsurancePolicy implements Cloneable, Comparable <Insuranc
     protected int numberOfClaims;
     protected MyDate expiryDate;
 
-    public InsurancePolicy (String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate) throws PolicyException
+    public InsurancePolicy (String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate) throws PolicyException, PolicyHolderNameException
     {
-        this.policyHolderName = policyHolderName;
+        Pattern pattern = Pattern.compile("[A-Z][a-z]{2,} [A-Z][a-z]{2,}");
+        if (pattern.matcher(policyHolderName).matches())
+        {
+            this.policyHolderName = policyHolderName;
+        }
+        else
+        {
+            throw new PolicyHolderNameException("Invalid policy holder name!");
+
+        }
+        
         if (id < 3000000 || id > 3999999)
         {
             int generatedID = 3000000 + new Random().nextInt(1000000);
@@ -367,6 +378,10 @@ public abstract class InsurancePolicy implements Cloneable, Comparable <Insuranc
         catch (PolicyException e)
         {
             System.out.println("Error while creating policy.");
+        }
+        catch (PolicyHolderNameException e)
+        {
+            System.out.println("Invalid policy holder name!");
         }
         return null;
     }

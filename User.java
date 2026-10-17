@@ -139,7 +139,7 @@ public class User implements Cloneable, Comparable <User>, Serializable
 
     // lab 3
 
-    public boolean createThirdPartyPolicy (String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, String comments) throws PolicyException
+    public boolean createThirdPartyPolicy (String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, String comments) throws PolicyException, PolicyHolderNameException
     {
         // for (InsurancePolicy policy : policies)
         // {
@@ -170,7 +170,7 @@ public class User implements Cloneable, Comparable <User>, Serializable
         return true;
     }
 
-    public boolean createComprehensivePolicy (String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, int driverAge, int level) throws PolicyException
+    public boolean createComprehensivePolicy (String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, int driverAge, int level) throws PolicyException, PolicyHolderNameException
     {
         // for (InsurancePolicy policy : policies)
         // {
@@ -726,6 +726,10 @@ public class User implements Cloneable, Comparable <User>, Serializable
         catch (PolicyException e)
         {
             System.out.println("Error while creating policy.");
+        }
+        catch (PolicyHolderNameException e)
+        {
+            System.out.println("Invalid policy holder name!");
         }
         return null;
     }
