@@ -1,6 +1,5 @@
 package WEEK1;
 
-import java.io.EOFException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -901,7 +900,7 @@ public class Test
         user4.addPolicy(tpp3);
         user4.addPolicy(tpp4);
         user4.addPolicy(cp1);
-        
+
 
 
         // testing the save and load policies in/from BINARY FILE
