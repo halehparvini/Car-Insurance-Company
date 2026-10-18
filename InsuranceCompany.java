@@ -1083,4 +1083,25 @@ public class InsuranceCompany implements Cloneable, Serializable
         }
         return usersPerCity;
     }
+
+    public HashMap <String, ArrayList<InsurancePolicy>> filterPoliciesByExpiryDate (MyDate expiryDate)
+    {
+        HashMap <String, ArrayList<InsurancePolicy>> filteredPoliciesByExpiryDate = new HashMap<>();
+        for (User user : users.values())
+        {
+            String userName = user.getName();
+            for (InsurancePolicy policy : user.policies.values())
+            {
+                if (policy.getExpiryDate().isExpired(expiryDate))
+                {
+                    if (!filteredPoliciesByExpiryDate.containsKey(userName))
+                    {
+                        filteredPoliciesByExpiryDate.put(userName, new ArrayList<InsurancePolicy>());
+                    }
+                    filteredPoliciesByExpiryDate.get(userName).add(policy);
+                }
+            }
+        }
+        return filteredPoliciesByExpiryDate;
+    }
 }
