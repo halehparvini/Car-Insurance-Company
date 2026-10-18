@@ -81,7 +81,7 @@ public class UserInterfaceForAdmin
     public void adminMenu ()
     {   
         String adminOption = "";
-        while (!adminOption.equals("21"))
+        while (!adminOption.equals("30"))
         {
             displayAdminMenu();
             adminOption = scanner.nextLine();
@@ -153,17 +153,57 @@ public class UserInterfaceForAdmin
                     break;
                 case "17":
                     saveBinaryFile(insuranceCompany);
+                    pause();
                     break;
                 case "18":
                     loadBinaryFile(insuranceCompany);
+                    pause();
                     break;
                 case "19":
                     saveTextFile(insuranceCompany);
+                    pause();
                     break;
                 case "20":
                     loadTextFile(insuranceCompany);
+                    pause();
                     break;
                 case "21":
+                    deepCopyPolicies();
+                    pause();
+                    break;
+                case "22":
+                    shallowCopyPolicies();
+                    pause();
+                    break;
+                case "23":
+                    deepCopyUsers();
+                    pause();
+                    break;
+                case "24":
+                    shallowCopyUsers();
+                    pause();
+                    break;
+                case "25":
+                    deepCopyCompany();
+                    pause();
+                    break;
+                case "26":
+                    shallowCopyCompany();
+                    pause();
+                    break;
+                case "27":
+                    sortUsersByCityName();
+                    pause();
+                    break;
+                case "28":
+                    sortUsersByPremium();
+                    pause();
+                    break;
+                case "29":
+                    sortPoliciesByExpiryDate();
+                    pause();
+                    break;
+                case "30":
                     break;
                 default:
                     System.out.println("Invalid option!");
@@ -198,8 +238,18 @@ public class UserInterfaceForAdmin
         System.out.println("18. Load Company from Binary File");
         System.out.println("19. Save Company to Text File");
         System.out.println("20. Load Company to Text File");
-        System.out.println("21. Log Out");
-    }  
+        // Assignment 2
+        System.out.println("21. Deep Copy Policies");
+        System.out.println("22. Shallow Copy Policies");
+        System.out.println("23. Deep Copy Users");
+        System.out.println("24. Shallow Copy Users");
+        System.out.println("25. Deep Copy Company");
+        System.out.println("26. Shallow Copy Company");
+        System.out.println("27. Sort Users by City Name");
+        System.out.println("28. Sort Users by Premium Payments");
+        System.out.println("29. Sort Policies by Expiry Date");
+        System.out.println("30. Log Out");
+    }
 
     public void createUserByAdmin()
     {
@@ -634,4 +684,107 @@ public class UserInterfaceForAdmin
         }
     }
 
+    // Assignment 2
+
+    public void deepCopyPolicies ()
+    {
+        try
+        {
+            ArrayList <InsurancePolicy> policies = insuranceCompany.deepCopyPolicies();
+            System.out.println("Deep Copy of Policies: ");
+            InsurancePolicy.printPolicies(policies);
+        }
+        catch (CloneNotSupportedException e)
+        {
+            System.out.println("Error while copying policies.");
+        }
+    }
+
+    public void shallowCopyPolicies ()
+    {
+        ArrayList <InsurancePolicy> policies = insuranceCompany.shallowCopyPolicies();
+        System.out.println("Shallow Copy of Policies: ");
+        InsurancePolicy.printPolicies(policies);
+    }
+
+    public void deepCopyUsers ()
+    {
+        try
+        {
+            ArrayList <User> users = insuranceCompany.deepCopyUsers();
+            System.out.println("Deep Copy of Users: ");
+            for (User user : users)
+            {
+                System.out.println(user);
+            }
+        }
+        catch (CloneNotSupportedException e)
+        {
+            System.out.println("Error while copying users.");
+        }
+    }
+
+    public void shallowCopyUsers ()
+    {
+        ArrayList <User> users = insuranceCompany.shallowCopyUsers();
+        System.out.println("Shallow Copy of Users: ");
+        for (User user : users)
+        {
+            System.out.println(user);
+        }
+    }
+
+    public void deepCopyCompany ()
+    {
+        try
+        {
+            InsuranceCompany copiedCompany = insuranceCompany.clone();
+            System.out.println("Deep Copy of Insurance Company: ");
+            System.out.println(copiedCompany);
+        }
+        catch (CloneNotSupportedException e)
+        {
+            System.out.println("Error while copying company.");
+        }
+    }
+
+    public void shallowCopyCompany ()
+    {
+        InsuranceCompany copiedCompany = insuranceCompany.shallowCopy();
+        System.out.println("Shallow Copy of Insurance Company: ");
+        System.out.println(copiedCompany);
+    }
+
+    public void sortUsersByCityName ()
+    {
+        ArrayList <User> sortedUsers = insuranceCompany.sortUsers();
+        System.out.println("Users Sorted by City");
+        for (User user : sortedUsers)
+        {
+            System.out.println(user);
+        }
+    }
+
+    public void sortUsersByPremium ()
+    {
+        ArrayList <User> sortedUser = insuranceCompany.sortUsersByPremium();
+        System.out.println("Users Sorted by Premium Payments: ");
+        for (User user : sortedUser)
+        {
+            System.out.println(user);
+            System.out.printf("Total Premium: $%.2f%n", insuranceCompany.calcTotalPayments(user.getUserID()));
+        }
+    }
+
+    public void sortPoliciesByExpiryDate ()
+    {
+        System.out.println("Policies Sorted by Expiry Date: ");
+        for (User user : insuranceCompany.getUsers().values())
+        {
+            System.out.println("User: " + user.getName());
+            ArrayList <InsurancePolicy> sortedPolicies = user.sortPoliciesByDate();
+            InsurancePolicy.printPolicies(sortedPolicies);
+            System.out.println();
+        }
+    }
 }

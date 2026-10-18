@@ -1104,4 +1104,33 @@ public class InsuranceCompany implements Cloneable, Serializable
         }
         return filteredPoliciesByExpiryDate;
     }
+
+    // these are for UI
+    public ArrayList <InsurancePolicy> deepCopyPolicies () throws CloneNotSupportedException
+    {
+        ArrayList <InsurancePolicy> copiedPolicies = new ArrayList<>();
+        for (User user : users.values())
+        {
+            copiedPolicies.addAll(user.deepCopyPolicies());
+        }
+        return copiedPolicies;
+    }
+
+    public ArrayList <InsurancePolicy> shallowCopyPolicies ()
+    {
+        ArrayList <InsurancePolicy> copiedPolicies = new ArrayList<>();
+        for (User user : users.values())
+        {
+            copiedPolicies.addAll(user.shallowCopyPolicies());
+        }
+        return copiedPolicies;
+    }
+
+    public InsuranceCompany shallowCopy ()
+    {
+        InsuranceCompany company = new InsuranceCompany(name, adminUsername, adminPassword, flatRate);
+        company.users = new HashMap<>(users);
+        company.updatedCars = new ArrayList<>(updatedCars);
+        return company;
+    }
 }
