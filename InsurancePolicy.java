@@ -56,6 +56,11 @@ public abstract class InsurancePolicy implements Cloneable, Comparable <Insuranc
     {
         return car;
     }
+    
+    public MyDate getExpiryDate ()
+    {
+        return expiryDate;
+    }
 
     public void setPolicyHolderName (String policyHolderName)
     {
