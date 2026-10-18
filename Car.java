@@ -62,4 +62,27 @@ public class Car implements Cloneable, Serializable
     {
         return model + "," + type + "," + manufacturingYear + "," + price;
     }
+
+    // Assignment 2
+    public static boolean isValidCarType (String carType)
+    {
+        if (carType == null)
+        {
+            return false;
+        }
+        try
+        {
+            CarType.valueOf(carType.trim().toUpperCase());
+            return true;
+        }
+        catch (IllegalArgumentException e)
+        {
+            return false;
+        }
+    }
+
+    public static CarType toCarType (String carType)
+    {
+        return CarType.valueOf(carType.trim().toUpperCase());
+    }
 }

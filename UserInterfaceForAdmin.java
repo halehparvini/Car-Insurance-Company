@@ -1,74 +1,26 @@
 package WEEK1;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInterfaceForAdmin
 {
     private InsuranceCompany insuranceCompany;
-    private UserInterfaceForUser userUI;
     Scanner scanner = new Scanner(System.in);
-    public UserInterfaceForAdmin (InsuranceCompany insuranceCompany, UserInterfaceForUser userUI)
+
+    public UserInterfaceForAdmin (InsuranceCompany insuranceCompany)
     {
         this.insuranceCompany = insuranceCompany;
-        this.userUI = userUI;
-    }
-
-    public void mainMenu ()
-    {
-        String option = "";
-        while (!option.equals("3"))
-        {
-            displayMainMenu();
-            option = scanner.nextLine();
-            switch (option)
-            {
-                case "1":
-                    if (loginAdmin())
-                    {
-                        adminMenu();
-                    }
-                    break;
-                case "2":
-                    User loggedInUser = userUI.loginUser();
-                    if (loggedInUser != null)
-                    {
-                        userUI.userMenu(loggedInUser);
-                    }
-                    break;
-                case "3" :
-                    System.out.println("Goodbye!");
-                    break;
-                default:
-                    System.out.println("Invalid option!");
-                    break;
-            }
-            
-        }
-    }
-
-    public void displayMainMenu ()
-    {
-        System.out.println("Welcom to the TrustInsure company!");
-        System.out.println("1. Admin Login");
-        System.out.println("2. User Login");
-        System.out.println("3. Exite");
-        System.out.println("Please choose an option from 1 to 3: ");
     }
 
     public boolean loginAdmin ()
     {
-        String username;
-        String password;
         System.out.println("Please enter admin username: ");
-        username = scanner.nextLine();
+        String username = scanner.nextLine();
         System.out.println("Please enter admin password: ");
-        password = scanner.nextLine();
+        String password = scanner.nextLine();
         if (insuranceCompany.validateAdmin(username, password) == false)
         {
-            System.out.println("Wrong  username or password!");
+            System.out.println("Wrong username or password!");
             return false;
         }
         else
@@ -104,7 +56,7 @@ public class UserInterfaceForAdmin
                     pause();
                     break;
                 case "5":
-                    printUserPolicies(insuranceCompany);
+                    printUserPolicies();
                     pause();
                     break;
                 case "6":
@@ -120,11 +72,11 @@ public class UserInterfaceForAdmin
                     pause();
                     break;
                 case "9":
-                    reportPaymentPerCity();
+                    insuranceCompany.printPaymentPerCityReport();
                     pause();
                     break;
                 case "10":
-                    reportPaymentPerCarModel();
+                    insuranceCompany.printPaymentPerCarModelReport();
                     pause();
                     break;
                 case "11":
@@ -140,31 +92,31 @@ public class UserInterfaceForAdmin
                     pause();
                     break;
                 case "14":
-                    testReportUser();
+                    reportOneUser();
                     pause();
                     break;
                 case "15":
-                    reportCopmany();
+                    insuranceCompany.report();
                     pause();
                     break;
                 case "16":
-                    reportAcrossAllUsersCompany();
+                    insuranceCompany.reportAcrossAllUsers();
                     pause();
                     break;
                 case "17":
-                    saveBinaryFile(insuranceCompany);
+                    saveBinaryFile();
                     pause();
                     break;
                 case "18":
-                    loadBinaryFile(insuranceCompany);
+                    loadBinaryFile();
                     pause();
                     break;
                 case "19":
-                    saveTextFile(insuranceCompany);
+                    saveTextFile();
                     pause();
                     break;
                 case "20":
-                    loadTextFile(insuranceCompany);
+                    loadTextFile();
                     pause();
                     break;
                 case "21":
@@ -172,7 +124,7 @@ public class UserInterfaceForAdmin
                     pause();
                     break;
                 case "22":
-                    shallowCopyPolicies();
+                    insuranceCompany.printShallowCopyPolicies();
                     pause();
                     break;
                 case "23":
@@ -180,7 +132,7 @@ public class UserInterfaceForAdmin
                     pause();
                     break;
                 case "24":
-                    shallowCopyUsers();
+                    insuranceCompany.printShallowCopyUsers();
                     pause();
                     break;
                 case "25":
@@ -188,26 +140,27 @@ public class UserInterfaceForAdmin
                     pause();
                     break;
                 case "26":
-                    shallowCopyCompany();
+                    insuranceCompany.printShallowCopyCompany();
                     pause();
                     break;
                 case "27":
-                    sortUsersByCityName();
+                    insuranceCompany.printUsersSortedByCity();
                     pause();
                     break;
                 case "28":
-                    sortUsersByPremium();
+                    insuranceCompany.printUsersSortedByPremium();
                     pause();
                     break;
                 case "29":
-                    sortPoliciesByExpiryDate();
+                    insuranceCompany.printPoliciesSortedByExpiryDate();
                     pause();
                     break;
                 case "30":
+                    System.out.println("Logged Out.");
                     break;
                 default:
-                    System.out.println("Invalid option!");
-                    break;
+                    System.out.println("Invalid option! Please choose a number from 1 to 30.");
+                    continue;
             }
         }
 
@@ -251,38 +204,135 @@ public class UserInterfaceForAdmin
         System.out.println("30. Log Out");
     }
 
+    public void testMenu ()
+    {
+        String choice = "";
+        while (!choice.equals("3"))
+        {
+            displayTestMenu();
+            choice = scanner.nextLine().trim();
+            switch (choice)
+            {
+                case "1":
+                    insuranceCompany.runCoreTests();
+                    break;
+                case "2":
+                    insuranceCompany.runStandardAndAdvancedTests();
+                    break;
+                case "3":
+                    break;
+                default:
+                    System.out.println("Invalid option. Try again.");
+                    break;
+            }
+        }
+    }
+
+    public void displayTestMenu ()
+    {
+        System.out.println("1. Show Test Core");
+        System.out.println("2. Show Test Standard/Advanced");
+        System.out.println("3. Return to Admin Menu");
+        System.out.println("Enter your choice from 1 to 3: ");
+    }
+
+    public void pause ()
+    {
+        System.out.println("Please press any key to continue...");
+        scanner.nextLine();
+    }
+
     public void createUserByAdmin()
     {
         System.out.println("Create User");
         System.out.println("Please enter username: ");
         String username = scanner.nextLine();
-        Address address = enterAddress();
-        User user = new User(username, address);
-        if (insuranceCompany.addUser(user))
-        {
-            System.out.println("The user has been added successfully!");
-            System.out.println("Created User ID: " + user.getUserID());
-        }
-        else
-        {
-            System.out.println("The user cannot be added!");
-        }
-    }
-
-    public Address enterAddress ()
-    {
-        System.out.println("Enter user address: ");
+        System.out.println("Please enter address: ");
         System.out.print("- Street Number: ");
-        int streetNumb = exceptionHandlingInt();
-        scanner.nextLine();
+        int streetNumber = exceptionHandlingInt();
         System.out.print("- Street: ");
         String street = scanner.nextLine();
         System.out.print("- Suburb: ");
         String suburb = scanner.nextLine();
         System.out.print("- City: ");
         String city = scanner.nextLine();
-        Address address = new Address(streetNumb, street, suburb, city);
-        return address;
+        try
+        {
+            int newUserID = insuranceCompany.createUser(username, streetNumber, street, suburb, city);
+            if (newUserID != -1)
+            {
+                System.out.println("The user has been added successfully!");
+                System.out.println("Created User ID: " + newUserID);
+            }
+            else
+            {
+                System.out.println("The user cannot be added!");
+            }
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("The user cannot be added: " + e.getMessage());
+        }
+    }
+
+    public void printUserPolicies ()
+    {
+        System.out.println("Please enter user ID: ");
+        int userID = exceptionHandlingInt();
+        if (!insuranceCompany.showUserPolicies(userID))
+        {
+            System.out.println("User cannot be found!");
+        }
+    }
+
+    public void updateAddressByAdmin ()
+    {
+        System.out.println("Please enter user ID: ");
+        int userID = exceptionHandlingInt();
+        if (!insuranceCompany.userExists(userID))
+        {
+            System.out.println("User cannot be found!");
+            return;
+        }
+        System.out.println("Enter new user address: ");
+        System.out.print("- Street Number: ");
+        int streetNumber = exceptionHandlingInt();
+        System.out.print("- Street: ");
+        String street = scanner.nextLine();
+        System.out.print("- Suburb: ");
+        String suburb = scanner.nextLine();
+        System.out.print("- City: ");
+        String city = scanner.nextLine();
+        try
+        {
+            if (insuranceCompany.updateUserAddress(userID, streetNumber, street, suburb, city))
+            {
+                System.out.println("Address updated succussfully!");
+                System.out.println(insuranceCompany.getUserInfo(userID));
+            }
+            else
+            {
+                System.out.println("The address cannot be updated.");
+            }
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("The Address cannot be updated.");
+        }
+    }
+
+    public void removeUserByAdmin ()
+    {
+        System.out.print("Enter user ID to remove: ");
+        int userIDToRemove = exceptionHandlingInt();
+        if (insuranceCompany.removeUserByAdmin(userIDToRemove))
+        {
+            System.out.println("User with ID " + userIDToRemove + " has been removed successfully!");
+        }
+        else
+        {
+            System.out.println("User ID " + userIDToRemove +  " cannot be found!");
+        }
     }
 
     public void createThirdPartyPolicyByAdmin ()
@@ -291,22 +341,26 @@ public class UserInterfaceForAdmin
         System.out.println("Enter Policy Information: ");
         System.out.print("- User ID: ");
         int userID = exceptionHandlingInt();
-        scanner.nextLine();
         System.out.print("- Policy Holder Name: ");
         String policyHolderName = scanner.nextLine();
         System.out.print("- Policy ID: ");
         int policyID = exceptionHandlingInt();
-        scanner.nextLine();
-        Car car = enterCar();
+        System.out.println("Enter user car information: ");
+        System.out.print("- Car Model: ");
+        String carModel = scanner.nextLine();
+        String carType = enterCartype();
+        System.out.print("- Manufacturing Year: ");
+        int manufacturingYear = exceptionHandlingInt();
+        System.out.print("- Price: ");
+        double price = exceptionHandlingDouble();
         System.out.print("- Number of Claims: ");
         int numberOfClaims = exceptionHandlingInt();
-        scanner.nextLine();
-        MyDate expiryDate = enterExpiryDate();
+        int [] expiry = enterExpiryDate();
         System.out.println("- Comment: ");
         String comment = scanner.nextLine();
         try
         {
-        if (insuranceCompany.createThirdPartyPolicy(userID, policyHolderName, policyID, car, numberOfClaims, expiryDate, comment))
+        if (insuranceCompany.createThirdPartyPolicy(userID, policyHolderName, policyID, carModel, carType, manufacturingYear, price, numberOfClaims, expiry[0], expiry[1], expiry[2], comment))
                 System.out.println("The Third Party Policy has been added successfully!");
             else
                 System.out.println("The Third Party Policy cannot be added as the user ID is invalid or policy ID is duplicate.");
@@ -319,6 +373,10 @@ public class UserInterfaceForAdmin
         {
             System.out.println("Invalid policy holder name!");
         }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("Invalid input.");
+        }
     }
 
     public void createComprehensivePolicyByAdmin ()
@@ -327,26 +385,28 @@ public class UserInterfaceForAdmin
         System.out.println("Enter Policy Information: ");
         System.out.print("- User ID: ");
         int userID = exceptionHandlingInt();
-        scanner.nextLine();
         System.out.print("- Policy Holder Name: ");
         String policyHolderName = scanner.nextLine();
         System.out.print("- Policy ID: ");
         int policyID = exceptionHandlingInt();
-        scanner.nextLine();
-        Car car = enterCar();
+        System.out.println("Enter user car information: ");
+        System.out.print("- Car Model: ");
+        String carModel = scanner.nextLine();
+        String carType = enterCartype();
+        System.out.print("- Manufacturing Year: ");
+        int manufacturingYear = exceptionHandlingInt();
+        System.out.print("- Price: ");
+        double price = exceptionHandlingDouble();
         System.out.print("- Number of Claims: ");
         int numberOfClaims = exceptionHandlingInt();
-        scanner.nextLine();
-        MyDate expiryDate = enterExpiryDate();
+        int [] expiry = enterExpiryDate();
         System.out.print("- Driver Age: ");
         int driverAge = exceptionHandlingInt();
-        scanner.nextLine();
         System.out.print("- Level: ");
         int level = exceptionHandlingInt();
-        scanner.nextLine();
         try
         {
-        if (insuranceCompany.createComprehensivePolicy(userID, policyHolderName, policyID, car, numberOfClaims, expiryDate, driverAge, level))
+        if (insuranceCompany.createComprehensivePolicy(userID, policyHolderName, policyID, carModel, carType, manufacturingYear, price, numberOfClaims, expiry[0], expiry[1], expiry[2], driverAge, level))
                 System.out.println("The Comprenhensive Policy has been added successfully!");
             else
                 System.out.println("The Comprehensive Policy cannot be added as the user ID is invalid or policy ID is duplicate.");
@@ -359,141 +419,93 @@ public class UserInterfaceForAdmin
         {
             System.out.println("Invalid policy holder name!");
         }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("Invalid input.");
+        }
     }
 
-    public Car enterCar ()
+    public String enterCartype ()
     {
-        System.out.println("Enter user car information: ");
-        System.out.print("- Car Model: ");
-        String carModel = scanner.nextLine();
-        CarType carType = getCarType();
-        System.out.print("- Manufacturing Year: ");
-        int manufacturingYear = exceptionHandlingInt();
-        scanner.nextLine();
-        System.out.print("- Price: ");
-        double price = exceptionHandlingDouble();
-        scanner.nextLine();
-        Car car = new Car(carModel, carType, manufacturingYear, price);
-        return car;
-    }
-
-    public CarType getCarType ()
-    {
-        CarType carType = null;
-        while (carType == null)
+        String input = "";
+        boolean valid = false;
+        while (!valid)
         {
             System.out.print("- Car Type (SUV, SED, LUX, HATCH): ");
-            String input = scanner.nextLine().toUpperCase();
-            try
+            input = scanner.nextLine().trim().toUpperCase();
+            valid = insuranceCompany.isValidCarType(input);
+            if (!valid)
             {
-                carType = CarType.valueOf(input);
-            }
-            catch (IllegalArgumentException e)
-            {
-                System.out.println("Invalid car type. Please try again.");
+                System.out.println("Invalid car type. Please try again,");
             }
         }
-        return carType;
+        return input;
     }
 
-    public MyDate enterExpiryDate ()
+    private int[] enterExpiryDate ()
     {
-        System.out.println("Enter Policy Expiry Date: ");
-        System.out.print("- Year: ");
-        int year = exceptionHandlingInt();
-        scanner.nextLine();
-        System.out.print("- Month: ");
-        int month = exceptionHandlingInt();
-        scanner.nextLine();
-        System.out.print("- Day: ");
-        int day = exceptionHandlingInt();
-        scanner.nextLine();
-        MyDate expiryDate = new MyDate(year, month, day);
-        return expiryDate;
-    }
-
-    public void printUserPolicies (InsuranceCompany insuranceCompany)
-    {
-        System.out.println("Please enter your user ID: ");
-        int userID = exceptionHandlingInt();
-        scanner.nextLine();
-        User user = insuranceCompany.findUser(userID);
-        if (user != null)
+        int year = 0;
+        int month = 0;
+        int day = 0;
+        boolean valid = false;
+        while (!valid)
         {
-            insuranceCompany.printPolicies(userID);
+            System.out.println("Enter Policy Expiry Date: ");
+            System.out.print("- Year: ");
+            year = exceptionHandlingInt();
+            System.out.print("- Month: ");
+            month = exceptionHandlingInt();
+            System.out.print("- Day: ");
+            day = exceptionHandlingInt();
+            valid = insuranceCompany.isValidDate(year, month, day);
+            if (!valid)
+            {
+                System.out.println("Invalid date! Please try again.");
+            }
         }
-        else
-            System.out.println("User cannot be found!");
+        return new int[] {year, month, day};
     }
 
     public void filterByCarModelByAdmin ()
     {
         System.out.println("Please enter car model to filter: ");
-        String carModel = scanner.nextLine();
-        ArrayList <InsurancePolicy> filteredPoliciesByCarModel = insuranceCompany.filterByCarModel(carModel);
-        InsurancePolicy.printPolicies(filteredPoliciesByCarModel);
-        double totalPaymentsForFilteredPolicies = InsurancePolicy.calcTotalPayments(filteredPoliciesByCarModel, insuranceCompany.getFlatRate());
-        System.out.println("Total payments for filtered policies: " + totalPaymentsForFilteredPolicies);
+        String carModel = scanner.nextLine().trim();
+        double totalPayment = insuranceCompany.printPoliciesByCarModel(carModel);
+        if (totalPayment == -1)
+        {
+            System.out.println("No policy is found for car model " + carModel + "!");
+        }
+        else
+        {
+            System.out.println("Total payment for filtered policies " + totalPayment);
+        }
     }
-
+    
     public void filterByExpiryDateByAdmin ()
     {
         System.out.println("Please enter user ID: ");
         int userID = exceptionHandlingInt();
-        scanner.nextLine();
-        User user = insuranceCompany.findUser(userID);
-        if (user == null)
+        if (!insuranceCompany.userExists(userID))
         {
             System.out.println("User cannot be found!");
             return;
         }
-        MyDate date = enterExpiryDate();
-        HashMap <Integer, InsurancePolicy> filteredPolicies = insuranceCompany.filterByExpiryDate(userID, date);
-        System.out.println("Filtered policies with the date before " + date + ": ");
-        if (filteredPolicies.isEmpty())
+        int [] date = enterExpiryDate();
+        String dateText = date[0] + "/" + date[1] + "/" + date[2];
+        System.out.println("Filtered policies with the date before " + dateText + ": ");
+        int count = insuranceCompany.printPoliciesBeforeDate(userID, date[0], date[1], date[2]);
+        if (count == 0)
         {
-            System.out.println("No policy is found with the date before " + date + "!");
+            System.out.println("No policy is found with the date before " + dateText + "!");
         }
-        InsurancePolicy.printPolicies(filteredPolicies);
-    }
-
-    public void updateAddressByAdmin ()
-    {
-        System.out.println("Please enter user ID: ");
-        int userID = exceptionHandlingInt();
-        scanner.nextLine();
-        User user = insuranceCompany.findUser(userID);
-        if (user == null)
-        {
-            System.out.println("User cannot be found!");
-            return;
-        }
-        Address address = enterAddress();
-        user.setAddress(address);
-        System.out.println(user);
-    }
-
-    public void reportPaymentPerCity ()
-    {
-        ArrayList <String> cities = insuranceCompany.populateDistinctCityNames();
-        ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCity(cities);
-        insuranceCompany.reportPaymentPerCity(cities, payments);
-    }
-
-    public void pause ()
-    {
-        System.out.println("Please press any key to continue...");
-        scanner.nextLine();
     }
 
     public void removePolicyByAdmin ()
     {
         System.out.print("Enter userID: ");
         int userID = exceptionHandlingInt();
-        scanner.nextLine();
         System.out.print("Enter policy ID to remove: ");
         int policyID = exceptionHandlingInt();
-        scanner.nextLine();
         if (insuranceCompany.removePolicy(userID, policyID))
         {
             System.out.println("Policy with ID: " + policyID + " has been removed successfully!");
@@ -504,139 +516,65 @@ public class UserInterfaceForAdmin
         }
     }
 
-    public void removeUserByAdmin ()
-    {
-        System.out.print("Enter user ID to remove: ");
-        int userIDToRemove = exceptionHandlingInt();
-        scanner.nextLine();
-        if (insuranceCompany.removeUserByAdmin(userIDToRemove))
-        {
-            System.out.println("User with ID " + userIDToRemove + " has been removed successfully!");
-        }
-        else
-        {
-            System.out.println("User ID " + userIDToRemove +  " cannot be found!");
-        }
-    }
-
     public void changeAdminPassword ()
     {
         System.out.print("Enter new admin password: ");
         String newPass = scanner.nextLine();
-        insuranceCompany.changeAdminPassword(newPass);
-        System.out.println("Admin password changed successfully!");
-    }
-
-    public void reportPaymentPerCarModel ()
-    {
-        ArrayList <String> carModels = insuranceCompany.populateDistinctCarModels();
-        ArrayList <Integer> counts = insuranceCompany.getTotalCountPerCarModel(carModels);
-        ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCarModel(carModels);
-        insuranceCompany.reportPaymentsPerCarModel(carModels, counts, payments);
-    }
-
-    public void testMenu ()
-    {
-        Test test = new Test();
-        String choice = "";
-        while (!choice.equals("3"))
+        if (insuranceCompany.changeAdminPassword(newPass))
         {
-            displayTestMenu();
-            choice = scanner.nextLine();
-            switch (choice)
-            {
-                case "1":
-                    test.testCore();
-                    break;
-                case "2":
-                    test.testStandardAndAdvanced();
-                    break;
-                case "3":
-                    break;
-                default:
-                    System.out.println("Invalid option. Try again!");
-                    break;
-            }
+            System.out.println("Admin password changed successfully!");
+        }
+        else
+        {
+            System.out.println("Admin password cannot be changed.");
         }
     }
     
-    public void displayTestMenu ()
-    {
-        System.out.println("1. Show Test Core");
-        System.out.println("2. Show Test Standard/Advanced");
-        System.out.println("3. Return to Admin Menu");
-        System.out.println("Enter your choice 1 to 3");
-    }
-
     // lab 5
     public int exceptionHandlingInt()
     {
-        boolean success = false;
-        int number = 0;
-
-        while (!success)
+        while (true)
         {
             try
             {
-                number = scanner.nextInt();
-                success = true;
+                return Integer.parseInt(scanner.nextLine().trim());
             }
-            catch (InputMismatchException e)
+            catch (NumberFormatException e)
             {
-                System.out.println("Invalid input! Please enter an integer!");
-                scanner.next();
+                System.out.print("Invalid input! Please enter and integer: ");
             }
         }
-        return number;
     }
 
     public Double exceptionHandlingDouble()
     {
-        boolean success = false;
-        double number = 0;
-
-        while (!success)
+        while (true)
         {
             try
             {
-                number = scanner.nextDouble();
-                success = true;
+                return Double.parseDouble(scanner.nextLine().trim());
             }
-            catch (InputMismatchException e)
+            catch (NumberFormatException e)
             {
-                System.out.println("Invalid input! Please enter a number!");
-                scanner.next();
+                System.out.print("Invalid input! Please enter a number: ");
             }
         }
-        return number;
+        
     }
     
-    public void testReportUser ()
+    public void reportOneUser ()
     {
         System.out.print("Enter user ID: ");
         int userID = exceptionHandlingInt();
-        User user = insuranceCompany.findUser(userID);
-        if (user != null)
+        if (!insuranceCompany.printUserReport(userID))
         {
-            user.report();
+            System.out.println("User cannot be found as the user ID is invalid.");
         }
-        else
-            System.out.println("User cannot be found as the userID is invalid.");
-    }
-
-    public void reportCopmany ()
-    {
-        insuranceCompany.report();
-    }
-
-    public void reportAcrossAllUsersCompany ()
-    {
-        insuranceCompany.reportAcrossAllUsers();
     }
 
     // lab 6
 
-    public static void saveBinaryFile (InsuranceCompany insuranceCompany)
+    public void saveBinaryFile ()
     {
         if (insuranceCompany.save("company.ser"))
         {
@@ -648,7 +586,7 @@ public class UserInterfaceForAdmin
         }
     }
 
-    public static void loadBinaryFile (InsuranceCompany insuranceCompany)
+    public void loadBinaryFile ()
     {
         if (insuranceCompany.load("company.ser"))
         {
@@ -660,9 +598,9 @@ public class UserInterfaceForAdmin
         }
     }
 
-    public static void saveTextFile (InsuranceCompany insuranceCompany)
+    public void saveTextFile ()
     {
-        if (insuranceCompany.saveTextFile("comapny.txt"))
+        if (insuranceCompany.saveTextFile("company.txt"))
         {
             System.out.println("Company saved successfully to text file.");
         }
@@ -672,7 +610,7 @@ public class UserInterfaceForAdmin
         }
     }
 
-    public static void loadTextFile (InsuranceCompany insuranceCompany)
+    public void loadTextFile ()
     {
         if (insuranceCompany.loadTextFile("company.txt"))
         {
@@ -690,9 +628,7 @@ public class UserInterfaceForAdmin
     {
         try
         {
-            ArrayList <InsurancePolicy> policies = insuranceCompany.deepCopyPolicies();
-            System.out.println("Deep Copy of Policies: ");
-            InsurancePolicy.printPolicies(policies);
+            insuranceCompany.printDeepCopyPolicies();
         }
         catch (CloneNotSupportedException e)
         {
@@ -700,23 +636,11 @@ public class UserInterfaceForAdmin
         }
     }
 
-    public void shallowCopyPolicies ()
-    {
-        ArrayList <InsurancePolicy> policies = insuranceCompany.shallowCopyPolicies();
-        System.out.println("Shallow Copy of Policies: ");
-        InsurancePolicy.printPolicies(policies);
-    }
-
     public void deepCopyUsers ()
     {
         try
         {
-            ArrayList <User> users = insuranceCompany.deepCopyUsers();
-            System.out.println("Deep Copy of Users: ");
-            for (User user : users)
-            {
-                System.out.println(user);
-            }
+            insuranceCompany.printDeepCopyUsers();
         }
         catch (CloneNotSupportedException e)
         {
@@ -724,67 +648,15 @@ public class UserInterfaceForAdmin
         }
     }
 
-    public void shallowCopyUsers ()
-    {
-        ArrayList <User> users = insuranceCompany.shallowCopyUsers();
-        System.out.println("Shallow Copy of Users: ");
-        for (User user : users)
-        {
-            System.out.println(user);
-        }
-    }
-
     public void deepCopyCompany ()
     {
         try
         {
-            InsuranceCompany copiedCompany = insuranceCompany.clone();
-            System.out.println("Deep Copy of Insurance Company: ");
-            System.out.println(copiedCompany);
+            insuranceCompany.printDeepCopyCompany();
         }
         catch (CloneNotSupportedException e)
         {
             System.out.println("Error while copying company.");
-        }
-    }
-
-    public void shallowCopyCompany ()
-    {
-        InsuranceCompany copiedCompany = insuranceCompany.shallowCopy();
-        System.out.println("Shallow Copy of Insurance Company: ");
-        System.out.println(copiedCompany);
-    }
-
-    public void sortUsersByCityName ()
-    {
-        ArrayList <User> sortedUsers = insuranceCompany.sortUsers();
-        System.out.println("Users Sorted by City");
-        for (User user : sortedUsers)
-        {
-            System.out.println(user);
-        }
-    }
-
-    public void sortUsersByPremium ()
-    {
-        ArrayList <User> sortedUser = insuranceCompany.sortUsersByPremium();
-        System.out.println("Users Sorted by Premium Payments: ");
-        for (User user : sortedUser)
-        {
-            System.out.println(user);
-            System.out.printf("Total Premium: $%.2f%n", insuranceCompany.calcTotalPayments(user.getUserID()));
-        }
-    }
-
-    public void sortPoliciesByExpiryDate ()
-    {
-        System.out.println("Policies Sorted by Expiry Date: ");
-        for (User user : insuranceCompany.getUsers().values())
-        {
-            System.out.println("User: " + user.getName());
-            ArrayList <InsurancePolicy> sortedPolicies = user.sortPoliciesByDate();
-            InsurancePolicy.printPolicies(sortedPolicies);
-            System.out.println();
         }
     }
 }

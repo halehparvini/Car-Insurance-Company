@@ -4,6 +4,6 @@ public class PolicyHolderNameException extends Exception
 {
  public PolicyHolderNameException (String message)
  {
-    super(message);
+   super(message);
  }   
 }

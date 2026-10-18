@@ -112,4 +112,18 @@ public class MyDate implements Cloneable, Comparable <MyDate>, Serializable
     {
         return year + "," + month + "," + day;
     }
+
+    // Assignment 2
+    public static boolean isValiddate (int year, int month, int day)
+    {
+        try
+        {
+            java.time.LocalDate.of(year, month, day);
+            return true;
+        }
+        catch (java.time.DateTimeException e)
+        {
+            return false;
+        }
+    }
 }

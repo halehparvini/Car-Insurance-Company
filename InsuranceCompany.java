@@ -419,9 +419,14 @@ public class InsuranceCompany implements Cloneable, Serializable
         }
     }
 
-    public void changeAdminPassword (String newPass)
+    public boolean changeAdminPassword (String newPass)
     {
+        if (newPass == null || newPass.trim().isEmpty())
+        {
+            return false;
+        }
         adminPassword = newPass;
+        return true;
     }
 
     public boolean removePolicy (int userID, int policyID)
@@ -1132,5 +1137,219 @@ public class InsuranceCompany implements Cloneable, Serializable
         company.users = new HashMap<>(users);
         company.updatedCars = new ArrayList<>(updatedCars);
         return company;
+    }
+
+    // Proxy Design Pattern
+    public boolean isValidCarType (String carType)
+    {
+        return Car.isValidCarType(carType);
+    }
+
+    public boolean isValidDate (int year, int month, int day)
+    {
+        return MyDate.isValiddate(year, month, day);
+    }
+
+    public boolean userExists (int userID)
+    {
+        return findUser(userID) != null;
+    }
+
+    public int createUser (String name, int streetNumber, String street, String suburb, String city)
+    {
+        User user = User.createUser(name, streetNumber, street, suburb, city);
+        if (addUser(user))
+        {
+            return user.getUserID();
+        }
+        return -1;
+    }
+
+    public boolean updateUserAddress (int userID, int streetNumber, String street, String suburb, String city)
+    {
+        User user = findUser(userID);
+        if (user == null)
+        {
+            return false;
+        }
+        user.setAddress(new Address(streetNumber, street, suburb, city));
+        return true;
+    }
+
+    public String getUserInfo (int userID)
+    {
+        User user = findUser(userID);
+        if (user == null)
+        {
+            return "";
+        }
+        return user.toString();
+    }
+
+    public boolean showUserPolicies (int userID)
+    {
+        if (findUser(userID) == null)
+        {
+            return false;
+        }
+        printPolicies(userID);
+        return true;
+    }
+
+    public boolean printUserReport (int userID)
+    {
+        User user = findUser(userID);
+        if (user == null)
+        {
+            return false;
+        }
+        user.report();
+        return true;
+    }
+
+    public boolean createThirdPartyPolicy (int userID, String policyHolderName, int policyID, String carModel, String carType, int manufacturingYear, double price, int numberOfClaims, int expiryYear, int expiryMonth, int expiryDay, String comments) throws PolicyException, PolicyHolderNameException
+    {
+        Car car = new Car(carModel, Car.toCarType(carType), manufacturingYear, price);
+        MyDate expiryDate = new MyDate(expiryYear, expiryMonth, expiryDay);
+        return createThirdPartyPolicy(userID, policyHolderName, policyID, car, numberOfClaims, expiryDate, comments);
+    }
+
+    public boolean createComprehensivePolicy (int userID, String policyHolderName, int policyID, String carModel, String carType, int manufacturingYear, double price, int numberOfClaims, int expiryYear, int expiryMonth, int expiryDay, int driverAge, int level) throws PolicyException, PolicyHolderNameException
+    {
+        Car car = new Car(carModel, Car.toCarType(carType), manufacturingYear, price);
+        MyDate expiryDate = new MyDate(expiryYear, expiryMonth, expiryDay);
+        return createComprehensivePolicy(userID, policyHolderName, policyID, car, numberOfClaims, expiryDate, driverAge, level);
+    }
+
+    public double printPoliciesByCarModel (String carModel)
+    {
+        ArrayList <InsurancePolicy> filtered = filterByCarModel(carModel);
+        if (filtered.isEmpty())
+        {
+            return -1;
+        }
+        InsurancePolicy.printPolicies(filtered);
+        return InsurancePolicy.calcTotalPayments(filtered, flatRate);
+    }
+
+    public double getTotalPaymentByCarModel (String carModel)
+    {
+        return InsurancePolicy.calcTotalPayments(filterByCarModel(carModel), flatRate);
+    }
+
+    public int printPoliciesBeforeDate (int userID, int year, int month, int day)
+    {
+        HashMap <Integer, InsurancePolicy> filtered = filterByExpiryDate(userID, new MyDate(year, month, day));
+        if (!filtered.isEmpty())
+        {
+            InsurancePolicy.printPolicies(filtered);
+        }
+        return filtered.size();
+    }
+
+    public void printPaymentPerCityReport ()
+    {
+        ArrayList <String> cities = populateDistinctCityNames();
+        ArrayList <Double> payments = getTotalPaymentPerCity(cities);
+        reportPaymentPerCity(cities, payments);
+    }
+
+    public void printPaymentPerCarModelReport ()
+    {
+        ArrayList <String> carModels = populateDistinctCarModels();
+        ArrayList <Integer> counts = getTotalCountPerCarModel(carModels);
+        ArrayList <Double> payments = getTotalPaymentPerCarModel(carModels);
+        reportPaymentsPerCarModel(carModels, counts, payments);
+    }
+
+    public void printDeepCopyPolicies () throws CloneNotSupportedException
+    {
+        ArrayList <InsurancePolicy> policies = deepCopyPolicies();
+        System.out.println("Deep Dopy of Policies: ");
+        InsurancePolicy.printPolicies(policies);
+    }
+
+    public void printShallowCopyPolicies ()
+    {
+        ArrayList <InsurancePolicy> policies = shallowCopyPolicies();
+        System.out.println("Shallow Copy of policies: ");
+        InsurancePolicy.printPolicies(policies);
+    }
+
+    public void printDeepCopyUsers () throws CloneNotSupportedException
+    {
+        ArrayList <User> copiedUsers = deepCopyUsers();
+        System.out.println("Deep Copy of Users: ");
+        for (User user : copiedUsers)
+        {
+            System.out.println(user);
+        }
+    }
+
+    public void printShallowCopyUsers ()
+    {
+        ArrayList <User> copiedUsers = shallowCopyUsers();
+        System.out.println("Shallow Copy of Users: ");
+        for (User user : copiedUsers)
+        {
+            System.out.println(user);
+        }
+    }
+
+    public void printDeepCopyCompany () throws CloneNotSupportedException
+    {
+        InsuranceCompany copiedCompany = clone();
+        System.out.println("Deep Copy of Insurance Company: ");
+        System.out.println(copiedCompany);
+    }
+
+    public void printShallowCopyCompany ()
+    {
+        InsuranceCompany copiedCompany = shallowCopy();
+        System.out.println("Shallow Copy of Insurance Company: ");
+        System.out.println(copiedCompany);
+    }
+
+    public void printUsersSortedByCity ()
+    {
+        System.out.println("Users Sorted by City");
+        for (User user : sortUsers())
+        {
+            System.out.println(user);
+        }
+    }
+
+    public void printUsersSortedByPremium ()
+    {
+        System.out.println("Users Sorted by Premium Payments: ");
+        for (User user : sortUsersByPremium())
+        {
+            System.out.println(user);
+            System.out.printf("Total Premium: $%.2f%n", calcTotalPayments(user.getUserID()));
+        }
+    }
+
+    public void printPoliciesSortedByExpiryDate ()
+    {
+        System.out.println("Policies Sorted By Expiry Date: ");
+        for (User user : users.values())
+        {
+            System.out.println("User: " + user.getName());
+            ArrayList <InsurancePolicy> sortedPolicies = user.sortPoliciesByDate();
+            InsurancePolicy.printPolicies(sortedPolicies);
+            System.out.println();
+        }
+    }
+
+    public void runCoreTests ()
+    {
+        Test test = new Test();
+        test.testCore();
+    }
+
+    public void runStandardAndAdvancedTests ()
+    {
+        Test test = new Test();
+        test.testStandardAndAdvanced();
     }
 }

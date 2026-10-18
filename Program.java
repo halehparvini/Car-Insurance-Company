@@ -16,8 +16,9 @@ public class Program
         test.filingTest();
         InsuranceCompany insuranceCompany = test.getInsuranceCompany();
         UserInterfaceForUser userUI = new UserInterfaceForUser(insuranceCompany);
-        UserInterfaceForAdmin adminUI = new UserInterfaceForAdmin(insuranceCompany, userUI);
-        adminUI.mainMenu();
+        UserInterfaceForAdmin adminUI = new UserInterfaceForAdmin(insuranceCompany);
+        MainMenu mainMenu = new MainMenu(adminUI, userUI);
+        mainMenu.run();
     }
     
         // lab 3

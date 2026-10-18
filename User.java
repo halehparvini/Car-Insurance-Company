@@ -767,4 +767,10 @@ public class User implements Cloneable, Comparable <User>, Serializable
     {
         return address.getCity();
     }
+
+    // Proxy Design Pattern
+    public static User createUser (String name, int streetNumber, String street, String suburb, String city)
+    {
+        return new User(name, new Address(streetNumber, street, suburb, city));
+    }
 }
