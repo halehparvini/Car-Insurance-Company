@@ -247,6 +247,8 @@ public class UserInterfaceForAdmin
         System.out.println("Create User");
         System.out.println("Please enter username: ");
         String username = scanner.nextLine();
+        System.out.println("Please enter user password: ");
+        String userPassword = scanner.nextLine();
         System.out.println("Please enter address: ");
         System.out.print("- Street Number: ");
         int streetNumber = exceptionHandlingInt();
@@ -258,7 +260,7 @@ public class UserInterfaceForAdmin
         String city = scanner.nextLine();
         try
         {
-            int newUserID = insuranceCompany.createUser(username, streetNumber, street, suburb, city);
+            int newUserID = insuranceCompany.createUser(username, userPassword, streetNumber, street, suburb, city);
             if (newUserID != -1)
             {
                 System.out.println("The user has been added successfully!");

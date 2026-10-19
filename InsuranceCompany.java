@@ -85,9 +85,9 @@ public class InsuranceCompany implements Cloneable, Serializable
         //     return false;
     // }
 
-    public Boolean addUser (String name, Address address)
+    public Boolean addUser (String name, String userPassword, Address address)
     {
-        User user = new User(name, address);
+        User user = new User(name, address, userPassword);
         return addUser(user);
     }
 
@@ -966,16 +966,17 @@ public class InsuranceCompany implements Cloneable, Serializable
                 line = bufferedReader.readLine();
                 String[] field = line.split(",");
                 String userName = field[0];
-                int userID = Integer.parseInt(field[1]);
-                int streetNum = Integer.parseInt(field[2]);
-                String street = field[3];
-                String suburb = field[4];
-                String city = field[5];
+                String userPassword = field[1];
+                int userID = Integer.parseInt(field[2]);
+                int streetNum = Integer.parseInt(field[3]);
+                String street = field[4];
+                String suburb = field[5];
+                String city = field[6];
                 Address address = new Address(streetNum, street, suburb, city);
-                User user = new User(userName, address);
+                User user = new User(userName, address, userPassword);
                 user.setUserID(userID);
-                int numberOfPolicies = Integer.parseInt(field[6]);
-                int index = 7;
+                int numberOfPolicies = Integer.parseInt(field[7]);
+                int index = 8;
                 for (int j = 0; j < numberOfPolicies; j++)
                 {
                     if (field[index].equals("TPP"))
@@ -1155,9 +1156,9 @@ public class InsuranceCompany implements Cloneable, Serializable
         return findUser(userID) != null;
     }
 
-    public int createUser (String name, int streetNumber, String street, String suburb, String city)
+    public int createUser (String name, String userPassword,  int streetNumber, String street, String suburb, String city)
     {
-        User user = User.createUser(name, streetNumber, street, suburb, city);
+        User user = User.createUser(name, userPassword, streetNumber, street, suburb, city);
         if (addUser(user))
         {
             return user.getUserID();

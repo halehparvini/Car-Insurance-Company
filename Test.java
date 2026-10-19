@@ -35,12 +35,12 @@ public class Test
     Address address5 = new Address(14, "Water Fall", "Greenfield", "Melbourne");
     Address address6 = new Address(1, "Heaven", "Greenfield", "Melbourne");
 
-    User user1 = new User("Haleh", address1);
-    User user2 = new User("Parisa",address2);
-    User user3 = new User("Taraneh",address3);
-    User user4 = new User("Payam", address4);
-    User user5 = new User("Sarina", address5);
-    User user6 = new User("Behzad", address6);
+    User user1 = new User("Haleh", address1, "halehPassword");
+    User user2 = new User("Parisa",address2, "parisaPassword");
+    User user3 = new User("Taraneh",address3, "taranehPassword");
+    User user4 = new User("Payam", address4, "payamPassword");
+    User user5 = new User("Sarina", address5, "sarinaPassword");
+    User user6 = new User("Behzad", address6, "behzadPassword");
 
     InsuranceCompany insuranceCompany = new InsuranceCompany("TrustInsure", "admin_ti", "admin@1234", 100);
 
@@ -140,7 +140,7 @@ public class Test
         System.out.println("\u001B[33mExpected result: User cannot be added as the userID is invalid or duplicate!\u001B[0m");
         testAddUser(user1); // duplicate userID
         System.out.println("\u001B[33mExpected result: User has been added successfully!\u001B[0m");
-        testAddUser("Alhan", address1); // create user7
+        testAddUser("Alhan", "alhanPassword", address1); // create user7
         System.out.println("\u001B[33mExpected rsult: User has been found successfully!\u001B[0m");
         testFindUser(1);
         System.out.println("\u001B[33mExpected result: User cannot be found as the userID is invalid!\u001B[0m");
@@ -263,9 +263,9 @@ public class Test
             System.out.println("User cannot be added as the userID is invalid or duplicate!");
     }
 
-    public void testAddUser (String name, Address address)
+    public void testAddUser (String name, String userPassword, Address address)
     {
-        if (insuranceCompany.addUser(name, address))
+        if (insuranceCompany.addUser(name, userPassword, address))
         {
             System.out.println("User has been added succussfully!");
         }
@@ -553,7 +553,7 @@ public class Test
     // lab 4
     public void copyPolicies () throws CloneNotSupportedException
     {
-        User sina = new User("Sina", new Address(19, "King", "downtown", "London") );
+        User sina = new User("Sina", new Address(19, "King", "downtown", "London"), "sinaPassword" );
         sina.addPolicy(cp1);
         sina.addPolicy(tpp3);
         ArrayList <InsurancePolicy> deepCopy = sina.deepCopyPolicies();
@@ -606,7 +606,7 @@ public class Test
         ArrayList <User> deepCopyUsers = company.deepCopyUsers();
         ArrayList <User> shallowCopyUsers = company.shallowCopyUsers();
 
-        company.addUser("Hailey", new Address(12, "Garden st", "Downtown", "Boston"));
+        company.addUser("Hailey", "hailyPassword", new Address(12, "Garden st", "Downtown", "Boston"));
 
         ArrayList <User> sortedUsers = company.sortUsers(); // sorted by city
 
@@ -672,7 +672,7 @@ public class Test
         System.out.println(clone);
 
         insuranceCompany.addPolicy(1, cp1);
-        insuranceCompany.addUser(new User("Diba", new Address(23, "Queen st", "GreenHouse", "London")));
+        insuranceCompany.addUser(new User("Diba", new Address(23, "Queen st", "GreenHouse", "London"), "dibaPassword"));
         insuranceCompany.carPriceRise(0.1);
         try
         {
@@ -851,7 +851,7 @@ public class Test
         }
 
         HashMap <Integer, User> users = new HashMap<>();
-        User user = new User("Jack", address1);
+        User user = new User("Jack", address1, "jackPassword");
         user.addPolicy(cp1);
         users.put(user.getUserID(), user);
         User.save(users, "users.ser");
@@ -863,7 +863,7 @@ public class Test
         }
 
         InsuranceCompany insuranceCompany1 = new InsuranceCompany();
-        insuranceCompany1.addUser("Mahan", address2);
+        insuranceCompany1.addUser("Mahan", "mahanPassword", address2);
         insuranceCompany1.save("company.ser");
         insuranceCompany1.clearUsers();
         InsuranceCompany insuranceCompany2 = new InsuranceCompany();
@@ -887,7 +887,7 @@ public class Test
         }
 
         HashMap <Integer, User> users2 = new HashMap<>();
-        User user2 = new User("Ladan", address3);
+        User user2 = new User("Ladan", address3, "ladanPassword");
         user2.addPolicy(tpp4);
         user2.addPolicy(cp1);
         users2.put(user2.getUserID(), user2);
@@ -898,12 +898,12 @@ public class Test
         }
 
         InsuranceCompany insuranceCompany3 = new InsuranceCompany();
-        insuranceCompany3.addUser("Haleh", address1);
-        insuranceCompany3.addUser("Parisa",address2);
-        insuranceCompany3.addUser("Taraneh",address3);
-        insuranceCompany3.addUser("Payam", address4);
-        insuranceCompany3.addUser("Sarina", address5);
-        insuranceCompany3.addUser("Behzad", address6);
+        insuranceCompany3.addUser("Haleh", "halehPassword", address1);
+        insuranceCompany3.addUser("Parisa", "parisaPassword", address2);
+        insuranceCompany3.addUser("Taraneh","taranehPassword", address3);
+        insuranceCompany3.addUser("Payam", "payamPassword", address4);
+        insuranceCompany3.addUser("Sarina", "sarinaPassword", address5);
+        insuranceCompany3.addUser("Behzad", "behzadPassword", address6);
 
 
         insuranceCompany3.saveTextFile("company.txt");

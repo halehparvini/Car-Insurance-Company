@@ -17,12 +17,13 @@ public class UserInterfaceForUser {
 
     public User loginUser ()
     {
-        System.out.print("Enter User ID: ");
-        int userID = exceptionHandlingInt();
-        scanner.nextLine();
+        System.out.print("Please enter username: ");
+        String userName = scanner.nextLine();
+        System.out.print("Please enter user password: ");
+        String userPassword = scanner.nextLine();
         for (User user : insuranceCompany.getUsers().values())
         {
-            if (user.getUserID() == userID)
+            if (user.userValidate(userName, userPassword))
             {
                 System.out.println("Successful Login!");
                 return user;

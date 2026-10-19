@@ -17,15 +17,17 @@ import java.util.HashMap;
 public class User implements Cloneable, Comparable <User>, Serializable
 {
     private String name; //the name of the account holder
+    private String userPassword;
     private int userID; //the user ID/number
     private Address address;
     private static int count;
     //ArrayList <InsurancePolicy> policies; //list of all the Insurance Policies this user hold
     HashMap <Integer, InsurancePolicy> policies;
     
-    public User (String name, Address address)
+    public User (String name, Address address, String userPassword)
     {
         this.name = name;
+        this.userPassword = userPassword;
         this.userID = ++count;
         this.address = address;
         policies = new HashMap<>();
@@ -39,6 +41,11 @@ public class User implements Cloneable, Comparable <User>, Serializable
     public String getName ()
     {
         return name;
+    }
+
+    public String getUserPassword ()
+    {
+        return userPassword;
     }
 
     public int getUserID ()
@@ -641,7 +648,7 @@ public class User implements Cloneable, Comparable <User>, Serializable
 
     public String toDelimitedString ()
     {
-        String result = name + "," + userID + "," + address.toDelimitedString() + "," + policies.size();
+        String result = name + "," + userPassword + "," + userID + "," + address.toDelimitedString() + "," + policies.size();
         for (InsurancePolicy policy : policies.values())
         {
             result += "," + policy.toDelimitedString();
@@ -661,16 +668,17 @@ public class User implements Cloneable, Comparable <User>, Serializable
                 line = line.trim();
                 String [] field = line.split(",");
                 String name = field[0];
-                int userID = Integer.parseInt(field[1]);
-                int streetNum = Integer.parseInt(field[2]);
-                String street = field[3];
-                String suburb = field[4];
-                String city = field[5];
+                String userPassword = field[1];
+                int userID = Integer.parseInt(field[2]);
+                int streetNum = Integer.parseInt(field[3]);
+                String street = field[4];
+                String suburb = field[5];
+                String city = field[6];
                 Address address = new Address(streetNum, street, suburb, city);
-                User user = new User(name, address);
+                User user = new User(name, address, userPassword);
                 user.userID = userID;
-                int numberOfPolicies = Integer.parseInt(field[6]);
-                int index = 7;
+                int numberOfPolicies = Integer.parseInt(field[7]);
+                int index = 8;
                 for (int i = 0; i < numberOfPolicies; i++)
                 {
                     if (field[index].equals("TPP"))
@@ -769,8 +777,15 @@ public class User implements Cloneable, Comparable <User>, Serializable
     }
 
     // Proxy Design Pattern
-    public static User createUser (String name, int streetNumber, String street, String suburb, String city)
+    public static User createUser (String name, String userPassword, int streetNumber, String street, String suburb, String city)
     {
-        return new User(name, new Address(streetNumber, street, suburb, city));
+        return new User(name, new Address(streetNumber, street, suburb, city), userPassword);
+    }
+
+    // validate username and user passoword
+
+    public boolean userValidate (String username, String password)
+    {
+        return this.name.equals(username) && this.userPassword.equals(password);
     }
 }
