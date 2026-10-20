@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class UserInterfaceForAdmin
 {
+    private String adminUsername;
+    private String adminPassword;
     private InsuranceCompany insuranceCompany;
     Scanner scanner = new Scanner(System.in);
 
@@ -23,11 +25,11 @@ public class UserInterfaceForAdmin
             System.out.println("Wrong username or password!");
             return false;
         }
-        else
-        {
-            System.out.println("Successful login!");
-            return true;
-        }
+        adminUsername = username;
+        adminPassword = password;
+
+        System.out.println("Successful login!");
+        return true;
     }
 
     public void adminMenu ()
@@ -72,11 +74,11 @@ public class UserInterfaceForAdmin
                     pause();
                     break;
                 case "9":
-                    insuranceCompany.printPaymentPerCityReport();
+                    insuranceCompany.printPaymentPerCityReport(adminUsername, adminPassword);
                     pause();
                     break;
                 case "10":
-                    insuranceCompany.printPaymentPerCarModelReport();
+                    insuranceCompany.printPaymentPerCarModelReport(adminUsername, adminPassword);
                     pause();
                     break;
                 case "11":
@@ -96,11 +98,11 @@ public class UserInterfaceForAdmin
                     pause();
                     break;
                 case "15":
-                    insuranceCompany.report();
+                    insuranceCompany.report(adminUsername, adminPassword);
                     pause();
                     break;
                 case "16":
-                    insuranceCompany.reportAcrossAllUsers();
+                    insuranceCompany.reportAcrossAllUsers(adminUsername, adminPassword);
                     pause();
                     break;
                 case "17":
@@ -124,7 +126,7 @@ public class UserInterfaceForAdmin
                     pause();
                     break;
                 case "22":
-                    insuranceCompany.printShallowCopyPolicies();
+                    insuranceCompany.printShallowCopyPolicies(adminUsername, adminPassword);
                     pause();
                     break;
                 case "23":
@@ -132,7 +134,7 @@ public class UserInterfaceForAdmin
                     pause();
                     break;
                 case "24":
-                    insuranceCompany.printShallowCopyUsers();
+                    insuranceCompany.printShallowCopyUsers(adminUsername, adminPassword);
                     pause();
                     break;
                 case "25":
@@ -140,19 +142,19 @@ public class UserInterfaceForAdmin
                     pause();
                     break;
                 case "26":
-                    insuranceCompany.printShallowCopyCompany();
+                    insuranceCompany.printShallowCopyCompany(adminUsername, adminPassword);
                     pause();
                     break;
                 case "27":
-                    insuranceCompany.printUsersSortedByCity();
+                    insuranceCompany.printUsersSortedByCity(adminUsername, adminPassword);
                     pause();
                     break;
                 case "28":
-                    insuranceCompany.printUsersSortedByPremium();
+                    insuranceCompany.printUsersSortedByPremium(adminUsername, adminPassword);
                     pause();
                     break;
                 case "29":
-                    insuranceCompany.printPoliciesSortedByExpiryDate();
+                    insuranceCompany.printPoliciesSortedByExpiryDate(adminUsername, adminPassword);
                     pause();
                     break;
                 case "30":
@@ -260,7 +262,7 @@ public class UserInterfaceForAdmin
         String city = scanner.nextLine();
         try
         {
-            int newUserID = insuranceCompany.createUser(username, userPassword, streetNumber, street, suburb, city);
+            int newUserID = insuranceCompany.createUser(adminUsername, adminPassword, username, userPassword, streetNumber, street, suburb, city);
             if (newUserID != -1)
             {
                 System.out.println("The user has been added successfully!");
@@ -281,7 +283,7 @@ public class UserInterfaceForAdmin
     {
         System.out.println("Please enter user ID: ");
         int userID = exceptionHandlingInt();
-        if (!insuranceCompany.showUserPolicies(userID))
+        if (!insuranceCompany.showUserPolicies(adminUsername, adminPassword, userID))
         {
             System.out.println("User cannot be found!");
         }
@@ -291,7 +293,7 @@ public class UserInterfaceForAdmin
     {
         System.out.println("Please enter user ID: ");
         int userID = exceptionHandlingInt();
-        if (!insuranceCompany.userExists(userID))
+        if (!insuranceCompany.userExists(adminUsername, adminPassword, userID))
         {
             System.out.println("User cannot be found!");
             return;
@@ -307,10 +309,10 @@ public class UserInterfaceForAdmin
         String city = scanner.nextLine();
         try
         {
-            if (insuranceCompany.updateUserAddress(userID, streetNumber, street, suburb, city))
+            if (insuranceCompany.updateUserAddress(adminUsername, adminPassword, userID, streetNumber, street, suburb, city))
             {
                 System.out.println("Address updated succussfully!");
-                System.out.println(insuranceCompany.getUserInfo(userID));
+                System.out.println(insuranceCompany.getUserInfo(adminUsername, adminPassword, userID));
             }
             else
             {
@@ -327,7 +329,7 @@ public class UserInterfaceForAdmin
     {
         System.out.print("Enter user ID to remove: ");
         int userIDToRemove = exceptionHandlingInt();
-        if (insuranceCompany.removeUserByAdmin(userIDToRemove))
+        if (insuranceCompany.removeUserByAdmin(adminUsername, adminPassword, userIDToRemove))
         {
             System.out.println("User with ID " + userIDToRemove + " has been removed successfully!");
         }
@@ -362,7 +364,7 @@ public class UserInterfaceForAdmin
         String comment = scanner.nextLine();
         try
         {
-        if (insuranceCompany.createThirdPartyPolicy(userID, policyHolderName, policyID, carModel, carType, manufacturingYear, price, numberOfClaims, expiry[0], expiry[1], expiry[2], comment))
+        if (insuranceCompany.createThirdPartyPolicy(adminUsername, adminPassword, userID, policyHolderName, policyID, carModel, carType, manufacturingYear, price, numberOfClaims, expiry[0], expiry[1], expiry[2], comment))
                 System.out.println("The Third Party Policy has been added successfully!");
             else
                 System.out.println("The Third Party Policy cannot be added as the user ID is invalid or policy ID is duplicate.");
@@ -408,7 +410,7 @@ public class UserInterfaceForAdmin
         int level = exceptionHandlingInt();
         try
         {
-        if (insuranceCompany.createComprehensivePolicy(userID, policyHolderName, policyID, carModel, carType, manufacturingYear, price, numberOfClaims, expiry[0], expiry[1], expiry[2], driverAge, level))
+        if (insuranceCompany.createComprehensivePolicy(adminUsername, adminPassword, userID, policyHolderName, policyID, carModel, carType, manufacturingYear, price, numberOfClaims, expiry[0], expiry[1], expiry[2], driverAge, level))
                 System.out.println("The Comprenhensive Policy has been added successfully!");
             else
                 System.out.println("The Comprehensive Policy cannot be added as the user ID is invalid or policy ID is duplicate.");
@@ -435,7 +437,7 @@ public class UserInterfaceForAdmin
         {
             System.out.print("- Car Type (SUV, SED, LUX, HATCH): ");
             input = scanner.nextLine().trim().toUpperCase();
-            valid = insuranceCompany.isValidCarType(input);
+            valid = insuranceCompany.isValidCarType(adminUsername, adminPassword, input);
             if (!valid)
             {
                 System.out.println("Invalid car type. Please try again,");
@@ -459,7 +461,7 @@ public class UserInterfaceForAdmin
             month = exceptionHandlingInt();
             System.out.print("- Day: ");
             day = exceptionHandlingInt();
-            valid = insuranceCompany.isValidDate(year, month, day);
+            valid = insuranceCompany.isValidDate(adminUsername, adminPassword, year, month, day);
             if (!valid)
             {
                 System.out.println("Invalid date! Please try again.");
@@ -472,7 +474,7 @@ public class UserInterfaceForAdmin
     {
         System.out.println("Please enter car model to filter: ");
         String carModel = scanner.nextLine().trim();
-        double totalPayment = insuranceCompany.printPoliciesByCarModel(carModel);
+        double totalPayment = insuranceCompany.printPoliciesByCarModel(adminUsername, adminPassword, carModel);
         if (totalPayment == -1)
         {
             System.out.println("No policy is found for car model " + carModel + "!");
@@ -487,7 +489,7 @@ public class UserInterfaceForAdmin
     {
         System.out.println("Please enter user ID: ");
         int userID = exceptionHandlingInt();
-        if (!insuranceCompany.userExists(userID))
+        if (!insuranceCompany.userExists(adminUsername, adminPassword, userID))
         {
             System.out.println("User cannot be found!");
             return;
@@ -495,7 +497,7 @@ public class UserInterfaceForAdmin
         int [] date = enterExpiryDate();
         String dateText = date[0] + "/" + date[1] + "/" + date[2];
         System.out.println("Filtered policies with the date before " + dateText + ": ");
-        int count = insuranceCompany.printPoliciesBeforeDate(userID, date[0], date[1], date[2]);
+        int count = insuranceCompany.printPoliciesBeforeDate(adminUsername, adminPassword, userID, date[0], date[1], date[2]);
         if (count == 0)
         {
             System.out.println("No policy is found with the date before " + dateText + "!");
@@ -508,7 +510,7 @@ public class UserInterfaceForAdmin
         int userID = exceptionHandlingInt();
         System.out.print("Enter policy ID to remove: ");
         int policyID = exceptionHandlingInt();
-        if (insuranceCompany.removePolicy(userID, policyID))
+        if (insuranceCompany.removePolicy(adminUsername, adminPassword, userID, policyID))
         {
             System.out.println("Policy with ID: " + policyID + " has been removed successfully!");
         }
@@ -522,9 +524,10 @@ public class UserInterfaceForAdmin
     {
         System.out.print("Enter new admin password: ");
         String newPass = scanner.nextLine();
-        if (insuranceCompany.changeAdminPassword(newPass))
+        if (insuranceCompany.changeAdminPassword(adminUsername, adminPassword, newPass))
         {
             System.out.println("Admin password changed successfully!");
+            adminPassword = newPass;
         }
         else
         {
@@ -568,7 +571,7 @@ public class UserInterfaceForAdmin
     {
         System.out.print("Enter user ID: ");
         int userID = exceptionHandlingInt();
-        if (!insuranceCompany.printUserReport(userID))
+        if (!insuranceCompany.printUserReport(adminUsername, adminPassword, userID))
         {
             System.out.println("User cannot be found as the user ID is invalid.");
         }
@@ -578,7 +581,7 @@ public class UserInterfaceForAdmin
 
     public void saveBinaryFile ()
     {
-        if (insuranceCompany.save("company.ser"))
+        if (insuranceCompany.save(adminUsername, adminPassword, "company.ser"))
         {
             System.out.println("Company saved successfully to binary file");
         }
@@ -590,7 +593,7 @@ public class UserInterfaceForAdmin
 
     public void loadBinaryFile ()
     {
-        if (insuranceCompany.load("company.ser"))
+        if (insuranceCompany.load(adminUsername, adminPassword, "company.ser"))
         {
             System.out.println("Company loaded successfully from binary file.");
         }
@@ -602,7 +605,7 @@ public class UserInterfaceForAdmin
 
     public void saveTextFile ()
     {
-        if (insuranceCompany.saveTextFile("company.txt"))
+        if (insuranceCompany.saveTextFile(adminUsername, adminPassword, "company.txt"))
         {
             System.out.println("Company saved successfully to text file.");
         }
@@ -614,7 +617,7 @@ public class UserInterfaceForAdmin
 
     public void loadTextFile ()
     {
-        if (insuranceCompany.loadTextFile("company.txt"))
+        if (insuranceCompany.loadTextFile(adminUsername, adminPassword, "company.txt"))
         {
             System.out.println("Company loaded successfully from text file.");
         }
@@ -630,7 +633,7 @@ public class UserInterfaceForAdmin
     {
         try
         {
-            insuranceCompany.printDeepCopyPolicies();
+            insuranceCompany.printDeepCopyPolicies(adminUsername, adminPassword);
         }
         catch (CloneNotSupportedException e)
         {
@@ -642,7 +645,7 @@ public class UserInterfaceForAdmin
     {
         try
         {
-            insuranceCompany.printDeepCopyUsers();
+            insuranceCompany.printDeepCopyUsers(adminUsername, adminPassword);
         }
         catch (CloneNotSupportedException e)
         {
@@ -654,7 +657,7 @@ public class UserInterfaceForAdmin
     {
         try
         {
-            insuranceCompany.printDeepCopyCompany();
+            insuranceCompany.printDeepCopyCompany(adminUsername, adminPassword);
         }
         catch (CloneNotSupportedException e)
         {

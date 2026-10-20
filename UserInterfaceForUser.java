@@ -9,6 +9,8 @@ public class UserInterfaceForUser {
 
     private User user;
     private InsuranceCompany insuranceCompany;
+    private String username;
+    private String password;
     Scanner scanner = new Scanner(System.in);
     public UserInterfaceForUser (InsuranceCompany insuranceCompany)
     {
@@ -25,6 +27,9 @@ public class UserInterfaceForUser {
         {
             if (user.userValidate(userName, userPassword))
             {
+                this.user = user;
+                this.username = userName;
+                this.password = userPassword;
                 System.out.println("Successful Login!");
                 return user;
             }
@@ -127,7 +132,7 @@ public class UserInterfaceForUser {
     {
         System.out.println("Please enter policy ID: ");
         int policyID = exceptionHandlingInt();
-        InsurancePolicy policy = user.findPolicy(policyID);
+        InsurancePolicy policy = user.findPolicy(username, password, policyID);
         if (policy != null)
         {
             System.out.println(policy);
@@ -143,7 +148,7 @@ public class UserInterfaceForUser {
     
     public void calcTotalPremiumsByUser (int flatRate)
     {
-        double total = user.calcTotalPremiums(flatRate);
+        double total = user.calcTotalPremiums(flatRate, username, password);
         System.out.println("Total Premiums: " + total);
     }
 
@@ -151,7 +156,7 @@ public class UserInterfaceForUser {
     {
         System.out.print("Enter Car Model to filter: ");
         String carModel = scanner.nextLine();
-        HashMap <Integer, InsurancePolicy> policies = user.filterByCarModel(carModel);
+        HashMap <Integer, InsurancePolicy> policies = user.filterByCarModel(username, password, carModel);
         if (!policies.isEmpty())
         {
             for (InsurancePolicy policy : policies.values())
@@ -176,7 +181,7 @@ public class UserInterfaceForUser {
         int day = exceptionHandlingInt();
         scanner.nextLine();
         MyDate expiryDate = new MyDate(year, month, day);
-        HashMap <Integer, InsurancePolicy> policies = user.filterByExpiryDate(expiryDate);
+        HashMap <Integer, InsurancePolicy> policies = user.filterByExpiryDate(username, password, expiryDate);
         if(!policies.isEmpty())
         {
             for (InsurancePolicy policy : policies.values())
@@ -202,7 +207,7 @@ public class UserInterfaceForUser {
         String city = scanner.nextLine();
         Address newAddress = new Address(streetNum, street, suburb, city);
         user.setAddress(newAddress);
-        user.print();
+        user.print(username, password);
     }
 
     public void createThirdPartyPolicyByUser ()
@@ -223,7 +228,7 @@ public class UserInterfaceForUser {
         String comment = scanner.nextLine();
         try
         {
-        if (user.createThirdPartyPolicy(policyHolderName, policyID, car, numberOfClaims, expiryDate, comment))
+        if (user.createThirdPartyPolicy(username, password, policyHolderName, policyID, car, numberOfClaims, expiryDate, comment))
             System.out.println("The Third Party Policy has been added successfully!");
         else
             System.out.println("The Third Party Policy cannot be added as the user ID is invalid or policy ID is duplicate.");
@@ -261,7 +266,7 @@ public class UserInterfaceForUser {
         scanner.nextLine();
         try
         {
-            if (user.createComprehensivePolicy(policyHolderName, policyID, car, numberOfClaims, expiryDate, driverAge, level))
+            if (user.createComprehensivePolicy(username, password, policyHolderName, policyID, car, numberOfClaims, expiryDate, driverAge, level))
             {
                 System.out.println("The Comprenhensive Policy has been added successfully!");
             }
@@ -331,10 +336,10 @@ public class UserInterfaceForUser {
 
     public void reportPaymentPerCarModelByUser ()
     {
-        ArrayList <String> carModels = user.populateDistinctCarModels();
-        ArrayList <Integer> counts = user.getTotalCountPerCarModel(carModels);
-        ArrayList <Double> payments = user.getTotalPaymentPerCarModel(carModels, insuranceCompany.getFlatRate());
-        user.reportPaymentsPerCarModel(carModels, counts, payments);
+        ArrayList <String> carModels = user.populateDistinctCarModels(username, password);
+        ArrayList <Integer> counts = user.getTotalCountPerCarModel(username, password, carModels);
+        ArrayList <Double> payments = user.getTotalPaymentPerCarModel(username, password, carModels, insuranceCompany.getFlatRate());
+        user.reportPaymentsPerCarModel(username, password, carModels, counts, payments);
     }
 
     public void removePolicyByUser ()
@@ -342,7 +347,7 @@ public class UserInterfaceForUser {
         System.out.print("Enter policy ID: ");
         int policyID = exceptionHandlingInt();
         scanner.nextLine();
-        if (user.removePolicy(policyID))
+        if (user.removePolicy(username, password, policyID))
         {
             System.out.println("Policy with ID " + policyID + " has been removed successfully!");
         }

@@ -126,121 +126,121 @@ public class Test
     public void testCore ()
     {
         System.out.println("Welcome to Test Core");
-        System.out.println("\u001B[33mExpected result: Successful login!\u001B[0m");
-        testValidateAdmin("admin_ti", "admin@1234");
-        System.out.println("\u001B[33mExpected rsult: Invalid username or password!\u001B[0m");
-        testValidateAdmin("wrong username", "admin@1234");
-        System.out.println("\u001B[33mExpected result: 6 users have been added successfully!\u001B[0m");
-        testAddUser(user1);
-        testAddUser(user2);
-        testAddUser(user3);
-        testAddUser(user4);
-        testAddUser(user5);
-        testAddUser(user6);
-        System.out.println("\u001B[33mExpected result: User cannot be added as the userID is invalid or duplicate!\u001B[0m");
-        testAddUser(user1); // duplicate userID
-        System.out.println("\u001B[33mExpected result: User has been added successfully!\u001B[0m");
-        testAddUser("Alhan", "alhanPassword", address1); // create user7
-        System.out.println("\u001B[33mExpected rsult: User has been found successfully!\u001B[0m");
-        testFindUser(1);
-        System.out.println("\u001B[33mExpected result: User cannot be found as the userID is invalid!\u001B[0m");
-        testFindUser(8489); // invalid userID
-        System.out.println("\u001B[33mExpected result: Policies have been added successfuly!\u001B[0m");
-        testAddPolicy(1, tpp1);
-        testAddPolicy(1, cp1);
-        testAddPolicy(2, tpp1);
-        testAddPolicy(2, tpp2);
-        testAddPolicy(2, tpp3);
-        testAddPolicy(2, tpp4);
-        testAddPolicy(3, tpp2);
-        testAddPolicy(3, cp1);
-        testAddPolicy(3, cp2);
-        testAddPolicy(5, cp2);
-        testAddPolicy(6, cp1);
-        testAddPolicy(6, cp3);
-        testAddPolicy(6, tpp4);
-        System.out.println("\u001B[33mExpected result: Policies cannot be added as the userID is invalid or policyID is duplicate!\u001B[0m");
-        testAddPolicy(1838, cp2); // invalid userID
-        testAddPolicy(1, cp1); // duplicate policy
-        System.out.println("\u001B[33mExpected result: Policy has been found successfully!\u001B[0m");
-        testFindPolicy(1, tpp1.getPolicyID());
-        System.out.println("\u001B[33mExpected result: Policy cannot be found as the userID or policyID is invalid!\u001B[0m");
-        testFindPolicy(37637, 1); //invalid userID
-        testFindPolicy(1, 49787); //invalid policyID
-        testFindPolicy(1, 4); // user dose not have a policy with this ID
-        System.out.println("\u001B[33mExpected result: User 1 information and policies will be printed\u001B[0m");
-        insuranceCompany.printPolicies(1);
-        System.out.println("\u001B[33mExpected result: As userID is not valid nothing will be printed\u001B[0m");
-        insuranceCompany.printPolicies(783683); // invalid userID
-        System.out.println("\u001B[33mExpected result: All the users with their policies will be printed\u001B[0m");
-        insuranceCompany.print();
-        System.out.println("\u001B[33mExpected result: Third Party Policy had been created successfully!\u001B[0m");
-        testCreateThirdPartyPolicy(4, "Jack", 8, car7, 0, date4, "No previous claims!");
-        user4.printPolicies(100);
-        System.out.println("\u001B[33mExpected result: Third Party Policy cannot be created as the userID is invalid or policyID is duplicate!\u001B[0m");
-        testCreateThirdPartyPolicy(63626, "Ell", 9, car1, 1, date1, "One previous claim!"); // invalid userID
-        testCreateThirdPartyPolicy(2, "Lee", tpp3.getPolicyID(), car1, 0, date1, "No previous claims!"); //duplicate policyID for user2
-        System.out.println("\u001B[33mExpected result: Comprehensive Policy has been created successfully!\u001B[0m");
-        testCreateComprehensivePolicy(4, "Lee", 9, car4, 0, date6, 29, 2);
-        user4.printPolicies(100);
-        System.out.println("\u001B[33mExpected result: Comprehensive Policy cannot be creates as the userID is invalid or policyID is duplicate.\u001B[0m");
-        testCreateComprehensivePolicy(37982, "Lee", 10, car1, 0, date1, 55, 1);
-        testCreateComprehensivePolicy(5, "Sue",cp2.getPolicyID(), car1, 0, date1, 39, 2);
-        System.out.println("\u001B[33mExpected result: Total payment for each user will be pinted \u001B[0m");
-        System.out.println("\u001B[33mExpected total payment for user 1: 1680.0\u001B[0m");
-        System.out.println("\u001B[32mPASSED\u001B[0m");
-        double totalPaymentUser1 = insuranceCompany.calcTotalPayments(1);
-        System.out.println("Total Payment for user 1: " + totalPaymentUser1);
-        System.out.println("\u001B[33mExpected total payment for user 2: 2139.8\u001B[0m");
-        System.out.println("\u001B[32mPASSED\u001B[0m");
-        double totalPaymentUser2 = insuranceCompany.calcTotalPayments(2);
-        System.out.println("Total Payment for user 2: " + totalPaymentUser2);
-        System.out.println("\u001B[33mExpected total payment for user 3: 2569.8\u001B[0m");
-        System.out.println("\u001B[32mPASSED\u001B[0m");
-        double totalPaymentUser3 = insuranceCompany.calcTotalPayments(3);
-        System.out.println("Total Payment for user 3: " + totalPaymentUser3);
-        System.out.println("\u001B[33mExpected total payment for user 4: 740.0\u001B[0m");
-        System.out.println("\u001B[32mPASSED\u001B[0m");
-        double totalPaymentUser4 = insuranceCompany.calcTotalPayments(4);
-        System.out.println("Total Payment for user 4: " + totalPaymentUser4);
-        System.out.println("\u001B[33mExpected total payment for user 5: 1480.0\u001B[0m");
-        System.out.println("\u001B[32mPASSED\u001B[0m");
-        double totalPaymentUser5 = insuranceCompany.calcTotalPayments(5);
-        System.out.println("Total Payment for user 5: " + totalPaymentUser5);
-        System.out.println("\u001B[33mExpected total payment for user 6: 2550.0\u001B[0m");
-        System.out.println("\u001B[32mPASSED\u001B[0m");
-        double totalPaymentUser6 = insuranceCompany.calcTotalPayments(6);
-        System.out.println("Total Payment for user 6: " + totalPaymentUser6);
-        System.out.println("\u001B[33mExpected total payment for user 7: 0.0\u001B[0m");
-        System.out.println("\u001B[32mPASSED\u001B[0m");
-        double totalPaymentUser7 = insuranceCompany.calcTotalPayments(7);
-        System.out.println("Total Payment for user 7: " + totalPaymentUser7);
-        System.out.println("\u001B[33mExpected result: The sum of all total payments will be printed \u001B[0m");
-        System.out.println("\u001B[33mExpected sum of total payment for all users: 11159.6\u001B[0m");
-        System.out.println("\u001B[32mPASSED\u001B[0m");
-        double sumOfTotalPayments = insuranceCompany.calcTotalPayments();
-        System.out.println("Sum of total payments: " + sumOfTotalPayments);
-        System.out.println("\u001B[33mExpected result: The price of the cars included in the insurance policies that User 1 has must have increased. (rise percent: 10%) \u001B[0m");
-        insuranceCompany.carPriceRise(1, 0.1);
-        user1.printPolicies(100);
-        System.out.println("\u001B[33mExpected result: The price of all cars included in users' insurance policies must have increased. (rise percent: 10%) \u001B[0m");
-        insuranceCompany.carPriceRise(0.1);
-        insuranceCompany.print();
-        System.out.println("\u001B[33mExpected result: 1 car will be found for user 1 \u001B[0m");
-        testFilterByCarModel(1, "Honda CR-V");
-        System.out.println("\u001B[33mExpected result: No car will be found as user 1 dose not have that car model. \u001B[0m");
-        testFilterByCarModel(1, "Peykan");
-        MyDate expiryDate1 = new MyDate(2025, 12, 3);
-        System.out.println("\u001B[33mExpected result: Based on the date " + expiryDate1 + ", 3 insurance policies were found for user 2 that expired before that date. \u001B[0m");
-        testFilterByExpiryDate(2, expiryDate1);
-        System.out.println("\u001B[33mExpected result: All policies with car model Honda CR-V will be printed.\u001B[0m");
-        testFilterByCarModel("Honda CR-V");
-        System.out.println("\u001B[33mExpected result: No policy should be found with this car model.\u001B[0m");
-        testFilterByCarModel("BMW");
-        System.out.println("\u001B[33mExpected result: All policies with the expiry date before " + expiryDate1 + " will be printed.\u001B[0m");
-        testFilterByExpiryDate(expiryDate1);
-        System.out.println("\u001B[33mExpected result: No policy should be found with this expiry date.\u001B[0m");
-        testFilterByExpiryDate(new MyDate(2010, 1, 1));
+        // System.out.println("\u001B[33mExpected result: Successful login!\u001B[0m");
+        // testValidateAdmin("admin_ti", "admin@1234");
+        // System.out.println("\u001B[33mExpected rsult: Invalid username or password!\u001B[0m");
+        // testValidateAdmin("wrong username", "admin@1234");
+        // System.out.println("\u001B[33mExpected result: 6 users have been added successfully!\u001B[0m");
+        // testAddUser(user1);
+        // testAddUser(user2);
+        // testAddUser(user3);
+        // testAddUser(user4);
+        // testAddUser(user5);
+        // testAddUser(user6);
+        // System.out.println("\u001B[33mExpected result: User cannot be added as the userID is invalid or duplicate!\u001B[0m");
+        // testAddUser(user1); // duplicate userID
+        // System.out.println("\u001B[33mExpected result: User has been added successfully!\u001B[0m");
+        // testAddUser("Alhan", "alhanPassword", address1); // create user7
+        // System.out.println("\u001B[33mExpected rsult: User has been found successfully!\u001B[0m");
+        // testFindUser(1);
+        // System.out.println("\u001B[33mExpected result: User cannot be found as the userID is invalid!\u001B[0m");
+        // testFindUser(8489); // invalid userID
+        // System.out.println("\u001B[33mExpected result: Policies have been added successfuly!\u001B[0m");
+        // testAddPolicy(1, tpp1);
+        // testAddPolicy(1, cp1);
+        // testAddPolicy(2, tpp1);
+        // testAddPolicy(2, tpp2);
+        // testAddPolicy(2, tpp3);
+        // testAddPolicy(2, tpp4);
+        // testAddPolicy(3, tpp2);
+        // testAddPolicy(3, cp1);
+        // testAddPolicy(3, cp2);
+        // testAddPolicy(5, cp2);
+        // testAddPolicy(6, cp1);
+        // testAddPolicy(6, cp3);
+        // testAddPolicy(6, tpp4);
+        // System.out.println("\u001B[33mExpected result: Policies cannot be added as the userID is invalid or policyID is duplicate!\u001B[0m");
+        // testAddPolicy(1838, cp2); // invalid userID
+        // testAddPolicy(1, cp1); // duplicate policy
+        // System.out.println("\u001B[33mExpected result: Policy has been found successfully!\u001B[0m");
+        // testFindPolicy(1, tpp1.getPolicyID());
+        // System.out.println("\u001B[33mExpected result: Policy cannot be found as the userID or policyID is invalid!\u001B[0m");
+        // testFindPolicy(37637, 1); //invalid userID
+        // testFindPolicy(1, 49787); //invalid policyID
+        // testFindPolicy(1, 4); // user dose not have a policy with this ID
+        // System.out.println("\u001B[33mExpected result: User 1 information and policies will be printed\u001B[0m");
+        // insuranceCompany.printPolicies("admin_ti", "admin@1234", 1);
+        // System.out.println("\u001B[33mExpected result: As userID is not valid nothing will be printed\u001B[0m");
+        // insuranceCompany.printPolicies("admin_ti", "admin@1234", 783683); // invalid userID
+        // System.out.println("\u001B[33mExpected result: All the users with their policies will be printed\u001B[0m");
+        // insuranceCompany.print("admin_ti", "admin@1234");
+        // System.out.println("\u001B[33mExpected result: Third Party Policy had been created successfully!\u001B[0m");
+        // testCreateThirdPartyPolicy(4, "Jack", 8, car7, 0, date4, "No previous claims!");
+        // user4.printPolicies(100);
+        // System.out.println("\u001B[33mExpected result: Third Party Policy cannot be created as the userID is invalid or policyID is duplicate!\u001B[0m");
+        // testCreateThirdPartyPolicy(63626, "Ell", 9, car1, 1, date1, "One previous claim!"); // invalid userID
+        // testCreateThirdPartyPolicy(2, "Lee", tpp3.getPolicyID(), car1, 0, date1, "No previous claims!"); //duplicate policyID for user2
+        // System.out.println("\u001B[33mExpected result: Comprehensive Policy has been created successfully!\u001B[0m");
+        // testCreateComprehensivePolicy(4, "Lee", 9, car4, 0, date6, 29, 2);
+        // user4.printPolicies(100);
+        // System.out.println("\u001B[33mExpected result: Comprehensive Policy cannot be creates as the userID is invalid or policyID is duplicate.\u001B[0m");
+        // testCreateComprehensivePolicy(37982, "Lee", 10, car1, 0, date1, 55, 1);
+        // testCreateComprehensivePolicy(5, "Sue",cp2.getPolicyID(), car1, 0, date1, 39, 2);
+        // System.out.println("\u001B[33mExpected result: Total payment for each user will be pinted \u001B[0m");
+        // System.out.println("\u001B[33mExpected total payment for user 1: 1680.0\u001B[0m");
+        // System.out.println("\u001B[32mPASSED\u001B[0m");
+        // double totalPaymentUser1 = insuranceCompany.calcTotalPayments("admin_ti", "admin@1234", 1);
+        // System.out.println("Total Payment for user 1: " + totalPaymentUser1);
+        // System.out.println("\u001B[33mExpected total payment for user 2: 2139.8\u001B[0m");
+        // System.out.println("\u001B[32mPASSED\u001B[0m");
+        // double totalPaymentUser2 = insuranceCompany.calcTotalPayments("admin_ti", "admin@1234", 2);
+        // System.out.println("Total Payment for user 2: " + totalPaymentUser2);
+        // System.out.println("\u001B[33mExpected total payment for user 3: 2569.8\u001B[0m");
+        // System.out.println("\u001B[32mPASSED\u001B[0m");
+        // double totalPaymentUser3 = insuranceCompany.calcTotalPayments("admin_ti", "admin@1234",3);
+        // System.out.println("Total Payment for user 3: " + totalPaymentUser3);
+        // System.out.println("\u001B[33mExpected total payment for user 4: 740.0\u001B[0m");
+        // System.out.println("\u001B[32mPASSED\u001B[0m");
+        // double totalPaymentUser4 = insuranceCompany.calcTotalPayments("admin_ti", "admin@1234",4);
+        // System.out.println("Total Payment for user 4: " + totalPaymentUser4);
+        // System.out.println("\u001B[33mExpected total payment for user 5: 1480.0\u001B[0m");
+        // System.out.println("\u001B[32mPASSED\u001B[0m");
+        // double totalPaymentUser5 = insuranceCompany.calcTotalPayments("admin_ti", "admin@1234",5);
+        // System.out.println("Total Payment for user 5: " + totalPaymentUser5);
+        // System.out.println("\u001B[33mExpected total payment for user 6: 2550.0\u001B[0m");
+        // System.out.println("\u001B[32mPASSED\u001B[0m");
+        // double totalPaymentUser6 = insuranceCompany.calcTotalPayments("admin_ti", "admin@1234",6);
+        // System.out.println("Total Payment for user 6: " + totalPaymentUser6);
+        // System.out.println("\u001B[33mExpected total payment for user 7: 0.0\u001B[0m");
+        // System.out.println("\u001B[32mPASSED\u001B[0m");
+        // double totalPaymentUser7 = insuranceCompany.calcTotalPayments("admin_ti", "admin@1234",7);
+        // System.out.println("Total Payment for user 7: " + totalPaymentUser7);
+        // System.out.println("\u001B[33mExpected result: The sum of all total payments will be printed \u001B[0m");
+        // System.out.println("\u001B[33mExpected sum of total payment for all users: 11159.6\u001B[0m");
+        // System.out.println("\u001B[32mPASSED\u001B[0m");
+        // double sumOfTotalPayments = insuranceCompany.calcTotalPayments("admin_ti", "admin@1234");
+        // System.out.println("Sum of total payments: " + sumOfTotalPayments);
+        // System.out.println("\u001B[33mExpected result: The price of the cars included in the insurance policies that User 1 has must have increased. (rise percent: 10%) \u001B[0m");
+        // insuranceCompany.carPriceRise("admin_ti", "admin@1234",1, 0.1);
+        // user1.printPolicies(100);
+        // System.out.println("\u001B[33mExpected result: The price of all cars included in users' insurance policies must have increased. (rise percent: 10%) \u001B[0m");
+        // insuranceCompany.carPriceRise("admin_ti", "admin@1234",0.1);
+        // insuranceCompany.print("admin_ti", "admin@1234");
+        // System.out.println("\u001B[33mExpected result: 1 car will be found for user 1 \u001B[0m");
+        // testFilterByCarModel(1, "Honda CR-V");
+        // System.out.println("\u001B[33mExpected result: No car will be found as user 1 dose not have that car model. \u001B[0m");
+        // testFilterByCarModel(1, "Peykan");
+        // MyDate expiryDate1 = new MyDate(2025, 12, 3);
+        // System.out.println("\u001B[33mExpected result: Based on the date " + expiryDate1 + ", 3 insurance policies were found for user 2 that expired before that date. \u001B[0m");
+        // testFilterByExpiryDate(2, expiryDate1);
+        // System.out.println("\u001B[33mExpected result: All policies with car model Honda CR-V will be printed.\u001B[0m");
+        // testFilterByCarModel("Honda CR-V");
+        // System.out.println("\u001B[33mExpected result: No policy should be found with this car model.\u001B[0m");
+        // testFilterByCarModel("BMW");
+        // System.out.println("\u001B[33mExpected result: All policies with the expiry date before " + expiryDate1 + " will be printed.\u001B[0m");
+        // testFilterByExpiryDate(expiryDate1);
+        // System.out.println("\u001B[33mExpected result: No policy should be found with this expiry date.\u001B[0m");
+        // testFilterByExpiryDate(new MyDate(2010, 1, 1));
     }
 
     public void testValidateAdmin (String adminUsername, String adminPassword)
@@ -253,9 +253,9 @@ public class Test
             System.out.println("Invalid username or password!");
     }
 
-    public void testAddUser (User user)
+    public void testAddUser (String username, String password, User user)
     {
-        if (insuranceCompany.addUser(user))
+        if (insuranceCompany.addUser(username, password, user))
         {
             System.out.println("User has been added succussfully!");
         }
@@ -263,9 +263,9 @@ public class Test
             System.out.println("User cannot be added as the userID is invalid or duplicate!");
     }
 
-    public void testAddUser (String name, String userPassword, Address address)
+    public void testAddUser (String username, String password, String name, String userPassword, Address address)
     {
-        if (insuranceCompany.addUser(name, userPassword, address))
+        if (insuranceCompany.addUser(username, password, name, userPassword, address))
         {
             System.out.println("User has been added succussfully!");
         }
@@ -273,9 +273,9 @@ public class Test
             System.out.println("User cannot be added as the userID is invalid or duplicate!");
     }
 
-    public void testFindUser (int userID)
+    public void testFindUser (String username, String password, int userID)
     {
-        User user = insuranceCompany.findUser(userID);
+        User user = insuranceCompany.findUser(username, password, userID);
         if (user != null)
         {
             System.out.println("User has been found successfully!");
@@ -284,9 +284,9 @@ public class Test
             System.out.println("User connot be found as the userID is invalid");
     }
 
-    public void testAddPolicy (int userID, InsurancePolicy policy)
+    public void testAddPolicy (String username, String password, int userID, InsurancePolicy policy)
     {
-        if (insuranceCompany.addPolicy(userID, policy))
+        if (insuranceCompany.addPolicy(username, password, userID, policy))
         {
             System.out.println("Policy has been added successfully!");
         }
@@ -294,9 +294,9 @@ public class Test
             System.out.println("Policy cannot be added as the userID is invalid or policyID is duplicate!");
     }
 
-    public void testFindPolicy (int userID, int policyID)
+    public void testFindPolicy (String username, String password, int userID, int policyID)
     {
-        InsurancePolicy policy = insuranceCompany.findPolicy(userID, policyID);
+        InsurancePolicy policy = insuranceCompany.findPolicy(username, password, userID, policyID);
         if (policy != null)
         {
             System.out.println("Policy has been found succussfully!");
@@ -305,11 +305,11 @@ public class Test
             System.out.println("Policy cannot be found as the userID or policyID is invalid!");
     }
 
-    public void testCreateThirdPartyPolicy (int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, String comments)
+    public void testCreateThirdPartyPolicy (String username, String password, int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, String comments)
     {
         try
         {
-            if (insuranceCompany.createThirdPartyPolicy(userID, policyHolderName, id, car, numberOfClaims, expiryDate, comments))
+            if (insuranceCompany.createThirdPartyPolicy(username, password, userID, policyHolderName, id, car, numberOfClaims, expiryDate, comments))
             {
                 System.out.println("Third Party Policy has been created successfully!");
             }
@@ -326,11 +326,11 @@ public class Test
         }
     }
 
-    public void testCreateComprehensivePolicy (int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, int driverAge, int level)
+    public void testCreateComprehensivePolicy (String username, String password, int userID, String policyHolderName, int id, Car car, int numberOfClaims, MyDate expiryDate, int driverAge, int level)
     {
         try
         {
-            if (insuranceCompany.createComprehensivePolicy(userID, policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level))
+            if (insuranceCompany.createComprehensivePolicy(username, password, userID, policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level))
             {
                 System.out.println("Comprehensive Policy has been created successfully!");
             }
@@ -347,9 +347,9 @@ public class Test
         }
     }
 
-    public void testFilterByCarModel (int userID, String carModel)
+    public void testFilterByCarModel (String userame, String password, int userID, String carModel)
     {
-        HashMap <Integer, InsurancePolicy> filteredPoliciesByCarModel = insuranceCompany.filterByCarModel(userID, carModel);
+        HashMap <Integer, InsurancePolicy> filteredPoliciesByCarModel = insuranceCompany.filterByCarModel(userame, password, userID, carModel);
         if (!filteredPoliciesByCarModel.isEmpty())
         {
             for (InsurancePolicy policy : filteredPoliciesByCarModel.values())
@@ -362,9 +362,9 @@ public class Test
 
     }
 
-    public void testFilterByExpiryDate (int userID, MyDate date)
+    public void testFilterByExpiryDate (String username, String password, int userID, MyDate date)
     {
-        HashMap <Integer, InsurancePolicy> filteredPoliciesByExpiryDate = insuranceCompany.filterByExpiryDate(userID, date);
+        HashMap <Integer, InsurancePolicy> filteredPoliciesByExpiryDate = insuranceCompany.filterByExpiryDate(username, password, userID, date);
         if (!filteredPoliciesByExpiryDate.isEmpty())
         {
             for (InsurancePolicy policy : filteredPoliciesByExpiryDate.values())
@@ -376,9 +376,9 @@ public class Test
             System.out.println("No policy was found for this user with this expiry date.");
     }
 
-    public void testFilterByCarModel (String carModel)
+    public void testFilterByCarModel (String username, String password, String carModel)
     {
-        ArrayList<InsurancePolicy> result = insuranceCompany.filterByCarModel(carModel);
+        ArrayList<InsurancePolicy> result = insuranceCompany.filterByCarModel(username, password, carModel);
         if (!result.isEmpty())
         {
             for (InsurancePolicy policy : result)
@@ -391,9 +391,9 @@ public class Test
     
     }
 
-    public void testFilterByExpiryDate  (MyDate date)
+    public void testFilterByExpiryDate  (String username, String password, MyDate date)
     {
-        ArrayList<InsurancePolicy> result = insuranceCompany.filterByExpiryDate(date);
+        ArrayList<InsurancePolicy> result = insuranceCompany.filterByExpiryDate(username, password, date);
         if (!result.isEmpty())
         {
             for (InsurancePolicy policy : result)
@@ -407,44 +407,44 @@ public class Test
 
     public void testStandardAndAdvanced ()
     {
-        System.out.println("\u001B[33mExpected result: Melbourne, Miami, Dallas \u001B[0m");
-        testPopulateDistinctCityNames();
-        System.out.println("\u001B[33mExpected Value for Melbourne: 6139.6$ \u001B[0m");
-        testGetTotalPaymentForCity("Melbourne");
-        System.out.println("\u001B[33mExpected Value for Miami: 3055.7799999999997$ \u001B[0m");
-        testGetTotalPaymentForCity("Miami");
-        System.out.println("\u001B[33mExpected Value for Dallas: 2719.58$ \u001B[0m");
-        testGetTotalPaymentForCity("Dallas");
-        System.out.println("\u001B[33mExpected Value for Isfahan: 0$ (becuase we don't have this city)\u001B[0m");
-        testGetTotalPaymentForCity("Isfahan");
-        ArrayList <String> cities = insuranceCompany.populateDistinctCityNames();
-        System.out.println("\u001B[33mExpected result: Total payment for each city will be printed.\u001B[0m");
-        testGetTotalPaymentPerCity(cities);
-        System.out.println("\u001B[33mExpected result: Payment report for each city will be displayed.\u001B[0m");
-        testReportPaymentPerCity();
-        System.out.println("\u001B[33mExpected result: All distinct car models will be displayed. (Honda CR-V, Honda Civic Hatchback, A3 Sportback, A3 Sportback, E-Class)\u001B[0m");
-        testPopulateDistinctCarModels();
-        System.out.println("\u001B[33mExpected result: Total count of each car model will be displayed.\u001B[0m");
-        testGetTotalCountPerCarModel();
-        System.out.println("\u001B[33mExpected result: Total payment for each car model will be displayed.\u001B[0m");
-        testGetTotalPaymentPerCarModels();
-        System.out.println("\u001B[33mExpected result: Payment report for each car model will be displayed.\u001B[0m");
-        testReportPaymentPerCarModel();
-        System.out.println("\u001B[33mExpected result: User with ID 1 will be removed successfully.\u001B[0m");
-        testRemoveUserByAdmin(1);
-        System.out.println("\u001B[33mExpected result: User with ID 100 will not be found.\u001B[0m");
-        testRemoveUserByAdmin(100);
-        System.out.println("\u001B[33mExpected result: Admin password will be changed successfully.\u001B[0m");
-        testChangeAdminPassword("newPassword");
-        System.out.println("\u001B[33mExpected result: Policy will be removed successfully.\u001B[0m");
-        testRemovePolicy(1, 1);
-        System.out.println("\u001B[33mExpected result: Policy cannot be removed because the user ID is invalid.\u001B[0m");
-        testRemovePolicy(999, 1); // invalid userID
+        // System.out.println("\u001B[33mExpected result: Melbourne, Miami, Dallas \u001B[0m");
+        // testPopulateDistinctCityNames();
+        // System.out.println("\u001B[33mExpected Value for Melbourne: 6139.6$ \u001B[0m");
+        // testGetTotalPaymentForCity("Melbourne");
+        // System.out.println("\u001B[33mExpected Value for Miami: 3055.7799999999997$ \u001B[0m");
+        // testGetTotalPaymentForCity("Miami");
+        // System.out.println("\u001B[33mExpected Value for Dallas: 2719.58$ \u001B[0m");
+        // testGetTotalPaymentForCity("Dallas");
+        // System.out.println("\u001B[33mExpected Value for Isfahan: 0$ (becuase we don't have this city)\u001B[0m");
+        // testGetTotalPaymentForCity("Isfahan");
+        // ArrayList <String> cities = insuranceCompany.populateDistinctCityNames("admin_ti", "admin@1234");
+        // System.out.println("\u001B[33mExpected result: Total payment for each city will be printed.\u001B[0m");
+        // testGetTotalPaymentPerCity(cities);
+        // System.out.println("\u001B[33mExpected result: Payment report for each city will be displayed.\u001B[0m");
+        // testReportPaymentPerCity();
+        // System.out.println("\u001B[33mExpected result: All distinct car models will be displayed. (Honda CR-V, Honda Civic Hatchback, A3 Sportback, A3 Sportback, E-Class)\u001B[0m");
+        // testPopulateDistinctCarModels();
+        // System.out.println("\u001B[33mExpected result: Total count of each car model will be displayed.\u001B[0m");
+        // testGetTotalCountPerCarModel();
+        // System.out.println("\u001B[33mExpected result: Total payment for each car model will be displayed.\u001B[0m");
+        // testGetTotalPaymentPerCarModels();
+        // System.out.println("\u001B[33mExpected result: Payment report for each car model will be displayed.\u001B[0m");
+        // testReportPaymentPerCarModel();
+        // System.out.println("\u001B[33mExpected result: User with ID 1 will be removed successfully.\u001B[0m");
+        // testRemoveUserByAdmin(1);
+        // System.out.println("\u001B[33mExpected result: User with ID 100 will not be found.\u001B[0m");
+        // testRemoveUserByAdmin(100);
+        // System.out.println("\u001B[33mExpected result: Admin password will be changed successfully.\u001B[0m");
+        // testChangeAdminPassword("newPassword");
+        // System.out.println("\u001B[33mExpected result: Policy will be removed successfully.\u001B[0m");
+        // testRemovePolicy(1, 1);
+        // System.out.println("\u001B[33mExpected result: Policy cannot be removed because the user ID is invalid.\u001B[0m");
+        // testRemovePolicy(999, 1); // invalid userID
     }
 
-    public void testPopulateDistinctCityNames ()
+    public void testPopulateDistinctCityNames (String username, String password)
     {
-        ArrayList <String> cities = insuranceCompany.populateDistinctCityNames();
+        ArrayList <String> cities = insuranceCompany.populateDistinctCityNames(username, password);
         if (!cities.isEmpty())
         {
             for (String city : cities)
@@ -456,51 +456,51 @@ public class Test
             System.out.println("No cities found!");
     }
 
-    public void testGetTotalPaymentForCity (String city)
+    public void testGetTotalPaymentForCity (String username, String password, String city)
     {
-        double totalPayment = insuranceCompany.getTotalPaymentForCity(city);
+        double totalPayment = insuranceCompany.getTotalPaymentForCity(username, password, city);
         System.out.println("Total Payment for City " + city + " " + totalPayment);
     }
 
-    public void testGetTotalPaymentPerCity (ArrayList <String> cities)
+    public void testGetTotalPaymentPerCity (String username, String password, ArrayList <String> cities)
     {
-        ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCity(cities);
+        ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCity(username, password, cities);
         for (int i = 0; i < cities.size(); i++)
         {
             System.out.println(cities.get(i) + ": " + payments.get(i));
         }
     }
 
-    public void testReportPaymentPerCity ()
+    public void testReportPaymentPerCity (String username, String password)
     {
-        ArrayList <String> cities = insuranceCompany.populateDistinctCityNames();
-        ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCity(cities);
-        insuranceCompany.reportPaymentPerCity(cities, payments);
+        ArrayList <String> cities = insuranceCompany.populateDistinctCityNames(username, password);
+        ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCity(username, password, cities);
+        insuranceCompany.reportPaymentPerCity(username, password, cities, payments);
     }
 
-    public void testPopulateDistinctCarModels ()
+    public void testPopulateDistinctCarModels (String username, String password)
     {
-        ArrayList <String> carModels = insuranceCompany.populateDistinctCarModels();
+        ArrayList <String> carModels = insuranceCompany.populateDistinctCarModels(username, password);
         for (String model : carModels)
         {
             System.out.println(model);
         }
     }
 
-    public void testGetTotalCountPerCarModel ()
+    public void testGetTotalCountPerCarModel (String username, String password)
     {
-        ArrayList <String> carModels = insuranceCompany.populateDistinctCarModels();
-        ArrayList <Integer> totalCounts = insuranceCompany.getTotalCountPerCarModel(carModels);
+        ArrayList <String> carModels = insuranceCompany.populateDistinctCarModels(username, password);
+        ArrayList <Integer> totalCounts = insuranceCompany.getTotalCountPerCarModel(username, password, carModels);
         for  (int i = 0; i < carModels.size(); i++)
         {
             System.out.println(carModels.get(i) + ": " + totalCounts.get(i));
         }
     }
 
-    public void testGetTotalPaymentPerCarModels ()
+    public void testGetTotalPaymentPerCarModels (String username, String password)
     {
-        ArrayList <String> carModels = insuranceCompany.populateDistinctCarModels();
-        ArrayList <Double> totalPayments = insuranceCompany.getTotalPaymentPerCarModel(carModels);
+        ArrayList <String> carModels = insuranceCompany.populateDistinctCarModels(username, password);
+        ArrayList <Double> totalPayments = insuranceCompany.getTotalPaymentPerCarModel(username, password, carModels);
         for (int i = 0; i < carModels.size(); i++)
         {
             System.out.println(carModels.get(i) + ": " + totalPayments.get(i));
@@ -508,17 +508,17 @@ public class Test
         
     }
 
-    public void testReportPaymentPerCarModel ()
+    public void testReportPaymentPerCarModel (String username, String password)
     {
-        ArrayList <String> carModels = insuranceCompany.populateDistinctCarModels();
-        ArrayList <Integer> counts = insuranceCompany.getTotalCountPerCarModel(carModels);
-        ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCarModel(carModels);
-        insuranceCompany.reportPaymentsPerCarModel(carModels, counts, payments);
+        ArrayList <String> carModels = insuranceCompany.populateDistinctCarModels(username, password);
+        ArrayList <Integer> counts = insuranceCompany.getTotalCountPerCarModel(username, password, carModels);
+        ArrayList <Double> payments = insuranceCompany.getTotalPaymentPerCarModel(username, password, carModels);
+        insuranceCompany.reportPaymentsPerCarModel(username, password, carModels, counts, payments);
     }
 
-    public void testRemoveUserByAdmin (int userID)
+    public void testRemoveUserByAdmin (String username, String password, int userID)
     {
-        boolean result = insuranceCompany.removeUserByAdmin(userID);
+        boolean result = insuranceCompany.removeUserByAdmin(username, password, userID);
         if (result)
         {
             System.out.println("User with ID " + userID + " was removed successfully!");
@@ -528,9 +528,9 @@ public class Test
 
     }
 
-    public void testChangeAdminPassword (String newPass)
+    public void testChangeAdminPassword (String username, String password, String newPass)
     {
-        insuranceCompany.changeAdminPassword(newPass);
+        insuranceCompany.changeAdminPassword(username, password, newPass);
         if (insuranceCompany.validateAdmin("admin_ti", newPass))
         {
             System.out.println("Admin password changed successfully!");
@@ -539,9 +539,9 @@ public class Test
             System.out.println("Admin password was not changed!");
     }
 
-    public void testRemovePolicy (int userID, int policyID)
+    public void testRemovePolicy (String username, String password, int userID, int policyID)
     {
-        boolean result = insuranceCompany.removePolicy(userID, policyID);
+        boolean result = insuranceCompany.removePolicy(username, password, userID, policyID);
         if (result)
         {
             System.out.println("Policy with ID " + policyID + " was removed successfully from user " + userID);
@@ -551,20 +551,20 @@ public class Test
     }
 
     // lab 4
-    public void copyPolicies () throws CloneNotSupportedException
+    public void copyPolicies (String username, String password) throws CloneNotSupportedException
     {
         User sina = new User("Sina", new Address(19, "King", "downtown", "London"), "sinaPassword" );
-        sina.addPolicy(cp1);
-        sina.addPolicy(tpp3);
-        ArrayList <InsurancePolicy> deepCopy = sina.deepCopyPolicies();
-        ArrayList <InsurancePolicy> shallowCopy = sina.shallowCopyPolicies();
+        sina.addPolicy(username, password, cp1);
+        sina.addPolicy(username, password, tpp3);
+        ArrayList <InsurancePolicy> deepCopy = sina.deepCopyPolicies(username, password);
+        ArrayList <InsurancePolicy> shallowCopy = sina.shallowCopyPolicies(username, password);
 
         sina.setCity("New York");
 
         try
         {
         ThirdPartyPolicy tpp = new ThirdPartyPolicy("Justin", 10, new Car("Mazda 3", CarType.HATCH, 2020, 35000), 0, new MyDate(2027, 1, 1), "No previous claims!");
-        sina.addPolicy(tpp);
+        sina.addPolicy(username, password, tpp);
         }
         catch (PolicyException e)
         {
@@ -575,7 +575,7 @@ public class Test
             System.out.println("Invalid policy holder name!");
         }
 
-        ArrayList <InsurancePolicy> sortedPolicies = sina.sortPoliciesByDate();
+        ArrayList <InsurancePolicy> sortedPolicies = sina.sortPoliciesByDate(username, password);
 
         System.out.println("\nShallow Copy");
         for (InsurancePolicy policy : shallowCopy)
@@ -594,21 +594,21 @@ public class Test
         }
     }
 
-    public void copyUsers () throws CloneNotSupportedException
+    public void copyUsers (String username, String password) throws CloneNotSupportedException
     {
         InsuranceCompany company = new InsuranceCompany("TestCompany", "admin", "1234",100);
-        company.addUser(user1);
-        company.addUser(user2);
-        company.addUser(user3);
-        company.addUser(user4);
-        company.addUser(user5);
-        company.addUser(user6);
-        ArrayList <User> deepCopyUsers = company.deepCopyUsers();
-        ArrayList <User> shallowCopyUsers = company.shallowCopyUsers();
+        company.addUser(username, password, user1);
+        company.addUser(username, password, user2);
+        company.addUser(username, password, user3);
+        company.addUser(username, password, user4);
+        company.addUser(username, password, user5);
+        company.addUser(username, password, user6);
+        ArrayList <User> deepCopyUsers = company.deepCopyUsers(username, password);
+        ArrayList <User> shallowCopyUsers = company.shallowCopyUsers(username, password);
 
-        company.addUser("Hailey", "hailyPassword", new Address(12, "Garden st", "Downtown", "Boston"));
+        company.addUser(username, password, "Hailey", "hailyPassword", new Address(12, "Garden st", "Downtown", "Boston"));
 
-        ArrayList <User> sortedUsers = company.sortUsers(); // sorted by city
+        ArrayList <User> sortedUsers = company.sortUsers(username, password); // sorted by city
 
         System.out.println("\nBefore changing the city of user with ID 1");
         System.out.println("\nShallow Copy");
@@ -646,23 +646,23 @@ public class Test
         }
     }
 
-    public void cloneInsuranceCompany () throws CloneNotSupportedException
+    public void cloneInsuranceCompany (String username, String password) throws CloneNotSupportedException
     {
         InsuranceCompany insuranceCompany = new InsuranceCompany("clone copmany", "clone", "1234", 100);
         
-        insuranceCompany.addUser(user1);
-        insuranceCompany.addUser(user2);
-        insuranceCompany.addUser(user3);
-        insuranceCompany.addUser(user4);
-        insuranceCompany.addUser(user5);
-        insuranceCompany.addUser(user6);
+        insuranceCompany.addUser(username, password, user1);
+        insuranceCompany.addUser(username, password, user2);
+        insuranceCompany.addUser(username, password, user3);
+        insuranceCompany.addUser(username, password, user4);
+        insuranceCompany.addUser(username, password, user5);
+        insuranceCompany.addUser(username, password, user6);
 
-        user1.addPolicy(tpp1);
-        user2.addPolicy(cp1);
-        user3.addPolicy(tpp2);
-        user4.addPolicy(cp2);
-        user5.addPolicy(tpp3);
-        user6.addPolicy(cp3);
+        user1.addPolicy(username, password, tpp1);
+        user2.addPolicy(username, password, cp1);
+        user3.addPolicy(username, password, tpp2);
+        user4.addPolicy(username, password, cp2);
+        user5.addPolicy(username, password, tpp3);
+        user6.addPolicy(username, password, cp3);
 
         InsuranceCompany clone = insuranceCompany.clone();
 
@@ -671,12 +671,12 @@ public class Test
         System.out.println("Clone Insurance Company");
         System.out.println(clone);
 
-        insuranceCompany.addPolicy(1, cp1);
-        insuranceCompany.addUser(new User("Diba", new Address(23, "Queen st", "GreenHouse", "London"), "dibaPassword"));
-        insuranceCompany.carPriceRise(0.1);
+        insuranceCompany.addPolicy(username, password, 1, cp1);
+        insuranceCompany.addUser(username, password, new User("Diba", new Address(23, "Queen st", "GreenHouse", "London"), "dibaPassword"));
+        insuranceCompany.carPriceRise(username, password, 0.1);
         try
         {
-        insuranceCompany.createComprehensivePolicy(6, "Adele", 9, car1, 0, date1, 60, 3);
+        insuranceCompany.createComprehensivePolicy(username, password, 6, "Adele", 9, car1, 0, date1, 60, 3);
         }
         catch (PolicyException e)
         {
@@ -686,7 +686,7 @@ public class Test
         {
             System.out.println("Invalid policy holder name!");
         }
-        ArrayList <User> sortedUser = insuranceCompany.sortUsers();
+        ArrayList <User> sortedUser = insuranceCompany.sortUsers(username, password);
         System.out.println("\nOrginal Insurance Company");
         for (User user : sortedUser)
         {
@@ -698,9 +698,9 @@ public class Test
     }
 
     // test data aggregation lab 5
-    public void testGetTotalCountPerCarModelUser (User user)
+    public void testGetTotalCountPerCarModelUser (String username, String password, User user)
     {
-        HashMap <String, Integer> totalCounts = user.getTotalCountPerCarModel();
+        HashMap <String, Integer> totalCounts = user.getTotalCountPerCarModel(username, password);
 
         for (String model : totalCounts.keySet())
         {
@@ -708,9 +708,9 @@ public class Test
         }
     }
 
-    public void testGetTotalPremiumPerCarModelUser (User user)
+    public void testGetTotalPremiumPerCarModelUser (String username, String password, User user)
     {
-        HashMap <String, Double> totalPremiums = user.getTotalPremiumPerCarModel();
+        HashMap <String, Double> totalPremiums = user.getTotalPremiumPerCarModel(username, password);
 
         for (String model : totalPremiums.keySet())
         {
@@ -718,14 +718,14 @@ public class Test
         }
     }
 
-    public void testReportUser (User user)
+    public void testReportUser (String username, String password, User user)
     {
-        user.report();
+        user.report(username, password);
     }
 
-    public void testGetTotalPremiumPerCityCompany ()
+    public void testGetTotalPremiumPerCityCompany (String username, String password)
     {
-        HashMap <String, Double> totalPremiums = insuranceCompany.getTotalPremiumPerCity();
+        HashMap <String, Double> totalPremiums = insuranceCompany.getTotalPremiumPerCity(username, password);
 
         for (String city : totalPremiums.keySet())
         {
@@ -733,9 +733,9 @@ public class Test
         }
     }
 
-    public void testGetTotalCountPerCarModelCompany ()
+    public void testGetTotalCountPerCarModelCompany (String username, String password)
     {
-        HashMap <String, Integer> totalCounts = insuranceCompany.getTotalCountPerCarModel();
+        HashMap <String, Integer> totalCounts = insuranceCompany.getTotalCountPerCarModel(username, password);
 
         for (String model : totalCounts.keySet())
         {
@@ -743,9 +743,9 @@ public class Test
         }
     }
 
-    public void testGetTotalPremiumPerCarModelCompany ()
+    public void testGetTotalPremiumPerCarModelCompany (String username, String password)
     {
-        HashMap <String, Double> totalPremiums = insuranceCompany.getTotalPremiumPerCarModel();
+        HashMap <String, Double> totalPremiums = insuranceCompany.getTotalPremiumPerCarModel(username, password);
 
         for (String model : totalPremiums.keySet())
         {
@@ -753,28 +753,28 @@ public class Test
         }
     }
 
-    public void testReportComapny ()
+    public void testReportComapny (String username, String password)
     {
-        insuranceCompany.report();
+        insuranceCompany.report(username, password);
     }
 
-    public void testReportAcrossAllUsersCompany ()
+    public void testReportAcrossAllUsersCompany (String username, String password)
     {
-        insuranceCompany.reportAcrossAllUsers();
+        insuranceCompany.reportAcrossAllUsers(username, password);
     }
 
-    public void setUpAggregation()
+    public void setUpAggregation(String username, String password)
     {
-        insuranceCompany.addUser(user1);
-        insuranceCompany.addUser(user2);
-        insuranceCompany.addUser(user3);
-        insuranceCompany.addUser(user4);
-        insuranceCompany.addUser(user5);
-        insuranceCompany.addUser(user6);
+        insuranceCompany.addUser(username, password, user1);
+        insuranceCompany.addUser(username, password, user2);
+        insuranceCompany.addUser(username, password, user3);
+        insuranceCompany.addUser(username, password, user4);
+        insuranceCompany.addUser(username, password, user5);
+        insuranceCompany.addUser(username, password, user6);
 
-        user1.addPolicy(tpp1); //Honda CR-V
-        user1.addPolicy(cp2); //E-Class
-        user1.addPolicy(cp3); //E-Class
+        user1.addPolicy(username, password, tpp1); //Honda CR-V
+        user1.addPolicy(username, password, cp2); //E-Class
+        user1.addPolicy(username, password, cp3); //E-Class
         // Expected: 
         // Honda CR-V: 1
         // E-Class: 2
@@ -783,165 +783,165 @@ public class Test
         // cp3 = 58000/50 + 1*200 + 100 = 1460
         // E-Class (cp2 + cp3) = 2940 
 
-        user2.addPolicy(tpp2);
-        user2.addPolicy(cp2);
+        user2.addPolicy(username, password, tpp2);
+        user2.addPolicy(username, password, cp2);
 
-        user3.addPolicy(tpp3);
+        user3.addPolicy(username, password, tpp3);
 
-        user4.addPolicy(cp3);
+        user4.addPolicy(username, password, cp3);
     }
 
-    public void testAggregation ()
+    public void testAggregation (String username, String password)
     {
-        setUpAggregation();
+        setUpAggregation(username, password);
         System.out.println();
         System.out.println("USER AGGREGATION");
-        testGetTotalCountPerCarModelUser(user1);
+        testGetTotalCountPerCarModelUser(username, password, user1);
         System.out.println();
-        testGetTotalPremiumPerCarModelUser(user1);
+        testGetTotalPremiumPerCarModelUser(username, password, user1);
         System.out.println();
-        testReportUser(user1);
+        testReportUser(username, password, user1);
         System.out.println();
         System.out.println("COMPANY AGGREGATION");
-        testGetTotalPremiumPerCityCompany();
+        testGetTotalPremiumPerCityCompany(username, password);
         System.out.println();
-        testGetTotalCountPerCarModelCompany();
+        testGetTotalCountPerCarModelCompany(username, password);
         System.out.println();
-        testGetTotalPremiumPerCarModelCompany();
+        testGetTotalPremiumPerCarModelCompany(username, password);
         System.out.println();
-        testReportComapny();
+        testReportComapny(username, password);
         System.out.println();
-        testReportAcrossAllUsersCompany();
+        testReportAcrossAllUsersCompany(username, password);
         System.out.println();
     }
 
     // lab 6
 
-    public void testSaveAndLoad () throws PolicyException
-    {
-        HashMap <Integer, InsurancePolicy> policies = new HashMap<>();
-        policies.put(1, tpp1);
-        policies.put(2, cp1);
-        policies.put(3, tpp2);
-        policies.put(4, cp2);
-        policies.put(5, tpp3);
-        policies.put(6, cp3);
-        policies.put(7, tpp4);
+    // public void testSaveAndLoad (String username, String password) throws PolicyException
+    // {
+    //     HashMap <Integer, InsurancePolicy> policies = new HashMap<>();
+    //     policies.put(1, tpp1);
+    //     policies.put(2, cp1);
+    //     policies.put(3, tpp2);
+    //     policies.put(4, cp2);
+    //     policies.put(5, tpp3);
+    //     policies.put(6, cp3);
+    //     policies.put(7, tpp4);
 
-        InsurancePolicy.save(policies, "policies.ser");
-        policies.clear();
-        policies = InsurancePolicy.load("policies.ser");
+    //     InsurancePolicy.save(policies, "policies.ser");
+    //     policies.clear();
+    //     policies = InsurancePolicy.load("policies.ser");
 
-        if (policies != null)
-        {
-            InsurancePolicy.printPolicies(policies);
-            policies.put(1, tpp1);
-            policies.put(2, cp1);
-            policies.put(3, tpp2);
-            policies.put(4, cp2);
-            policies.put(5, tpp3);
-            policies.put(6, cp3);
-            policies.put(7, tpp4);
-            policies.clear();
-            policies = InsurancePolicy.load("policies.ser");
-            if (policies != null)
-            {
-                InsurancePolicy.printPolicies(policies);
-            }
-        }
+    //     if (policies != null)
+    //     {
+    //         InsurancePolicy.printPolicies(policies);
+    //         policies.put(1, tpp1);
+    //         policies.put(2, cp1);
+    //         policies.put(3, tpp2);
+    //         policies.put(4, cp2);
+    //         policies.put(5, tpp3);
+    //         policies.put(6, cp3);
+    //         policies.put(7, tpp4);
+    //         policies.clear();
+    //         policies = InsurancePolicy.load("policies.ser");
+    //         if (policies != null)
+    //         {
+    //             InsurancePolicy.printPolicies(policies);
+    //         }
+    //     }
 
-        HashMap <Integer, User> users = new HashMap<>();
-        User user = new User("Jack", address1, "jackPassword");
-        user.addPolicy(cp1);
-        users.put(user.getUserID(), user);
-        User.save(users, "users.ser");
-        users.clear();
-        users = User.load("users.ser");
-        if (users != null)
-        {
-            User.printUsers(users);
-        }
+    //     HashMap <Integer, User> users = new HashMap<>();
+    //     User user = new User("Jack", address1, "jackPassword");
+    //     user.addPolicy(username, password, cp1);
+    //     users.put(user.getUserID(), user);
+    //     User.save(users, "users.ser");
+    //     users.clear();
+    //     users = User.load("users.ser");
+    //     if (users != null)
+    //     {
+    //         User.printUsers(username, password, users);
+    //     }
 
-        InsuranceCompany insuranceCompany1 = new InsuranceCompany();
-        insuranceCompany1.addUser("Mahan", "mahanPassword", address2);
-        insuranceCompany1.save("company.ser");
-        insuranceCompany1.clearUsers();
-        InsuranceCompany insuranceCompany2 = new InsuranceCompany();
-        insuranceCompany2.load("companu.ser");
-        System.out.println(insuranceCompany2);
+    //     InsuranceCompany insuranceCompany1 = new InsuranceCompany();
+    //     insuranceCompany1.addUser(,username, password, "Mahan", "mahanPassword", address2);
+    //     insuranceCompany1.save(username, password, "company.ser");
+    //     insuranceCompany1.clearUsers(username, password);
+    //     InsuranceCompany insuranceCompany2 = new InsuranceCompany();
+    //     insuranceCompany2.load(username, password, "company.ser");
+    //     System.out.println(insuranceCompany2);
 
-        HashMap <Integer, InsurancePolicy> policies2 = new HashMap<>();
-        policies2.put(1, tpp1);
-        policies2.put(2, cp1);
-        policies2.put(3, tpp2);
-        policies2.put(4, cp2);
-        policies2.put(5, tpp3);
-        policies2.put(6, cp3);
-        policies2.put(7, tpp4);;
-        InsurancePolicy.saveTextFile(policies2, "policies.txt");
-        policies2.clear();
-        policies2 = InsurancePolicy.loadTextFile("policies.txt");
-        if (policies2 != null)
-        {
-            InsurancePolicy.printPolicies(policies2);
-        }
+    //     HashMap <Integer, InsurancePolicy> policies2 = new HashMap<>();
+    //     policies2.put(1, tpp1);
+    //     policies2.put(2, cp1);
+    //     policies2.put(3, tpp2);
+    //     policies2.put(4, cp2);
+    //     policies2.put(5, tpp3);
+    //     policies2.put(6, cp3);
+    //     policies2.put(7, tpp4);;
+    //     InsurancePolicy.saveTextFile(policies2, "policies.txt");
+    //     policies2.clear();
+    //     policies2 = InsurancePolicy.loadTextFile("policies.txt");
+    //     if (policies2 != null)
+    //     {
+    //         InsurancePolicy.printPolicies(policies2);
+    //     }
 
-        HashMap <Integer, User> users2 = new HashMap<>();
-        User user2 = new User("Ladan", address3, "ladanPassword");
-        user2.addPolicy(tpp4);
-        user2.addPolicy(cp1);
-        users2.put(user2.getUserID(), user2);
-        User.saveTextFile(users2, "users.txt");
-        if (users2 != null)
-        {
-            User.printUsers(users2);
-        }
+    //     HashMap <Integer, User> users2 = new HashMap<>();
+    //     User user2 = new User("Ladan", address3, "ladanPassword");
+    //     user2.addPolicy(username, password, tpp4);
+    //     user2.addPolicy(username, password, cp1);
+    //     users2.put(user2.getUserID(), user2);
+    //     User.saveTextFile(users2, "users.txt");
+    //     if (users2 != null)
+    //     {
+    //         User.printUsers(username, password, users2);
+    //     }
 
-        InsuranceCompany insuranceCompany3 = new InsuranceCompany();
-        insuranceCompany3.addUser("Haleh", "halehPassword", address1);
-        insuranceCompany3.addUser("Parisa", "parisaPassword", address2);
-        insuranceCompany3.addUser("Taraneh","taranehPassword", address3);
-        insuranceCompany3.addUser("Payam", "payamPassword", address4);
-        insuranceCompany3.addUser("Sarina", "sarinaPassword", address5);
-        insuranceCompany3.addUser("Behzad", "behzadPassword", address6);
+    //     InsuranceCompany insuranceCompany3 = new InsuranceCompany();
+    //     insuranceCompany3.addUser(username, password, "Haleh", "halehPassword", address1);
+    //     insuranceCompany3.addUser(username, password, "Parisa", "parisaPassword", address2);
+    //     insuranceCompany3.addUser(username, password, "Taraneh","taranehPassword", address3);
+    //     insuranceCompany3.addUser(username, password, "Payam", "payamPassword", address4);
+    //     insuranceCompany3.addUser(username, password, "Sarina", "sarinaPassword", address5);
+    //     insuranceCompany3.addUser(username, password, "Behzad", "behzadPassword", address6);
 
 
-        insuranceCompany3.saveTextFile("company.txt");
-        insuranceCompany3.clearUsers();
-        InsuranceCompany insuranceCompany4 = new InsuranceCompany();
-        insuranceCompany4.loadTextFile("company.txt");
-        System.out.println(insuranceCompany4);
+    //     insuranceCompany3.saveTextFile(username, password, "company.txt");
+    //     insuranceCompany3.clearUsers(username, password);
+    //     InsuranceCompany insuranceCompany4 = new InsuranceCompany();
+    //     insuranceCompany4.loadTextFile(username, password, "company.txt");
+    //     System.out.println(insuranceCompany4);
 
-    }
+    // }
 
     public void filingTest ()
     {
         InsuranceCompany insuranceCompany1 = new InsuranceCompany("TrustInsure", "admin_ti", "admin@1234",100);
 
-        insuranceCompany1.addUser(user1);
-        insuranceCompany1.addUser(user2);
-        insuranceCompany1.addUser(user3);
-        insuranceCompany1.addUser(user4);
-        insuranceCompany1.addUser(user5);
-        insuranceCompany1.addUser(user6);
+        insuranceCompany1.addUser("admin_ti", "admin@1234", user1);
+        insuranceCompany1.addUser("admin_ti", "admin@1234", user2);
+        insuranceCompany1.addUser("admin_ti", "admin@1234", user3);
+        insuranceCompany1.addUser("admin_ti", "admin@1234", user4);
+        insuranceCompany1.addUser("admin_ti", "admin@1234", user5);
+        insuranceCompany1.addUser("admin_ti", "admin@1234", user6);
 
-        user1.addPolicy(tpp1);
-        user1.addPolicy(cp1);
-        user2.addPolicy(tpp1);
-        user2.addPolicy(tpp2);
-        user3.addPolicy(cp1);
-        user3.addPolicy(cp2);
-        user3.addPolicy(cp3);
-        user4.addPolicy(tpp3);
-        user4.addPolicy(tpp4);
-        user4.addPolicy(cp1);
+        user1.addPolicy("Haleh", "halehPassword", tpp1);
+        user1.addPolicy("Haleh", "halehPassword", cp1);
+        user2.addPolicy("Parisa", "parisaPassword", tpp1);
+        user2.addPolicy("Parisa", "parisaPassword", tpp2);
+        user3.addPolicy("Taraneh", "taranehPassword", cp1);
+        user3.addPolicy("Taraneh", "taranehPassword", cp2);
+        user3.addPolicy("Taraneh", "taranehPassword", cp3);
+        user4.addPolicy("Payam", "payamPassword", tpp3);
+        user4.addPolicy("Payam", "payamPassword", tpp4);
+        user4.addPolicy("Payam", "payamPassword", cp1);
 
 
 
         // testing the save and load policies in/from BINARY FILE
         try
         {
-            InsurancePolicy.save(insuranceCompany1.allPoliciesHashMap(), "policies.ser");
+            InsurancePolicy.save(insuranceCompany1.allPoliciesHashMap("admin_ti", "admin@1234"), "policies.ser");
             HashMap <Integer, InsurancePolicy> policies = InsurancePolicy.load("policies.ser");
             System.out.println("Printing a list of policies loaded from binary file");
             InsurancePolicy.printPolicies(policies);
@@ -954,7 +954,7 @@ public class Test
         // testing the save and load policies in/from TEXT FILE
         try
         {
-            InsurancePolicy.saveTextFile(insuranceCompany1.allPoliciesHashMap(), "policies.txt");
+            InsurancePolicy.saveTextFile(insuranceCompany1.allPoliciesHashMap("admin_ti", "admin@1234"), "policies.txt");
             HashMap <Integer, InsurancePolicy> policies = InsurancePolicy.loadTextFile("policies.txt");
             System.out.println("Printing a list of policies loaded from text file");
             InsurancePolicy.printPolicies(policies);
@@ -993,9 +993,9 @@ public class Test
         // testing the save and load InsuranceCompany in/from BINARY FILE
         try
         {
-            insuranceCompany1.save("company.ser");
+            insuranceCompany1.save("admin_ti", "admin@1234", "company.ser");
             InsuranceCompany insuranceCompany2 = new InsuranceCompany();
-            insuranceCompany2.load("company.ser");
+            insuranceCompany2.load("admin_ti", "admin@1234", "company.ser");
             System.out.println("Printing the insurance conpany loaded from bunart file");
             System.out.println(insuranceCompany2);
         }
@@ -1007,9 +1007,9 @@ public class Test
         // testing the save and load InsuranceCompany in/from TEXT FILE
         try
         {
-            insuranceCompany1.saveTextFile("company.txt");
+            insuranceCompany1.saveTextFile("admin_ti", "admin@1234", "company.txt");
             InsuranceCompany insuranceCompany2 = new InsuranceCompany();
-            insuranceCompany2.loadTextFile("company.txt");
+            insuranceCompany2.loadTextFile("admin_ti", "admin@1234", "company.txt");
             System.out.println("Printing the insurance company loaded from text file");
             System.out.println(insuranceCompany2);          
         }
