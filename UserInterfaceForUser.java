@@ -9,6 +9,8 @@ public class UserInterfaceForUser {
 
     private User user;
     private InsuranceCompany insuranceCompany;
+    private int userID;
+    private String password;
     Scanner scanner = new Scanner(System.in);
     public UserInterfaceForUser (InsuranceCompany insuranceCompany)
     {
@@ -17,20 +19,21 @@ public class UserInterfaceForUser {
 
     public User loginUser ()
     {
-        System.out.print("Please enter username: ");
-        String userName = scanner.nextLine();
+        System.out.print("Please enter user ID: ");
+        int id = exceptionHandlingInt();
+        scanner.nextLine();
         System.out.print("Please enter user password: ");
         String userPassword = scanner.nextLine();
-        for (User user : insuranceCompany.getUsers().values())
+        User foundUser = insuranceCompany.getUsers().get(id);
+        if (foundUser != null && foundUser.userValidate(id, userPassword))
         {
-            if (user.userValidate(user.getUserID(), user.getUserPassword()))
-            {
-                this.user = user;
-                System.out.println("Successful Login!");
-                return user;
-            }
+            this.user = foundUser;
+            this.userID = id;
+            this.password = userPassword;
+            System.out.println("Successful Login!");
+            return foundUser;
         }
-        System.out.println("Invalid User ID");
+        System.out.println("Invalid user ID or password!");
         return null;
     }
 
@@ -38,7 +41,7 @@ public class UserInterfaceForUser {
     {
         this.user = user;
         String userOption = "";
-        while (!userOption.equals("13"))
+        while (!userOption.equals("10"))
         {
             displayUserMenu();
             userOption = scanner.nextLine();

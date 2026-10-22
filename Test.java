@@ -565,7 +565,7 @@ public class Test
         try
         {
         ThirdPartyPolicy tpp = new ThirdPartyPolicy("Justin", 10, new Car("Mazda 3", CarType.HATCH, 2020, 35000), 0, new MyDate(2027, 1, 1), "No previous claims!");
-        //sina.addPolicy("Sina", "sinaPassword", tpp);
+        sina.addPolicy(1, "sinaPassword", tpp);
         }
         catch (PolicyException e)
         {
