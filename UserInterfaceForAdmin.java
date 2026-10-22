@@ -32,7 +32,7 @@ public class UserInterfaceForAdmin
         return true;
     }
 
-    public void adminMenu ()
+    public void adminMenu () throws PolicyException, PolicyHolderNameException
     {   
         String adminOption = "";
         while (!adminOption.equals("30"))
@@ -206,7 +206,7 @@ public class UserInterfaceForAdmin
         System.out.println("30. Log Out");
     }
 
-    public void testMenu ()
+    public void testMenu () throws PolicyException, PolicyHolderNameException
     {
         String choice = "";
         while (!choice.equals("3"))

@@ -1,6 +1,7 @@
 package WEEK1;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Test
@@ -1018,4 +1019,180 @@ public class Test
             System.out.println(e);
         }
     }
+
+    // Advanced Test
+    public void testCaseAdvanced2 () throws PolicyException, PolicyHolderNameException
+    {
+        Car civic = new Car("Honda Civic", CarType.HATCH, 2022, 20000);
+        Car carmy = new Car("Toyota Carmy", CarType.SED, 2021, 30000);
+        Car mazda = new Car("Mazda 3", CarType.HATCH, 2023, 25000);
+        Car focus = new Car("Ford Focus", CarType.HATCH, 2020, 15000);
+        Car cerato = new Car("Kia Cerato", CarType.SED, 2022, 22000);
+
+        User user1 = new User("Sara", new Address(12, "xxx", "xxx", "Wollongong"), "saraPassword");
+        User user2 = new User("John", new Address(12, "xxx", "xxx", "Wollongong"), "johnPassword");
+        User user3 = new User("Robert", new Address(12, "xxx", "xxx", "Sydney"), "robertPassword");
+        User user4 = new User("Alex", new Address(12, "xxx", "xxx", "Melbourne"), "alexPassword");
+        
+        // user1
+        addPolicy(user1, new TestPolicy(20, 3000001, civic));
+        addPolicy(user1, new TestPolicy(50, 3000002, civic));
+        addPolicy(user1, new TestPolicy(30, 3000003, civic));
+        addPolicy(user1, new TestPolicy(100, 3000004, carmy));
+
+        // user2
+        addPolicy(user2, new TestPolicy(50, 3000005, carmy));
+        addPolicy(user2, new TestPolicy(10, 3000006, civic));
+        addPolicy(user2, new TestPolicy(100, 3000007, carmy));
+        addPolicy(user2, new TestPolicy(200, 3000008, mazda));
+
+        // user3
+        addPolicy(user3, new TestPolicy(15, 3000009, mazda));
+        addPolicy(user3, new TestPolicy(100, 3000010, carmy));
+        addPolicy(user3, new TestPolicy(500, 3000011, civic));
+        addPolicy(user3, new TestPolicy(40, 3000012, focus));
+
+        // user4
+        addPolicy(user4, new TestPolicy(50, 3000013, cerato));
+        addPolicy(user4, new TestPolicy(100, 3000014, carmy));
+
+        InsuranceCompany company = new InsuranceCompany("trustInsure", "admin_ti", "admin@1234", 100);
+        
+        String adminUsername = company.getAdminUsername();
+        String adminPssword = company.getAdminPassword();
+
+        company.addUser(adminUsername, adminPssword, user1);
+        company.addUser(adminUsername, adminPssword, user2);
+        company.addUser(adminUsername, adminPssword, user3);
+        company.addUser(adminUsername, adminPssword, user4);
+
+        int [] ranges = {20, 50, 100, 1000};
+
+        System.out.println("Testing policy count per user: ");
+
+        for (User user : company.getUsers().values())
+        {
+            int [] policyCount = user.policyCount(user.getName(), user.getUserPassword(), ranges);
+
+            System.out.println(user.getName() + "       " + Arrays.toString(policyCount));
+        }
+
+        // Expected: 
+        // Sara [0, 2, 1, 1, 0]
+        // John [1, 0, 1, 2, 0]
+        // Robert [1, 1, 0, 2, 0]
+        // Alex [0, 0, 1, 1, 0]
+
+        System.out.println("Testing policy Count in insurance company: ");
+        int [] policyCount = company.policyCount(adminUsername, adminPssword, ranges);
+        System.out.println(Arrays.toString(policyCount));
+        // Expected: [2, 3, 3, 6, 0]
+
+        System.out.println("Testing policy city count: ");
+        HashMap <String, Integer []> policyCityCount = company.policyCityCount(adminUsername, adminPssword, ranges);
+        for (String city : policyCityCount.keySet())
+        {
+            System.out.println(city + "     " + Arrays.toString(policyCityCount.get(city)));
+        }
+        // Expected: 
+        // Wollongong [1, 2, 2, 3, 0]
+        // Sydney [1, 1, 0, 2, 0]
+        // Melbourn [0, 0, 1, 1, 0]
+
+        System.out.println("Testing user count (total premium per user): ");
+        int [] userCount = company.userCount(adminUsername, adminPssword, ranges);
+        System.out.println(Arrays.toString(userCount));
+        // Totals: Sara 200; John 360; Robert 655; Alex 150
+        // Expected: [0, 0, 0, 4, 0]
+
+        System.out.println("Tesing user count with different ranges: ");
+        int [] ranges2 = {0, 200, 400, 1000};
+        System.out.println(Arrays.toString(company.userCount(adminUsername, adminPssword, ranges2)));
+        // Expected: [0, 1, 2, 1, 0]
+
+        System.out.println("Testing user car model count: ");
+        HashMap <String, Integer []> userCarModelCount = company.userCarModelCount(adminUsername, adminPssword, ranges);
+        for (String model : userCarModelCount.keySet())
+        {
+            System.out.println(model + "        " + Arrays.toString(userCarModelCount.get(model)));
+        }
+        // Expected: 
+        // Honda Civic  [1, 0, 0, 2, 0]
+        // Toyota Carmy [0, 0, 0, 4, 0]
+        // Mazda 3      [1, 0, 0, 1, 0]
+        // Ford Focus   [0, 1, 0, 0, 0]
+        // Kia Cerato   [0, 0, 1, 0, 0]
+
+        System.out.println("Testing policy car model count per user: ");
+        for (User user : company.getUsers().values())
+        {
+            HashMap <String, Integer []> policyCarModelCount = user.policyCarModelCount(user.getName(), user.getUserPassword(), ranges);
+            System.out.println(user.getName() + ":");
+            for (String model : policyCarModelCount.keySet())
+            {
+                System.out.print("  " + model + "       " + Arrays.toString(policyCarModelCount.get(model)) + "\n");
+            }
+        }
+        // Expected: 
+        // Sara: Honda Civic [0, 2, 1, 0, 0] Toyota Carmy [0, 0, 0, 1, 0]
+        // John: Toyota Carmy [0, 0, 1, 1, 0] Honda Civic [1, 0, 0, 0, 0] Mazda 3 [0, 0, 0, 1, 0]
+        // Robert: Mazda 3 [1, 0, 0, 0, 0] Toyota Carmy [0, 0, 0, 1, 0] Honda Civic [0, 0, 0, 1, 0] Ford Focus [0, 1, 0, 0, 0]
+        // Alex: Kia Cerato [0, 0, 1, 0, 0] Toyota Carmy [0, 0, 0, 1, 0]
+
+        System.out.println("Testing policy Car model count in insurance company: ");
+        HashMap <String, Integer []> companyCarModelCount = company.policyCarModelCount(adminUsername, adminPssword, ranges);
+        for (String model : companyCarModelCount.keySet())
+        {
+            System.out.println(model + "        " + Arrays.toString(companyCarModelCount.get(model)));
+        }
+        // Expected: 
+        // Honda Civic    [1, 2, 1, 1, 0]
+        // Toyota Carmy   [0, 0, 1, 4, 0]
+        // Mazda 3        [1, 0, 0, 1, 0]
+        // For Focus      [0, 1, 0, 0, 0]
+        // Kia Cerato     [0, 0, 1, 0, 0]
+
+        System.out.println("Testing wrong credential: ");
+        try
+        {
+            company.policyCount("Wrong", "Wrong", ranges);
+            System.out.println("Failed: no exception fo wrong admin credentials");
+        }
+        catch (SecurityException e)
+        {
+            System.out.println("Wrong username or password!");
+        }
+        try
+        {
+            user1.policyCount(user1.getName(), "worng", ranges);
+            System.out.println("Failed: no exception for wrong user credetials");
+        }
+        catch (SecurityException e)
+        {
+            System.out.println("Wrong username or password!");
+        }
+    }
+
+    private static void addPolicy (User user, InsurancePolicy policy)
+    {
+        user.addPolicy(user.getName(), user.getUserPassword(), policy);
+    }
 }
+
+    class TestPolicy extends InsurancePolicy
+    {
+        private double premium;  
+    
+
+        public TestPolicy (double premium, int id, Car car) throws PolicyException, PolicyHolderNameException
+        {
+            super("James Smith", id, car, 0, new MyDate(2030, 1, 1));
+            this.premium = premium;
+        }
+
+        @Override 
+        public double calcPayment (double flatRate)
+        {
+            return premium;
+        }
+    }

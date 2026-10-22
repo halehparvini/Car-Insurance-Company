@@ -922,4 +922,51 @@ public class User implements Cloneable, Comparable <User>, Serializable
             throw new SecurityException("Invalid username or password!");
         }
     }
+
+    // Advanced
+
+    public int [] policyCount (String username, String password, int [] ranges)
+    {
+        validateUserAccess(username, password);
+        int [] counts = new int[ranges.length + 1];
+        for (InsurancePolicy policy : policies.values())
+        {
+            double premium = policy.calcPayment(100);
+            int i = ranges.length - 1;
+            while (i >= 0 && premium < ranges[i])
+            {
+                i--;
+            }
+            counts[i + 1]++;
+        }
+        return counts;
+    }
+
+    public HashMap <String, Integer []> policyCarModelCount (String username, String password, int [] ranges)
+    {
+        validateUserAccess(username, password);
+        HashMap <String, Integer []> modelCounts = new HashMap<>();
+        for (InsurancePolicy policy : policies.values())
+        {
+            String model = policy.getCar().getModel();
+            double premium = policy.calcPayment(100);
+            Integer [] counts = modelCounts.get(model);
+            if (counts == null)
+            {
+                counts = new Integer[ranges.length + 1];
+                for (int i = 0; i < counts.length; i++)
+                {
+                    counts[i] = 0;
+                }
+                modelCounts.put(model, counts);
+            }
+            int i = ranges.length - 1;
+            while (i >= 0 && premium < ranges[i])
+            {
+                i--;    
+            }
+            counts[i + 1]++;
+        }
+        return modelCounts;
+    }
 }

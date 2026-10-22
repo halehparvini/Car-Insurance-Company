@@ -5,7 +5,7 @@ import java.util.*;
 public class Program
 {
     static Scanner scanner = new Scanner(System.in);
-    public static void main(String[] args) throws CloneNotSupportedException, PolicyException
+    public static void main(String[] args) throws CloneNotSupportedException, PolicyException, PolicyException, PolicyHolderNameException
     {
         Test test = new Test();
         // test.copyPolicies();
@@ -13,7 +13,7 @@ public class Program
         // test.cloneInsuranceCompany();
         // test.testAggregation();
         //test.testSaveAndLoad();
-        test.filingTest();
+        // test.filingTest();
         InsuranceCompany insuranceCompany = test.getInsuranceCompany();
         UserInterfaceForUser userUI = new UserInterfaceForUser(insuranceCompany);
         UserInterfaceForAdmin adminUI = new UserInterfaceForAdmin(insuranceCompany);

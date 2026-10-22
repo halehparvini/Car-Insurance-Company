@@ -1568,9 +1568,128 @@ public class InsuranceCompany implements Cloneable, Serializable
         test.testCore();
     }
 
-    public void runStandardAndAdvancedTests ()
+    public void runStandardAndAdvancedTests () throws PolicyException, PolicyHolderNameException
     {
         Test test = new Test();
-        test.testStandardAndAdvanced();
+        test.testCaseAdvanced2();
+    }
+
+    // Advanced 
+
+    public int [] policyCount (String adminUsername, String adminPassword, int [] ranges)
+    {
+        validateAdminAccess(adminUsername, adminPassword);
+        int [] counts = new int[ranges.length + 1];
+        for (User user : users.values())
+        {
+            int [] userCounts = user.policyCount(user.getName(), user.getUserPassword(), ranges);
+            for (int i = 0; i < counts.length; i++)
+            {
+                counts [i] += userCounts[i];
+            }
+        }
+        return counts;
+    }
+
+    public HashMap <String, Integer []> policyCityCount (String adminUsername, String adminPassword, int [] ranges)
+    {
+        validateAdminAccess(adminUsername, adminPassword);
+        HashMap <String, Integer []> cityCounts = new HashMap<>();
+        for (User user : users.values())
+        {
+            String city = user.getCity();
+            int [] userCounts = user.policyCount(user.getName(), user.getUserPassword(), ranges);
+            Integer [] counts = cityCounts.get(city);
+            if (counts == null)
+            {
+                counts = new Integer[ranges.length + 1];
+                for (int i = 0; i < counts.length; i++)
+                {
+                    counts[i] = 0;
+                }
+                cityCounts.put(city, counts);
+            }
+            for (int i = 0; i < counts.length; i++)
+            {
+                counts[i] += userCounts[i];
+            }
+        }
+        return cityCounts;
+    } 
+
+    public int [] userCount (String adminUsername, String adminPassword, int [] ranges)
+    {
+        validateAdminAccess(adminUsername, adminPassword);
+        int [] counts = new int [ranges.length + 1];
+        for (User user : users.values())
+        {
+            double totalPremium = user.calcTotalPremiumsInternal(flatRate);
+            int i = ranges.length - 1;
+            while (i >= 0 && totalPremium < ranges[i])
+            {
+                i--;   
+            }
+            counts [i + 1]++;
+        }
+        return counts;
+    }
+
+    public HashMap <String, Integer []> userCarModelCount (String adminUsername, String adminPassword, int [] ranges)
+    {
+        validateAdminAccess(adminUsername, adminPassword);
+        HashMap <String, Integer []> modelCounts = new HashMap<>();
+        for (User user : users.values())
+        {
+            for (String model : user.populateDistinctCarModelsInternal())
+            {
+                double modelPremium = user.getTotalPaymentForCarModelInternal(model, flatRate);
+                Integer [] counts = modelCounts.get(model);
+                if (counts == null)
+                {
+                    counts = new Integer [ranges.length + 1];
+                    for (int i = 0; i < counts.length; i++)
+                    {
+                        counts[i] = 0;
+                    }
+                    modelCounts.put(model, counts);
+                }
+                int i = ranges.length - 1;
+                while (i >= 0 && modelPremium < ranges[i])
+                {
+                    i--;    
+                }
+                counts [i + 1]++;
+            }
+        }
+        return modelCounts;
+    }
+
+    public HashMap <String, Integer []> policyCarModelCount (String adminUsername, String adminPassword, int [] ranges)
+    {
+        validateAdminAccess(adminUsername, adminPassword);
+        HashMap <String, Integer []> modelCounts = new HashMap<>();
+        for (User user : users.values())
+        {
+            HashMap <String, Integer []> userModelCounts = user.policyCarModelCount(user.getName(), user.getUserPassword(), ranges);
+            for (String model : userModelCounts.keySet())
+            {
+                Integer [] userCounts = userModelCounts.get(model);
+                Integer [] counts = modelCounts.get(model);
+                if (counts == null)
+                {
+                    counts = new Integer[ranges.length + 1];
+                    for (int i = 0; i < counts.length; i++)
+                    {
+                        counts[i] = 0;
+                    }
+                    modelCounts.put(model, counts);
+                }
+                for (int i = 0; i < counts.length; i++)
+                {
+                    counts[i] += userCounts[i];
+                }
+            }
+        }
+        return modelCounts;
     }
 }

@@ -14,7 +14,7 @@ public class MainMenu
         this.userUI = userUI;
     }
 
-    public void run ()
+    public void run () throws PolicyException, PolicyHolderNameException
     {
         String option = "";
         while (!option.equals("3"))
