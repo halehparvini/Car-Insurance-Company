@@ -121,7 +121,7 @@ public class InsuranceCompany implements Cloneable, Serializable
             return false;
         }
 
-        return user.addPolicy(user.getName(), user.getUserPassword(), policy);
+        return user.addPolicy(user.getUserID(), user.getUserPassword(), policy);
     }
 
     public void validateAdminAccess (String username, String password)
@@ -186,7 +186,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         User user = findUserInternal(userID);
         if (user != null)
         {
-            return user.createThirdPartyPolicy(user.getName(), user.getUserPassword(), policyHolderName, id, car, numberOfClaims, expiryDate, comments);
+            return user.createThirdPartyPolicy(user.getUserID(), user.getUserPassword(), policyHolderName, id, car, numberOfClaims, expiryDate, comments);
         }
         return false;
     }
@@ -200,7 +200,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         User user = findUserInternal(userID);
         if (user != null)
         {
-            return user.createComprehensivePolicy(user.getName(), user.getUserPassword(), policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level);
+            return user.createComprehensivePolicy(user.getUserID(), user.getUserPassword(), policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level);
         }
         return false; 
     }
@@ -1562,10 +1562,10 @@ public class InsuranceCompany implements Cloneable, Serializable
         }
     }
 
-    public void runCoreTests ()
+    public void runCoreTests () throws CloneNotSupportedException
     {
         Test test = new Test();
-        test.testCore();
+        test.testCoreAssignment2();
     }
 
     public void runStandardAndAdvancedTests () throws PolicyException, PolicyHolderNameException
@@ -1582,7 +1582,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         int [] counts = new int[ranges.length + 1];
         for (User user : users.values())
         {
-            int [] userCounts = user.policyCount(user.getName(), user.getUserPassword(), ranges);
+            int [] userCounts = user.policyCount(user.getUserID(), user.getUserPassword(), ranges);
             for (int i = 0; i < counts.length; i++)
             {
                 counts [i] += userCounts[i];
@@ -1598,7 +1598,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         for (User user : users.values())
         {
             String city = user.getCity();
-            int [] userCounts = user.policyCount(user.getName(), user.getUserPassword(), ranges);
+            int [] userCounts = user.policyCount(user.getUserID(), user.getUserPassword(), ranges);
             Integer [] counts = cityCounts.get(city);
             if (counts == null)
             {
@@ -1670,7 +1670,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         HashMap <String, Integer []> modelCounts = new HashMap<>();
         for (User user : users.values())
         {
-            HashMap <String, Integer []> userModelCounts = user.policyCarModelCount(user.getName(), user.getUserPassword(), ranges);
+            HashMap <String, Integer []> userModelCounts = user.policyCarModelCount(user.getUserID(), user.getUserPassword(), ranges);
             for (String model : userModelCounts.keySet())
             {
                 Integer [] userCounts = userModelCounts.get(model);

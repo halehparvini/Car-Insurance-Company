@@ -14,7 +14,7 @@ public class MainMenu
         this.userUI = userUI;
     }
 
-    public void run () throws PolicyException, PolicyHolderNameException
+    public void run () throws PolicyException, PolicyHolderNameException, CloneNotSupportedException
     {
         String option = "";
         while (!option.equals("3"))

@@ -552,20 +552,20 @@ public class Test
     }
 
     // lab 4
-    public void copyPolicies (String username, String password) throws CloneNotSupportedException
+    public void copyPolicies () throws CloneNotSupportedException
     {
         User sina = new User("Sina", new Address(19, "King", "downtown", "London"), "sinaPassword" );
-        sina.addPolicy(username, password, cp1);
-        sina.addPolicy(username, password, tpp3);
-        ArrayList <InsurancePolicy> deepCopy = sina.deepCopyPolicies(username, password);
-        ArrayList <InsurancePolicy> shallowCopy = sina.shallowCopyPolicies(username, password);
+        sina.addPolicy(1, "sinaPassword", cp1);
+        sina.addPolicy(1, "sinaPassword", tpp3);
+        ArrayList <InsurancePolicy> deepCopy = sina.deepCopyPolicies(1, "sinaPassword");
+        ArrayList <InsurancePolicy> shallowCopy = sina.shallowCopyPolicies(1, "sinaPassword");
 
         sina.setCity("New York");
 
         try
         {
         ThirdPartyPolicy tpp = new ThirdPartyPolicy("Justin", 10, new Car("Mazda 3", CarType.HATCH, 2020, 35000), 0, new MyDate(2027, 1, 1), "No previous claims!");
-        sina.addPolicy(username, password, tpp);
+        //sina.addPolicy("Sina", "sinaPassword", tpp);
         }
         catch (PolicyException e)
         {
@@ -576,7 +576,7 @@ public class Test
             System.out.println("Invalid policy holder name!");
         }
 
-        ArrayList <InsurancePolicy> sortedPolicies = sina.sortPoliciesByDate(username, password);
+        ArrayList <InsurancePolicy> sortedPolicies = sina.sortPoliciesByDate(1, "sinaPassword");
 
         System.out.println("\nShallow Copy");
         for (InsurancePolicy policy : shallowCopy)
@@ -658,12 +658,12 @@ public class Test
         insuranceCompany.addUser(username, password, user5);
         insuranceCompany.addUser(username, password, user6);
 
-        user1.addPolicy(username, password, tpp1);
-        user2.addPolicy(username, password, cp1);
-        user3.addPolicy(username, password, tpp2);
-        user4.addPolicy(username, password, cp2);
-        user5.addPolicy(username, password, tpp3);
-        user6.addPolicy(username, password, cp3);
+        user1.addPolicy(user1.getUserID(), user1.getUserPassword(), tpp1);
+        user2.addPolicy(user2.getUserID(), user2.getUserPassword(), cp1);
+        user3.addPolicy(user3.getUserID(), user3.getUserPassword(), tpp2);
+        user4.addPolicy(user4.getUserID(), user4.getUserPassword(), cp2);
+        user5.addPolicy(user5.getUserID(), user5.getUserPassword(), tpp3);
+        user6.addPolicy(user6.getUserID(), user6.getUserPassword(), cp3);
 
         InsuranceCompany clone = insuranceCompany.clone();
 
@@ -699,9 +699,9 @@ public class Test
     }
 
     // test data aggregation lab 5
-    public void testGetTotalCountPerCarModelUser (String username, String password, User user)
+    public void testGetTotalCountPerCarModelUser (User user)
     {
-        HashMap <String, Integer> totalCounts = user.getTotalCountPerCarModel(username, password);
+        HashMap <String, Integer> totalCounts = user.getTotalCountPerCarModel(user.getUserID(), user.getUserPassword());
 
         for (String model : totalCounts.keySet())
         {
@@ -709,9 +709,9 @@ public class Test
         }
     }
 
-    public void testGetTotalPremiumPerCarModelUser (String username, String password, User user)
+    public void testGetTotalPremiumPerCarModelUser (User user)
     {
-        HashMap <String, Double> totalPremiums = user.getTotalPremiumPerCarModel(username, password);
+        HashMap <String, Double> totalPremiums = user.getTotalPremiumPerCarModel(user.getUserID(), user.getUserPassword());
 
         for (String model : totalPremiums.keySet())
         {
@@ -719,9 +719,9 @@ public class Test
         }
     }
 
-    public void testReportUser (String username, String password, User user)
+    public void testReportUser (User user)
     {
-        user.report(username, password);
+        user.report(user.getUserID(), user.getUserPassword());
     }
 
     public void testGetTotalPremiumPerCityCompany (String username, String password)
@@ -773,9 +773,9 @@ public class Test
         insuranceCompany.addUser(username, password, user5);
         insuranceCompany.addUser(username, password, user6);
 
-        user1.addPolicy(username, password, tpp1); //Honda CR-V
-        user1.addPolicy(username, password, cp2); //E-Class
-        user1.addPolicy(username, password, cp3); //E-Class
+        user1.addPolicy(user1.getUserID(), user1.getUserPassword(), tpp1); //Honda CR-V
+        user1.addPolicy(user1.getUserID(), user1.getUserPassword(), cp2); //E-Class
+        user1.addPolicy(user1.getUserID(), user1.getUserPassword(), cp3); //E-Class
         // Expected: 
         // Honda CR-V: 1
         // E-Class: 2
@@ -784,12 +784,12 @@ public class Test
         // cp3 = 58000/50 + 1*200 + 100 = 1460
         // E-Class (cp2 + cp3) = 2940 
 
-        user2.addPolicy(username, password, tpp2);
-        user2.addPolicy(username, password, cp2);
+        user2.addPolicy(user2.getUserID(), user2.getUserPassword(), tpp2);
+        user2.addPolicy(user2.getUserID(), user2.getUserPassword(), cp2);
 
-        user3.addPolicy(username, password, tpp3);
+        user3.addPolicy(user3.getUserID(), user3.getUserPassword(), tpp3);
 
-        user4.addPolicy(username, password, cp3);
+        user4.addPolicy(user3.getUserID(), user3.getUserPassword(), cp3);
     }
 
     public void testAggregation (String username, String password)
@@ -797,11 +797,11 @@ public class Test
         setUpAggregation(username, password);
         System.out.println();
         System.out.println("USER AGGREGATION");
-        testGetTotalCountPerCarModelUser(username, password, user1);
+        testGetTotalCountPerCarModelUser(user1);
         System.out.println();
-        testGetTotalPremiumPerCarModelUser(username, password, user1);
+        testGetTotalPremiumPerCarModelUser(user1);
         System.out.println();
-        testReportUser(username, password, user1);
+        testReportUser(user1);
         System.out.println();
         System.out.println("COMPANY AGGREGATION");
         testGetTotalPremiumPerCityCompany(username, password);
@@ -926,16 +926,16 @@ public class Test
         insuranceCompany1.addUser("admin_ti", "admin@1234", user5);
         insuranceCompany1.addUser("admin_ti", "admin@1234", user6);
 
-        user1.addPolicy("Haleh", "halehPassword", tpp1);
-        user1.addPolicy("Haleh", "halehPassword", cp1);
-        user2.addPolicy("Parisa", "parisaPassword", tpp1);
-        user2.addPolicy("Parisa", "parisaPassword", tpp2);
-        user3.addPolicy("Taraneh", "taranehPassword", cp1);
-        user3.addPolicy("Taraneh", "taranehPassword", cp2);
-        user3.addPolicy("Taraneh", "taranehPassword", cp3);
-        user4.addPolicy("Payam", "payamPassword", tpp3);
-        user4.addPolicy("Payam", "payamPassword", tpp4);
-        user4.addPolicy("Payam", "payamPassword", cp1);
+        user1.addPolicy(1, "halehPassword", tpp1);
+        user1.addPolicy(1, "halehPassword", cp1);
+        user2.addPolicy(2, "parisaPassword", tpp1);
+        user2.addPolicy(2, "parisaPassword", tpp2);
+        user3.addPolicy(3, "taranehPassword", cp1);
+        user3.addPolicy(3, "taranehPassword", cp2);
+        user3.addPolicy(3, "taranehPassword", cp3);
+        user4.addPolicy(4, "payamPassword", tpp3);
+        user4.addPolicy(4, "payamPassword", tpp4);
+        user4.addPolicy(4, "payamPassword", cp1);
 
 
 
@@ -1020,6 +1020,16 @@ public class Test
         }
     }
 
+    // Core Test
+    public void testCoreAssignment2 () throws CloneNotSupportedException
+    {
+        copyPolicies();
+        copyUsers("admin", "1234");
+        cloneInsuranceCompany("clone", "1234");
+        testAggregation(insuranceCompany.getAdminUsername(), insuranceCompany.getAdminPassword());
+        filingTest();
+    }
+
     // Advanced Test
     public void testCaseAdvanced2 () throws PolicyException, PolicyHolderNameException
     {
@@ -1072,7 +1082,7 @@ public class Test
 
         for (User user : company.getUsers().values())
         {
-            int [] policyCount = user.policyCount(user.getName(), user.getUserPassword(), ranges);
+            int [] policyCount = user.policyCount(user.getUserID(), user.getUserPassword(), ranges);
 
             System.out.println(user.getName() + "       " + Arrays.toString(policyCount));
         }
@@ -1126,7 +1136,7 @@ public class Test
         System.out.println("Testing policy car model count per user: ");
         for (User user : company.getUsers().values())
         {
-            HashMap <String, Integer []> policyCarModelCount = user.policyCarModelCount(user.getName(), user.getUserPassword(), ranges);
+            HashMap <String, Integer []> policyCarModelCount = user.policyCarModelCount(user.getUserID(), user.getUserPassword(), ranges);
             System.out.println(user.getName() + ":");
             for (String model : policyCarModelCount.keySet())
             {
@@ -1164,7 +1174,7 @@ public class Test
         }
         try
         {
-            user1.policyCount(user1.getName(), "worng", ranges);
+            user1.policyCount(user1.getUserID(), "worng", ranges);
             System.out.println("Failed: no exception for wrong user credetials");
         }
         catch (SecurityException e)
@@ -1175,7 +1185,7 @@ public class Test
 
     private static void addPolicy (User user, InsurancePolicy policy)
     {
-        user.addPolicy(user.getName(), user.getUserPassword(), policy);
+        user.addPolicy(user.getUserID(), user.getUserPassword(), policy);
     }
 }
 
