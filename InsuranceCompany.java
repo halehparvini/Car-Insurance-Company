@@ -111,7 +111,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         {
             return false;
         }
-        User user = findUserInternal(userID);
+        User user = findUser(username, password, userID);
         if (user == null)
         {
             return false;
@@ -135,10 +135,10 @@ public class InsuranceCompany implements Cloneable, Serializable
     public InsurancePolicy findPolicy (String username, String password, int userID, int policyID)
     {
         validateAdminAccess(username, password);
-        User user = findUserInternal(userID);
+        User user = findUser(username, password, userID);
         if (user != null)
         {
-            return user.findPolicyInternal(policyID);
+            return user.findPolicy(user.getUserID(), user.getUserPassword(), policyID);
         }
         return null;
     }
@@ -146,11 +146,11 @@ public class InsuranceCompany implements Cloneable, Serializable
     public void printPolicies (String username, String password, int userID)
     {
         validateAdminAccess(username, password);
-        User user = findUserInternal(userID);
+        User user = findUser(username, password, userID);
         if (user != null)
         {
-            user.printUserDetailsInternal();
-            user.printPoliciesInternal(flatRate);
+            user.print(user.getUserID(), user.getUserPassword());
+            user.printPolicies(user.getUserID(), user.getUserPassword(), flatRate);
         }
         else
         {
@@ -183,7 +183,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         {
             return false;
         }
-        User user = findUserInternal(userID);
+        User user = findUser(username, password, userID);
         if (user != null)
         {
             return user.createThirdPartyPolicy(user.getUserID(), user.getUserPassword(), policyHolderName, id, car, numberOfClaims, expiryDate, comments);
@@ -197,7 +197,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         {
             return false;
         }
-        User user = findUserInternal(userID);
+        User user = findUser(username, password, userID);
         if (user != null)
         {
             return user.createComprehensivePolicy(user.getUserID(), user.getUserPassword(), policyHolderName, id, car, numberOfClaims, expiryDate, driverAge, level);
@@ -208,10 +208,10 @@ public class InsuranceCompany implements Cloneable, Serializable
     public double calcTotalPayments (String username, String password, int userID)
     {
         validateAdminAccess(username, password);
-        User user = findUserInternal(userID);
+        User user = findUser(username, password, userID);
         if (user != null)
         {
-            return user.calcTotalPremiumsInternal(flatRate);
+            return user.calcTotalPremiums(flatRate, user.getUserID(), user.getUserPassword());
         }
         return 0;
     }
@@ -465,7 +465,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         {
             return false;
         }
-        User user = findUserInternal(userID);
+        User user = findUser(username, password, userID);
         if (user != null)
         {
             users.remove(userID);
@@ -497,10 +497,10 @@ public class InsuranceCompany implements Cloneable, Serializable
         {
             return false;
         }
-        User user = findUserInternal(userID);
+        User user = findUser(username, password, userID);
         if (user != null)
         {
-            return user.removePolicyInternal(policyID);
+            return user.removePolicy(user.getUserID(), user.getUserPassword(), policyID);
         }
         return false;
     }
@@ -566,7 +566,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         {
             return false;
         }
-        if (user != null && findUserInternal(user.getUserID()) == null)
+        if (user != null && findUser(username, password, user.getUserID()) == null)
         {
             users.put(user.getUserID(), user);
             return true;
@@ -591,8 +591,8 @@ public class InsuranceCompany implements Cloneable, Serializable
         validateAdminAccess(username, password);
         for (User user : users.values())
         {
-            user.printUserDetailsInternal();
-            user.printPoliciesInternal(flatRate);
+            user.print(user.getUserID(), user.getUserPassword());
+            user.printPolicies(user.getUserID(), user.getUserPassword(), flatRate);
         }
     }
 
@@ -612,7 +612,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         double totalPayment = 0;
         for (User user : users.values())
         {
-            totalPayment += user.calcTotalPremiumsInternal(flatRate);
+            totalPayment += user.calcTotalPremiums(flatRate, user.getUserID(), user.getUserPassword());
         }
         return totalPayment;
     }
@@ -623,7 +623,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         {
             return false;
         }
-        User user = findUserInternal(userID);
+        User user = findUser(username, password, userID);
         if (user != null)
         {
             for (InsurancePolicy policy : user.policies.values())
@@ -638,11 +638,6 @@ public class InsuranceCompany implements Cloneable, Serializable
             return true;
         }
         return false;
-    }
-
-    User findUserInternal (int userID)
-    {
-        return users.get(userID);
     }
 
     public void carPriceRise (String username, String password, double risePercent)
@@ -694,10 +689,10 @@ public class InsuranceCompany implements Cloneable, Serializable
     public HashMap <Integer, InsurancePolicy> filterByCarModel (String username, String password, int userID, String carModel)
     {
         validateAdminAccess(username, password);
-        User user = findUserInternal(userID);
+        User user = findUser(username, password, userID);
         if (user != null)
         {
-            return user.filterByCarModelInternal(carModel);
+            return user.filterByCarModel(user.getUserID(), user.getUserPassword(), carModel);
         }
         return new HashMap<>();
     }
@@ -705,10 +700,10 @@ public class InsuranceCompany implements Cloneable, Serializable
     public HashMap <Integer, InsurancePolicy> filterByExpiryDate (String username, String password, int userID, MyDate date)
     {
         validateAdminAccess(username, password);
-        User user = findUserInternal(userID);
+        User user = findUser(username, password, userID);
         if (user != null)
         {
-            return user.filterByExpiryDateInternal(date);
+            return user.filterByExpiryDate(user.getUserID(), user.getUserPassword(), date);
         }
         return new HashMap<>();
     }
@@ -723,7 +718,7 @@ public class InsuranceCompany implements Cloneable, Serializable
             {
                 continue;
             }
-            HashMap <Integer, InsurancePolicy> filteredPolicies = user.filterByCarModelInternal(carModel);
+            HashMap <Integer, InsurancePolicy> filteredPolicies = user.filterByCarModel(user.getUserID(), user.getUserPassword(), carModel);
             for (InsurancePolicy policy : filteredPolicies.values())
             {
                 result.add(policy);
@@ -742,7 +737,7 @@ public class InsuranceCompany implements Cloneable, Serializable
             {
                 continue;
             }
-            HashMap <Integer, InsurancePolicy> filteredPolicies = user.filterByExpiryDateInternal(date);
+            HashMap <Integer, InsurancePolicy> filteredPolicies = user.filterByExpiryDate(user.getUserID(), user.getUserPassword(), date);
             for (InsurancePolicy policy : filteredPolicies.values())
             {
                 result.add(policy);
@@ -786,7 +781,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         {
             if (user != null && user.getAddress() != null && user.getCity() != null && user.getCity().equals(city))
             {
-                totalPayment += user.calcTotalPremiumsInternal(flatRate);
+                totalPayment += user.calcTotalPremiums(flatRate, user.getUserID(), user.getUserPassword());
 
             }
         }
@@ -803,7 +798,7 @@ public class InsuranceCompany implements Cloneable, Serializable
             {
                 continue;
             }
-            for (String model : user.populateDistinctCarModelsInternal())
+            for (String model : user.populateDistinctCarModels(user.getUserID(), user.getUserPassword()))
             {
                 if (!carModels.contains(model)){
                     carModels.add(model);
@@ -822,7 +817,7 @@ public class InsuranceCompany implements Cloneable, Serializable
             int count = 0;
             for (User user : users.values())
             {
-                count += user.getTotalCountForCarModelInternal(model);
+                count += user.getTotalCountForCarModel(user.getUserID(), user.getUserPassword(), model);
             }
             totalCounts.add(count);
         }
@@ -838,7 +833,7 @@ public class InsuranceCompany implements Cloneable, Serializable
             double payment = 0;
             for (User user : users.values())
             {
-                payment += user.getTotalPaymentForCarModelInternal(model, flatRate);
+                payment += user.getTotalPaymentForCarModel(user.getUserID(), user.getUserPassword(), model, flatRate);
             }
             totalPayments.add(payment);
         }
@@ -923,7 +918,7 @@ public class InsuranceCompany implements Cloneable, Serializable
                 continue;
             }
             String city = user.getCity();
-            double premium = user.calcTotalPremiumsInternal(flatRate);
+            double premium = user.calcTotalPremiums(flatRate, user.getUserID(), user.getUserPassword());
             if (totalPremiums.containsKey(city))
             {
                 totalPremiums.put(city, totalPremiums.get(city) + premium);
@@ -946,7 +941,7 @@ public class InsuranceCompany implements Cloneable, Serializable
             {
                 continue;
             }
-            HashMap <String, Integer> userCounts = user.getTotalCountPerCarModelInternal();
+            HashMap <String, Integer> userCounts = user.getTotalCountPerCarModel(user.getUserID(), user.getUserPassword());
             if (userCounts == null)
             {
                 continue;
@@ -974,7 +969,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         
         for (User user : users.values())
         {
-            HashMap <String, Double> userPremiums = user.getTotalPremiumPerCarModelInternal();
+            HashMap <String, Double> userPremiums = user.getTotalPremiumPerCarModel(user.getUserID(), user.getUserPassword());
             for (String model : userPremiums.keySet())
             {
                 double premium = userPremiums.get(model);
@@ -1287,7 +1282,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         ArrayList <InsurancePolicy> copiedPolicies = new ArrayList<>();
         for (User user : users.values())
         {
-            copiedPolicies.addAll(user.deepCopyPoliciesInternal());
+            copiedPolicies.addAll(user.deepCopyPolicies(user.getUserID(), user.getUserPassword()));
         }
         return copiedPolicies;
     }
@@ -1298,7 +1293,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         ArrayList <InsurancePolicy> copiedPolicies = new ArrayList<>();
         for (User user : users.values())
         {
-            copiedPolicies.addAll(user.shallowCopyPoliciesInternal());
+            copiedPolicies.addAll(user.shallowCopyPolicies(user.getUserID(), user.getUserPassword()));
         }
         return copiedPolicies;
     }
@@ -1337,7 +1332,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         {
             return false;
         }
-        return findUserInternal(userID) != null;
+        return findUser(username, password, userID) != null;
     }
 
     public int createUser (String username, String password, String name, String userPassword,  int streetNumber, String street, String suburb, String city)
@@ -1357,7 +1352,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         {
             return false;
         }
-        User user = findUserInternal(userID);
+        User user = findUser(username, password, userID);
         if (user == null)
         {
             return false;
@@ -1369,7 +1364,7 @@ public class InsuranceCompany implements Cloneable, Serializable
     public String getUserInfo (String username, String password, int userID)
     {
         validateAdminAccess(username, password);
-        User user = findUserInternal(userID);
+        User user = findUser(username, password, userID);
         if (user == null)
         {
             return "";
@@ -1383,7 +1378,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         {
             return false;
         }
-        if (findUserInternal(userID) == null)
+        if (findUser(username, password, userID) == null)
         {
             return false;
         }
@@ -1397,12 +1392,12 @@ public class InsuranceCompany implements Cloneable, Serializable
         {
             return false;
         }
-        User user = findUserInternal(userID);
+        User user = findUser(username, password, userID);
         if (user == null)
         {
             return false;
         }
-        user.reportInternal();
+        user.report(user.getUserID(), user.getUserPassword());
         return true;
     }
 
@@ -1556,7 +1551,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         for (User user : users.values())
         {
             System.out.println("User: " + user.getName());
-            ArrayList <InsurancePolicy> sortedPolicies = user.sortPoliciesByDateInternal();
+            ArrayList <InsurancePolicy> sortedPolicies = user.sortPoliciesByDate(user.getUserID(), user.getUserPassword());
             InsurancePolicy.printPolicies(sortedPolicies);
             System.out.println();
         }
@@ -1623,7 +1618,7 @@ public class InsuranceCompany implements Cloneable, Serializable
         int [] counts = new int [ranges.length + 1];
         for (User user : users.values())
         {
-            double totalPremium = user.calcTotalPremiumsInternal(flatRate);
+            double totalPremium = user.calcTotalPremiums(flatRate, user.getUserID(), user.getUserPassword());
             int i = ranges.length - 1;
             while (i >= 0 && totalPremium < ranges[i])
             {
@@ -1640,9 +1635,9 @@ public class InsuranceCompany implements Cloneable, Serializable
         HashMap <String, Integer []> modelCounts = new HashMap<>();
         for (User user : users.values())
         {
-            for (String model : user.populateDistinctCarModelsInternal())
+            for (String model : user.populateDistinctCarModels(user.getUserID(), user.getUserPassword()))
             {
-                double modelPremium = user.getTotalPaymentForCarModelInternal(model, flatRate);
+                double modelPremium = user.getTotalPaymentForCarModel(user.getUserID(), user.getUserPassword(), model, flatRate);
                 Integer [] counts = modelCounts.get(model);
                 if (counts == null)
                 {
