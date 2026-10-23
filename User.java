@@ -102,11 +102,6 @@ public class User implements Cloneable, Comparable <User>, Serializable
         //     policy.print();
         // }
         validateUserAccess(userID, password);
-        printUserDetailsInternal();
-    }
-
-    void printUserDetailsInternal()
-    {
         System.out.println("\u001B[34mUser Name: " + name + " ID: " + userID + " Address: " + address + "\u001B[0m");
         InsurancePolicy.printPolicies(policies);
     }
@@ -133,11 +128,6 @@ public class User implements Cloneable, Comparable <User>, Serializable
     public double calcTotalPremiums (double flatRate, int userID, String password)
     {
         validateUserAccess(userID, password);
-        return InsurancePolicy.calcTotalPayments(policies, flatRate);
-    }
-
-    double calcTotalPremiumsInternal (double flatRate)
-    {
         return InsurancePolicy.calcTotalPayments(policies, flatRate);
     }
 
@@ -250,11 +240,6 @@ public class User implements Cloneable, Comparable <User>, Serializable
         //     } 
         //     return models;
         validateUserAccess(userID, password);
-        return populateDistinctCarModelsInternal();
-    }
-
-    ArrayList <String> populateDistinctCarModelsInternal ()
-    {
         ArrayList <String> models = new ArrayList<>();
         for (InsurancePolicy policy : policies.values())
             {
@@ -280,11 +265,6 @@ public class User implements Cloneable, Comparable <User>, Serializable
         // }
         // return count;
         validateUserAccess(userID, password);
-        return getTotalCountForCarModelInternal(carModel);
-    }
-
-    int getTotalCountForCarModelInternal (String carModel)
-    {
         int count = 0;
         for (InsurancePolicy policy : policies.values())
         {
@@ -310,11 +290,6 @@ public class User implements Cloneable, Comparable <User>, Serializable
         // }
         // return total;
         validateUserAccess(userID, password);
-        return getTotalPaymentForCarModelInternal(carModel, flatRate);
-    }
-
-    double getTotalPaymentForCarModelInternal (String carModel, double flatRate)
-    {
         double total = 0;
         for (InsurancePolicy policy : policies.values())
         {
@@ -369,7 +344,7 @@ public class User implements Cloneable, Comparable <User>, Serializable
         {
             return false;
         }
-        InsurancePolicy policy = findPolicyInternal(policyID);
+        InsurancePolicy policy = findPolicy(userID, password, policyID);
         if (policy != null)
         {
             policies.remove(policyID);
@@ -379,16 +354,6 @@ public class User implements Cloneable, Comparable <User>, Serializable
         {
             return false;
         }
-    }
-
-    boolean removePolicyInternal (int policyID)
-    {
-        if (policies.containsKey(policyID))
-        {
-            policies.remove(policyID);
-            return true;
-        }
-        return false;
     }
 
     // lab 4
@@ -446,22 +411,12 @@ public class User implements Cloneable, Comparable <User>, Serializable
     public ArrayList <InsurancePolicy> deepCopyPolicies (int userID, String password) throws CloneNotSupportedException
     {
         validateUserAccess(userID, password);
-        return deepCopyPoliciesInternal();
-    }
-
-    ArrayList <InsurancePolicy> deepCopyPoliciesInternal () throws CloneNotSupportedException
-    {
         return InsurancePolicy.deepCopy(policies);
     }
 
     public ArrayList <InsurancePolicy> shallowCopyPolicies (int userID, String password)
     {
         validateUserAccess(userID, password);
-        return shallowCopyPoliciesInternal();
-    }
-
-    ArrayList <InsurancePolicy> shallowCopyPoliciesInternal ()
-    {
         return InsurancePolicy.shallowCopy(policies);
     }
 
@@ -492,18 +447,13 @@ public class User implements Cloneable, Comparable <User>, Serializable
         {
             return false;
         }
-        if (findPolicyInternal(policy.getPolicyID()) == null)
+        if (findPolicy(userID, password, policy.getPolicyID()) == null)
             {
                 policies.put(policy.getPolicyID(), policy);
                 return true;
             }
         else
             return false;
-    }
-
-    public InsurancePolicy findPolicyInternal (int policyID)
-    {
-        return policies.get(policyID);
     }
 
     public InsurancePolicy findPolicy (int userID, String password, int policyID)
@@ -515,11 +465,6 @@ public class User implements Cloneable, Comparable <User>, Serializable
     public void printPolicies (int userID, String password, int flatRate)
     {
         validateUserAccess(userID, password);
-        printPoliciesInternal(flatRate);
-    }
-    
-    void printPoliciesInternal (double flatRate)
-    {
         for (InsurancePolicy policy : policies.values())
         {
             System.out.println("Premium Payment: " + policy.calcPayment(flatRate));
@@ -532,19 +477,9 @@ public class User implements Cloneable, Comparable <User>, Serializable
         return InsurancePolicy.filterByCarModel(policies, carModel);
     }
 
-    HashMap <Integer, InsurancePolicy> filterByCarModelInternal (String carModel)
-    {
-        return InsurancePolicy.filterByCarModel(policies, carModel);
-    }
-
     public HashMap <Integer, InsurancePolicy> filterByExpiryDate (int userID, String password, MyDate date)
     {
         validateUserAccess(userID, password);
-        return InsurancePolicy.filterByExpiryDate(policies, date);
-    }
-
-    HashMap <Integer, InsurancePolicy> filterByExpiryDateInternal (MyDate date)
-    {
         return InsurancePolicy.filterByExpiryDate(policies, date);
     }
 
@@ -648,11 +583,6 @@ public class User implements Cloneable, Comparable <User>, Serializable
     public ArrayList <InsurancePolicy> sortPoliciesByDate (int userID, String password)
     {
         validateUserAccess(userID, password);
-        return sortPoliciesByDateInternal();
-    }
-
-    ArrayList <InsurancePolicy> sortPoliciesByDateInternal ()
-    {
         ArrayList <InsurancePolicy> sorted = InsurancePolicy.shallowCopy(policies);
         Collections.sort(sorted);
         return sorted;
@@ -661,11 +591,6 @@ public class User implements Cloneable, Comparable <User>, Serializable
     public HashMap <String, Integer> getTotalCountPerCarModel (int userID, String password)
     {
         validateUserAccess(userID, password);
-        return getTotalCountPerCarModelInternal();
-    }
-
-    HashMap <String, Integer> getTotalCountPerCarModelInternal ()
-    {
         HashMap <String, Integer> totalCount = new HashMap<>();
         for (InsurancePolicy policy : policies.values())
         {
@@ -685,11 +610,6 @@ public class User implements Cloneable, Comparable <User>, Serializable
     public HashMap <String, Double> getTotalPremiumPerCarModel (int userID, String password)
     {
         validateUserAccess(userID, password);
-        return getTotalPremiumPerCarModelInternal();
-    }
-
-    HashMap <String, Double> getTotalPremiumPerCarModelInternal()
-    {
         HashMap <String, Double> totalPremiums = new HashMap<>();
         for (InsurancePolicy policy : policies.values())
         {
@@ -710,13 +630,8 @@ public class User implements Cloneable, Comparable <User>, Serializable
     public void report (int userID, String password)
     {
         validateUserAccess(userID, password);
-        reportInternal();
-    }
-
-    void reportInternal ()
-    {
-        HashMap <String, Integer> counts = getTotalCountPerCarModelInternal();
-        HashMap <String, Double> totals = getTotalPremiumPerCarModelInternal();
+        HashMap <String, Integer> counts = getTotalCountPerCarModel(userID, password);
+        HashMap <String, Double> totals = getTotalPremiumPerCarModel(userID, password);
         
         System.out.printf("%-30s %-25s %-25s%n","Car Model", "Total Premium Payment", "Average Premium Payment");
 
